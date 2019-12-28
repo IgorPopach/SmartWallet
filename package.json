@@ -1,11 +1,12 @@
 {
   "name": "smartwallet",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
+    "analyze:bundle": "webpack --mode production --env.ANALYZE_BUNDLE=true",
     "start": "webpack-dev-server --mode development --open --hot",
     "build": "webpack --mode production"
   },
@@ -13,7 +14,7 @@
     "type": "git",
     "url": "git+https://igorpopach@bitbucket.org/DrobenyukA/smartwallet.git"
   },
-  "author": "Igor Popach",
+  "author": "Igor Popach and Andriy Drobenyuk",
   "license": "ISC",
   "homepage": "https://bitbucket.org/DrobenyukA/smartwallet#readme",
   "devDependencies": {

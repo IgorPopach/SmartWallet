@@ -12,7 +12,7 @@ const pathToJS = path.join(__dirname, 'src', 'index.tsx');
 const pathToHTML = path.join(__dirname, 'public', 'index.html');
 const pathToBuild = path.join(__dirname, 'build');
 
-module.exports = {
+const config = {
     entry: {
         index: pathToJS,
     },
@@ -92,11 +92,6 @@ module.exports = {
     },
     plugins: [
 
-        // interactive treemap visualization of the contents of all bundles
-        new BundleAnalyzerPlugin({
-            analyzerPort: process.env.VUE_CLI_MODERN_BUILD ? 8888 : 9999 // Prevents build errors when running --modern
-        }),
-
         // Cleaning up the /build folder
         new CleanWebpackPlugin(),
 
@@ -126,4 +121,17 @@ module.exports = {
         filename: '[name].bundle.js',
         publicPath: '/',
     },
+};
+
+module.exports = (env) => {
+    if (env && env.ANALYZE_BUNDLE) {
+        config.plugins = [
+            // interactive tree map visualization of the contents of all bundles
+            new BundleAnalyzerPlugin({
+                // Prevents build errors when running --modern
+                analyzerPort: process.env.VUE_CLI_MODERN_BUILD ? 8888 : 9999
+            }),
+        ].concat(config.plugins);
+    }
+    return  config
 };
