@@ -6,7 +6,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const { isDevelopment } = require('./utils/modes');
+const { isDevelopment } = require('./src/utils/modes');
 
 const pathToJS = path.join(__dirname, 'src', 'index.tsx');
 const pathToHTML = path.join(__dirname, 'public', 'index.html');
@@ -14,7 +14,7 @@ const pathToBuild = path.join(__dirname, 'build');
 
 const config = {
     entry: {
-        index: pathToJS,
+        app: pathToJS,
     },
 
     // style of source mapping to enhance the debugging process

@@ -13,6 +13,7 @@ const App: FunctionComponent<AppProps> = ({ title, paragraph }) =>
             <h2>{title}</h2>
             <p>{paragraph}</p>
             <FontAwesomeIcon icon={faCoffee} />
+            <button className="btn btn-primary">Primary</button>
         </div>
 
 export default App;
