@@ -12,6 +12,9 @@
     "jsx": "react",
     // Allow JavaScript files to be compiled.
     "allowJs": true,
+    // Allow default imports from modules with no default export.
+      // This does not affect code emit, just typechecking.
+    "allowSyntheticDefaultImports": true,
     // import CommonJS modules in compliance with es6 modules spec
     "esModuleInterop": true,
     // Determine how modules get resolved

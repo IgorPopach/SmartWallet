@@ -6,15 +6,15 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const { isDevelopment } = require('./utils/modes');
+const { isDevelopment, isProduction } = require('./utils/modes');
 
-const pathToJS = path.join(__dirname, 'src', 'index.tsx');
-const pathToHTML = path.join(__dirname, 'public', 'index.html');
-const pathToBuild = path.join(__dirname, 'build');
+const PATH_TO_INDEX = path.join(__dirname, 'src', 'index.tsx');
+const PATH_TO_HTML = path.join(__dirname, 'public', 'index.html');
+const PATH_TO_BUILD = path.join(__dirname, 'build');
 
 module.exports = {
     entry: {
-        index: pathToJS,
+        index: PATH_TO_INDEX,
     },
 
     // style of source mapping to enhance the debugging process
@@ -94,7 +94,7 @@ module.exports = {
 
         // interactive treemap visualization of the contents of all bundles
         new BundleAnalyzerPlugin({
-            analyzerPort: process.env.VUE_CLI_MODERN_BUILD ? 8888 : 9999 // Prevents build errors when running --modern
+            analyzerPort: 3001 // Prevents build errors when running --build
         }),
 
         // Cleaning up the /build folder
@@ -102,7 +102,7 @@ module.exports = {
 
         // simplifies creation of HTML files to serve your webpack bundles
         new HtmlWebpackPlugin({
-            template: pathToHTML
+            template: PATH_TO_HTML
         }),
 
         // extracts CSS into separate files
@@ -116,13 +116,13 @@ module.exports = {
         
     ],
     devServer: {
-        contentBase: pathToBuild,
+        contentBase: PATH_TO_BUILD,
         compress: true,
         historyApiFallback: true,
         port: 3000
     },
     output: {
-        path: pathToBuild,
+        path: PATH_TO_BUILD,
         filename: '[name].bundle.js',
         publicPath: '/',
     },
