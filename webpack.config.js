@@ -6,13 +6,13 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
-const { isDevelopment, isProduction } = require('./utils/modes');
+const { isDevelopment } = require('./src/utils/modes');
 
 const PATH_TO_INDEX = path.join(__dirname, 'src', 'index.tsx');
 const PATH_TO_HTML = path.join(__dirname, 'public', 'index.html');
 const PATH_TO_BUILD = path.join(__dirname, 'build');
 
-module.exports = {
+const config = {
     entry: {
         index: PATH_TO_INDEX,
     },
@@ -92,11 +92,6 @@ module.exports = {
     },
     plugins: [
 
-        // interactive treemap visualization of the contents of all bundles
-        new BundleAnalyzerPlugin({
-            analyzerPort: 3001 // Prevents build errors when running --build
-        }),
-
         // Cleaning up the /build folder
         new CleanWebpackPlugin(),
 
@@ -126,4 +121,16 @@ module.exports = {
         filename: '[name].bundle.js',
         publicPath: '/',
     },
+};
+
+module.exports = (env) => {
+    if (env && env.ANALYZE_BUNDLE) {
+        config.plugins = [
+            // interactive tree map visualization of the contents of all bundles
+            new BundleAnalyzerPlugin({
+                analyzerPort: 3001 // Prevents build errors when running --analyze:bundle
+            }),
+        ].concat(config.plugins);
+    }
+    return  config
 };
