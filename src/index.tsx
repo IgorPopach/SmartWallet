@@ -1,12 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import { render } from "react-dom";
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import './../styles/index.scss';
 
-import App from './components/App.tsx';
-import configureStore from './store/index.ts';
+import App from './components/App';
+import configureStore from './store/index';
 
 const store = configureStore();
 
@@ -18,4 +18,4 @@ const app = () => (
     </Provider>
 )
 
-ReactDOM.render(app(store), document.getElementById("root"));
+render(app(), document.getElementById("root"));

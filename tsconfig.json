@@ -1,18 +1,29 @@
 {
-    "compilerOptions": {
-      "outDir": "build",
-      "sourceMap": true,
-      "noImplicitAny": true,
-      "module": "es6",
-      "target": "es5",
-      "jsx": "react",
-      "allowJs": true,
-      "allowSyntheticDefaultImports": true,
-      "moduleResolution": "node"
-    },
-    "exclude": [
-      "node_modules",
-      "build",
-      "webpack"
-    ]
+  "compilerOptions": {
+    "outDir": "build",
+    // Include module source maps for debugging
+    "sourceMap": true,
+    // Raise error on expressions and declarations with an implied any type
+    "noImplicitAny": true,
+    // Specify module code generation, when target es5 or over
+    "module": "es6",
+    "target": "es5",
+    // Set React as the JSX factory
+    "jsx": "react",
+    // Allow JavaScript files to be compiled.
+    "allowJs": true,
+    // Allow default imports from modules with no default export.
+      // This does not affect code emit, just typechecking.
+    "allowSyntheticDefaultImports": true,
+    // import CommonJS modules in compliance with es6 modules spec
+    "esModuleInterop": true,
+    // Determine how modules get resolved
+    "moduleResolution": "node"
+  },
+  "exclude": [
+    "node_modules",
+    "build",
+    "webpack.config.js",
+    "package.json"
+  ]
 }
