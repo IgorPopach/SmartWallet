@@ -128,8 +128,7 @@ module.exports = (env) => {
         config.plugins = [
             // interactive tree map visualization of the contents of all bundles
             new BundleAnalyzerPlugin({
-                // Prevents build errors when running --modern
-                analyzerPort: process.env.VUE_CLI_MODERN_BUILD ? 8888 : 9999
+                analyzerPort: 3001 // Prevents build errors when running --analyze:bundle
             }),
         ].concat(config.plugins);
     }
