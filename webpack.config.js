@@ -8,13 +8,13 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const { isDevelopment } = require('./src/utils/modes');
 
-const pathToJS = path.join(__dirname, 'src', 'index.tsx');
-const pathToHTML = path.join(__dirname, 'public', 'index.html');
-const pathToBuild = path.join(__dirname, 'build');
+const PATH_TO_INDEX = path.join(__dirname, 'src', 'index.tsx');
+const PATH_TO_HTML = path.join(__dirname, 'public', 'index.html');
+const PATH_TO_BUILD = path.join(__dirname, 'build');
 
 const config = {
     entry: {
-        app: pathToJS,
+        index: PATH_TO_INDEX,
     },
 
     // style of source mapping to enhance the debugging process
@@ -97,7 +97,7 @@ const config = {
 
         // simplifies creation of HTML files to serve your webpack bundles
         new HtmlWebpackPlugin({
-            template: pathToHTML
+            template: PATH_TO_HTML
         }),
 
         // extracts CSS into separate files
@@ -111,13 +111,13 @@ const config = {
         
     ],
     devServer: {
-        contentBase: pathToBuild,
+        contentBase: PATH_TO_BUILD,
         compress: true,
         historyApiFallback: true,
         port: 3000
     },
     output: {
-        path: pathToBuild,
+        path: PATH_TO_BUILD,
         filename: '[name].bundle.js',
         publicPath: '/',
     },
