@@ -1,9 +1,7 @@
 import { SessionState, UPDATE_SESSION, SessionActionTypes } from './types'
 
 const initialState: SessionState = {
-    loggedIn: false,
-    session: "",
-    userName: ""
+    user: null,
 }
 
 export const sessionReducer = (state: SessionState = initialState, action: SessionActionTypes): SessionState => {

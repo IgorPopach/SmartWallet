@@ -13,7 +13,7 @@ const store = configureStore();
 const getApp = () => (
     <Provider store={store}>
         <BrowserRouter>
-            <App title="WellCome!" paragraph="Hello World!" />
+            <App/>
         </BrowserRouter>
     </Provider>
 )

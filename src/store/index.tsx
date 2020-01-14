@@ -3,7 +3,7 @@ import thunk from 'redux-thunk'
 /* tslint:disable-next-line */
 import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly'
 
-import { sessionReducer } from './session/reducers'
+import { sessionReducer } from './session/reducer'
 
 const rootReducer = combineReducers({
   session: sessionReducer

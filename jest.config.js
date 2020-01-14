@@ -10,7 +10,7 @@ module.exports = {
     },
 
     setupFiles: [
-      "<rootDir>/utils/test-setup.js"
+      "<rootDir>/utils/jest-setup.js"
     ],
   
     // Runs special logic, such as cleaning up components
