@@ -16,6 +16,5 @@ const getApp = () => (
             <App title="WellCome!" paragraph="Hello World!" />
         </BrowserRouter>
     </Provider>
-)
-
+);
 render(getApp(), document.getElementById("root"));

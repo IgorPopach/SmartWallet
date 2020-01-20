@@ -1,4 +1,4 @@
-export const UPDATE_SESSION = 'UPDATE_SESSION'
+export const UPDATE_SESSION = 'UPDATE_SESSION';
 
 export interface SessionState {
     loggedIn: boolean

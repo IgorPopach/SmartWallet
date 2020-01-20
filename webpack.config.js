@@ -5,6 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 
 const { isDevelopment } = require('./src/utils/modes');
 
@@ -107,7 +108,14 @@ const config = {
             filename: 'main.css',
             chunkFilename: '[id].css',
             ignoreOrder: false, // Enable to remove warnings about conflicting order
-        })
+        }),
+        /**
+         * A secure webpack plugin that supports dotenv and other environment variables
+         * and only exposes what you choose and use.
+         * 
+         * https://github.com/mrsteele/dotenv-webpack
+         */
+        new Dotenv(),
         
     ],
     devServer: {
