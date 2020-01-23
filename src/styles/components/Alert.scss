@@ -1,0 +1,16 @@
+    .alert {
+        margin-bottom: 5px;
+        padding: 5px 15px;
+        position: relative;
+
+        button {
+            position: absolute;
+            top: 0;
+            right: 4px;
+            outline: none;
+    
+            &.close {
+                font-weight: 400;
+            }
+        }
+    }

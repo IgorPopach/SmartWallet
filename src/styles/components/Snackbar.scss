@@ -1,0 +1,17 @@
+.snackbar {
+    position: fixed;
+    width: 50%;
+    left: 25%;
+    max-height: 300px;
+    overflow: hidden;
+    &-show {
+        transform: translateY(1rem);
+        transition: transform .3s ease;
+        
+    }
+    &-hide {
+        transform: translateY(-500px);
+        transition: transform .3s ease;
+    }
+    
+}
