@@ -5,7 +5,7 @@ import { bindActionCreators, AnyAction, Dispatch } from 'redux';
 import { registerNewUser } from '../../store/session/actions';
 
 interface DispatchProps {
-    register: (email: string, password: string) => Promise<{ isSuccessful: boolean }>,
+    register: (email: string, password: string) => Promise<{ isSuccessful: boolean }>;
 }
 
 interface OwnProps {
@@ -34,19 +34,17 @@ const RegistrationForm = ({ title, register }: Props) => {
         <form onSubmit={handleSubmit}>
             <h2>{title}</h2>
             <label htmlFor="login">Login</label>
-            <input type="email" id="login" name="login"/>
-            <br/>
+            <input type="email" id="login" name="login" />
+            <br />
             <label htmlFor="password">password</label>
-            <input type="password" id="password" name="password"/>
-            <br/>
+            <input type="password" id="password" name="password" />
+            <br />
             <button type="submit">Register</button>
         </form>
-    )
-}
+    );
+};
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => bindActionCreators(
-    { register: registerNewUser },
-    dispatch,
-)
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
+    bindActionCreators({ register: registerNewUser }, dispatch);
 
 export default connect(null, mapDispatchToProps)(RegistrationForm);

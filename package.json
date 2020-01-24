@@ -8,7 +8,10 @@
     "test:watch": "jest --watch",
     "analyze:bundle": "webpack --mode production --env.ANALYZE_BUNDLE=true",
     "start": "webpack-dev-server --mode development --open --hot",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "prettier": "prettier --config .prettierrc --write ./**/*.ts*",
+    "lint": "tslint --project tsconfig.json -c tslint.json src/**/*.ts*",
+    "lint:fix": "npm run prettier && npm run lint -- --fix"
   },
   "repository": {
     "type": "git",
@@ -17,11 +20,25 @@
   "author": "Igor Popach and Andriy Drobenyuk",
   "license": "ISC",
   "homepage": "https://bitbucket.org/DrobenyukA/smartwallet#readme",
+  "lint-staged": {
+    "*.(ts|tsx)": [
+      "prettier --config .prettierrc --write src/**/*.ts*",
+      "tslint --project tsconfig.json -c tslint.json src/**/*.ts*",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "npm test"
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.7.5",
     "@babel/preset-env": "^7.7.6",
     "@babel/preset-react": "^7.7.4",
     "@types/enzyme": "^3.10.4",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
     "@types/jest": "^24.0.24",
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
@@ -34,10 +51,12 @@
     "dotenv-webpack": "^1.7.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
+    "enzyme-to-json": "^3.4.3",
     "file-loader": "^5.0.2",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^3.1.0",
     "jest": "^24.9.0",
+    "lint-staged": "^10.0.2",
     "mini-css-extract-plugin": "^0.8.2",
     "node-sass": "^4.13.0",
     "optimize-css-assets-webpack-plugin": "^5.0.3",

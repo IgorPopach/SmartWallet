@@ -5,7 +5,7 @@ interface Props {
 }
 
 const LogoutBtn = ({ onLogout }: Props) => {
-    const handleLogout = React.useCallback(() => onLogout(), [],);
+    const handleLogout = React.useCallback(() => onLogout(), []);
     return <button onClick={handleLogout}>Logout</button>;
 };
 

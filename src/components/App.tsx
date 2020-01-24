@@ -29,8 +29,7 @@ type Props = StateProps & DispatchProps & OwnProps;
 
 // TODO: Temporary solution need refactoring
 // tslint:disable:jsx-no-multiline-js
-const App: React.FC<Props> = ({ title, paragraph, initialize, user, onLogin, onLogout }) => {
-    
+export const App: React.FC<Props> = ({ title, paragraph, initialize, user, onLogin, onLogout }) => {
     React.useEffect(() => {
         initialize();
     }, []);
@@ -41,13 +40,13 @@ const App: React.FC<Props> = ({ title, paragraph, initialize, user, onLogin, onL
             <p>{paragraph}</p>
             <FontAwesomeIcon icon={faCoffee} />
             <button className="btn btn-primary">Primary</button>
-            <hr/>
+            <hr />
             {!!user ? (
-                <LogoutBtn onLogout={onLogout}/>
+                <LogoutBtn onLogout={onLogout} />
             ) : (
                 <>
-                    <LoginForm onSubmit={onLogin}/>
-                    <RegistrationForm title="Register"/>
+                    <LoginForm onSubmit={onLogin} />
+                    <RegistrationForm title="Register" />
                 </>
             )}
         </div>
@@ -58,13 +57,14 @@ const mapStateToProps = ({ session }: AppState) => ({
     user: session.user,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => bindActionCreators(
-    {
-        initialize: initializeSession,
-        onLogin: logIn,
-        onLogout: logOut,
-    },
-    dispatch,
-);
+const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
+    bindActionCreators(
+        {
+            initialize: initializeSession,
+            onLogin: logIn,
+            onLogout: logOut,
+        },
+        dispatch,
+    );
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
