@@ -19,7 +19,6 @@ interface DispatchProps {
     initialize: typeof initializeSession;
     onLogin: (login: string, password: string) => void;
     onLogout: () => void;
-    showSnack: () => void;
     incrementMessage: (message: AddedMessage) => void;
 }
 
