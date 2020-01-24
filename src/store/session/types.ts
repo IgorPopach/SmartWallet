@@ -1,4 +1,4 @@
-import { User } from "../../types/User";
+import { User } from '../../types/User';
 
 export const INITIALIZATION_STARTS = '@session/INITIALIZATION-STARTS';
 export const INITIALIZATION_FINISHED = '@session/INITIALIZATION-FINISHED';
@@ -36,7 +36,7 @@ export const TYPES: ActionTypes = {
 
 export interface SessionState {
     isLoading: boolean;
-    user: User|null;
+    user: User | null;
 }
 
 export interface InitializeSessionStarts {
@@ -77,12 +77,12 @@ export interface RegistrationFinished {
 }
 
 export type SessionActionTypes =
-    RegistrationStarts |
-    RegistrationFinished |
-    InitializeSessionStarts |
-    InitializeSessionFinished |
-    LoginStarts |
-    LogoutFinished |
-    LogoutStarts |
-    LogoutFinished |
-    StoreUser;
+    | RegistrationStarts
+    | RegistrationFinished
+    | InitializeSessionStarts
+    | InitializeSessionFinished
+    | LoginStarts
+    | LogoutFinished
+    | LogoutStarts
+    | LogoutFinished
+    | StoreUser;

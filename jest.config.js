@@ -10,7 +10,7 @@ module.exports = {
     },
 
     setupFiles: [
-      "<rootDir>/utils/test-setup.js"
+      "<rootDir>/tests/initialize.ts"
     ],
   
     // Runs special logic, such as cleaning up components
