@@ -7,6 +7,5 @@
     "singleQuote": true,
     "bracketSpacing": true,
     "arrowParens": "always",
-    "jsxBracketSameLine": false,
-    "prettier.eslintIntegration": true
+    "jsxBracketSameLine": false
 }
