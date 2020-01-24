@@ -1,16 +1,44 @@
-    .alert {
-        margin-bottom: 5px;
-        padding: 5px 15px;
-        position: relative;
+.alert {
+    margin-bottom: .5rem;
+    padding: 5px 15px;
+    position: relative;
 
-        button {
-            position: absolute;
-            top: 0;
-            right: 4px;
-            outline: none;
-    
-            &.close {
-                font-weight: 400;
-            }
+    button {
+        position: absolute;
+        top: 0;
+        right: 4px;
+        outline: none;
+
+        &.close {
+            font-weight: 400;
         }
     }
+
+    &-show {
+        animation: show-message 1s;
+        
+    }
+    &-hide {
+        animation: hide-message 1s;
+        transition-property: border, height, overflow, padding, margin; 
+        transition-duration: 1.4s; 
+        transition-timing-function: ease;
+        border: none;
+        height: 0;
+        overflow: hidden;
+        padding: 0;
+        margin: 0
+    }
+}
+
+@keyframes show-message {
+    0% {top: -300px}
+    80% {top: 10px}
+    100% {top: 0}
+}
+
+@keyframes hide-message {
+    0% {top: 0}
+    15% {top: 15px}
+    100% {top: -500px}
+}

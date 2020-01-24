@@ -1,9 +1,11 @@
 .snackbar {
     position: fixed;
     width: 50%;
+    top: 1rem;
     left: 25%;
-    max-height: 300px;
-    overflow: hidden;
+    // min-height: 200px;
+    // max-height: 300px;
+    // overflow: hidden;
     &-show {
         transform: translateY(1rem);
         transition: transform .3s ease;

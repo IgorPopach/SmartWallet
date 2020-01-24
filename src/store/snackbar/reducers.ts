@@ -1,7 +1,4 @@
-import { 
-    SHOW_SNACKBAR, 
-    HIDE_SNACKBAR, 
-    UPDATE_SNACKBAR, 
+import {
     SnackbarState, 
     SnackbarActionTypes, 
     DELETE_MESSAGE, 
@@ -16,40 +13,24 @@ const initialState: SnackbarState = {
             text: 'this is error!',
             type: 'danger'
         }
-    ],
-    visible: true
-}
+    ]
+};
 
 export const snackbarReducer = (state = initialState, action: SnackbarActionTypes): SnackbarState => {
     switch (action.type) {
-        case UPDATE_SNACKBAR:
-            return {
-                ...state,
-                ...action.payload,
-            }
-        case SHOW_SNACKBAR:
-            return {
-                ...state,
-                visible: true
-            }
-        case HIDE_SNACKBAR:
-            return {
-                ...state,
-                visible: false
-            }
         case DELETE_MESSAGE:
-            const updateMessages = state.messages.filter(message => message.id !== action.payload)
+            const updateMessages = state.messages.filter(message => message.id !== action.payload);
             return {
                 ...state,
                 messages: updateMessages
-            }
+            };
         case ADD_MESSAGE:
-            const addedMessages = [action.payload].concat(state.messages)
+            const addedMessages = state.messages.concat([action.payload]);
             return {
                 ...state,
                 messages: addedMessages
-            }
+            };
         default:
             return state;
     }
-}
+};

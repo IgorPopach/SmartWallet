@@ -1,20 +1,38 @@
-import React, { useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Message } from './../../store/snackbar/types';
 
 import './../../styles/components/Alert';
 
-interface Props {
-    message: Message,
-    onSubmit: (id: string) => void
+interface StateProps {
+    message: Message;
+    closeDelay: number;
 }
 
-const Alert: React.FC<Props> = ({ message, onSubmit }) => {
+interface OwnProps {
+    onClose: (id: string) => void;
+}
 
-    const submitHandler = () => onSubmit(message.id)
+type Props = StateProps & OwnProps;
+
+const Alert: React.FC<Props> = ({ message, onClose, closeDelay }) => {
+
+    const [animationStyle, setAnimationStyle] = useState('show');
+
+    const submitHandler = () => onClose(message.id);
+
+    useEffect(() => {
+        const timer = setTimeout(() => onClose(message.id), closeDelay);
+        return () => clearTimeout(timer);
+    },[]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setAnimationStyle('hide'), closeDelay - 1500);
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
-        <div className={`alert alert-${message.type}`}>
+        <div className={`alert alert-${message.type} alert-${animationStyle}`}>
             <p>
                 <strong>{message.title}</strong>
             </p>
@@ -29,7 +47,7 @@ const Alert: React.FC<Props> = ({ message, onSubmit }) => {
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
-    )
-}
+    );
+};
 
 export default Alert;

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
@@ -9,36 +9,33 @@ import { deleteMessage } from '../../store/snackbar/actions';
 import Alert from './Alert';
 
 interface StateProps {
-    messages: Message[],
-    visible: boolean
+    messages: Message[];
+    visible: boolean;
 }
 
-type OnSubmitCallback = (id: string) => void
 
 interface DispatchProps {
-    submitAction: OnSubmitCallback
+    closeAction: (id: string) => void;
 }
 
-type Props = StateProps & DispatchProps
+type Props = StateProps & DispatchProps;
 
-const Snackbar: React.FC<Props> = ({ messages, submitAction, visible }) => {
-
-    const cls = visible? 'snackbar-show' : 'snackbar-hide';
+const Snackbar: React.FC<Props> = ({ messages, closeAction }) => {
 
     return (
-        <div className={`snackbar ${cls}`}>
-            {messages.map((mess) => <Alert key={mess.id} message={mess} onSubmit={submitAction} />)}
+        <div className={`snackbar`}>
+            {messages.map((mess) => <Alert key={mess.id} message={mess} onClose={closeAction} closeDelay={5000} />)}
         </div>
-    )
-}
+    );
+};
 
 const mapStateToProps = (state: AppState): StateProps => ({
     messages: state.snackbar.messages,
     visible: state.snackbar.visible
-})
+});
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-    submitAction: (id: string) => dispatch(deleteMessage(id))
-})
+    closeAction: (id: string) => dispatch(deleteMessage(id))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Snackbar);
