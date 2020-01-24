@@ -29,7 +29,7 @@ type Props = StateProps & DispatchProps & OwnProps;
 
 // TODO: Temporary solution need refactoring
 // tslint:disable:jsx-no-multiline-js
-const App: React.FC<Props> = ({ title, paragraph, initialize, user, onLogin, onLogout }) => {
+export const App: React.FC<Props> = ({ title, paragraph, initialize, user, onLogin, onLogout }) => {
     React.useEffect(() => {
         initialize();
     }, []);

@@ -1,11 +1,27 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
+import toJson from 'enzyme-to-json';
 
-import App from '../../src/components/App';
+import { App } from '../../src/components/App';
 
-it('<App />', () => {
-    const result = shallow(<App title="Ok" paragraph="Paragraph" />).contains(<h2>Ok</h2>);
-    const result2 = shallow(<App title="Ok" paragraph="Paragraph" />).contains(<p>Paragraph</p>);
-    expect(result).toBeTruthy();
-    expect(result2).toBeTruthy();
+type Props = React.ComponentProps<typeof App>;
+
+describe('<App />', () => {
+    const props: Props = {
+        title: 'Ok',
+        paragraph: 'Paragraph',
+        user: null,
+        initialize: jest.fn(),
+        onLogin: jest.fn(),
+        onLogout: jest.fn(),
+    };
+    let wrapper: ShallowWrapper<Props>;
+
+    beforeAll(() => {
+        wrapper = shallow(<App {...props} />);
+    });
+
+    it('Should have correct layout', () => {
+        expect(toJson(wrapper)).toMatchSnapshot();
+    });
 });
