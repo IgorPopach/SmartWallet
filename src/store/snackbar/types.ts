@@ -39,5 +39,4 @@ export interface AddMessage {
     payload: Message;
 }
 
-
 export type SnackbarActionTypes = UpdateSnackbarAction | ShowSnackbar | DeleteMessage | AddMessage;

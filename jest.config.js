@@ -1,7 +1,6 @@
 module.exports = {
-    // The root of your source code, typically /src
-    // `<rootDir>` is a token Jest substitutes
-    roots: ["<rootDir>/src"],
+    // Display individual test results with the test suite hierarchy.
+    verbose: true,
   
     // Jest transformations -- this adds support for TypeScript
     // using ts-jest
@@ -10,21 +9,31 @@ module.exports = {
     },
 
     setupFiles: [
-      "<rootDir>/utils/test-setup.js"
+      "<rootDir>/tests/initialize.ts"
     ],
-  
-    // Runs special logic, such as cleaning up components
-    // when using React Testing Library and adds special
-    // extended assertions to Jest
-    setupFilesAfterEnv: [
-      "@testing-library/jest-dom/extend-expect"
-    ],
+
+    // Disable diagnostics
+    globals: {
+        "ts-jest": {
+            diagnostics: false,
+        }
+    },
+
   
     // Test spec file resolution pattern
-    // Matches parent folder `__tests__` and filename
+    // Matches parent folder `tests` and filename
     // should contain `test` or `spec`.
-    testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
+    testRegex: "(.*(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
   
     // Module file extensions for importing
-    moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"]
+    moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+
+    testPathIgnorePatterns: [
+        "/node_modules/"
+    ],
+
+    moduleNameMapper: {
+      "\\.(css|less|sass|scss)$": "identity-obj-proxy"
+    }
+
   };

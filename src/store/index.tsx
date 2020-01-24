@@ -7,22 +7,19 @@ import { sessionReducer } from './session/reducers';
 import { snackbarReducer } from './snackbar/reducers';
 
 const rootReducer = combineReducers({
-  session: sessionReducer,
-  snackbar: snackbarReducer
+    session: sessionReducer,
+    snackbar: snackbarReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
 
 const configureStore = () => {
-  const middleWares = [thunk];
-  const middleWareEnhancer = applyMiddleware(...middleWares);
+    const middleWares = [thunk];
+    const middleWareEnhancer = applyMiddleware(...middleWares);
 
-  const store = createStore(
-    rootReducer, 
-    composeWithDevTools(middleWareEnhancer)
-  );
+    const store = createStore(rootReducer, composeWithDevTools(middleWareEnhancer));
 
-  return store;
+    return store;
 };
 
 export default configureStore;

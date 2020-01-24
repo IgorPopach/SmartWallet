@@ -36,7 +36,7 @@ export const TYPES: ActionTypes = {
 
 export interface SessionState {
     isLoading: boolean;
-    user: User|null;
+    user: User | null;
 }
 
 export interface InitializeSessionStarts {
@@ -77,12 +77,12 @@ export interface RegistrationFinished {
 }
 
 export type SessionActionTypes =
-    RegistrationStarts |
-    RegistrationFinished |
-    InitializeSessionStarts |
-    InitializeSessionFinished |
-    LoginStarts |
-    LogoutFinished |
-    LogoutStarts |
-    LogoutFinished |
-    StoreUser;
+    | RegistrationStarts
+    | RegistrationFinished
+    | InitializeSessionStarts
+    | InitializeSessionFinished
+    | LoginStarts
+    | LogoutFinished
+    | LogoutStarts
+    | LogoutFinished
+    | StoreUser;

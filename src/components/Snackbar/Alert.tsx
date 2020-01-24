@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Message } from './../../store/snackbar/types';
 
-import './../../styles/components/Alert';
+import './../../styles/components/Alert.scss';
 
 interface StateProps {
     message: Message;
@@ -16,7 +16,6 @@ interface OwnProps {
 type Props = StateProps & OwnProps;
 
 const Alert: React.FC<Props> = ({ message, onClose, closeDelay }) => {
-
     const [animationStyle, setAnimationStyle] = useState('show');
 
     const submitHandler = () => onClose(message.id);
@@ -24,7 +23,7 @@ const Alert: React.FC<Props> = ({ message, onClose, closeDelay }) => {
     useEffect(() => {
         const timer = setTimeout(() => onClose(message.id), closeDelay);
         return () => clearTimeout(timer);
-    },[]);
+    }, []);
 
     useEffect(() => {
         const timer = setTimeout(() => setAnimationStyle('hide'), closeDelay - 1500);
@@ -36,14 +35,8 @@ const Alert: React.FC<Props> = ({ message, onClose, closeDelay }) => {
             <p>
                 <strong>{message.title}</strong>
             </p>
-            <p>
-                {message.text}
-            </p>
-            <button
-                type="button"
-                className="close"
-                onClick={submitHandler}
-            >
+            <p>{message.text}</p>
+            <button type="button" className="close" onClick={submitHandler}>
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>

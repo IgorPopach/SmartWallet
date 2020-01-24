@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> Should have correct layout 1`] = `
+<div
+  className="container-md app"
+>
+  <Connect(Snackbar) />
+  <h2>
+    Ok
+  </h2>
+  <p>
+    Paragraph
+  </p>
+  <button
+    className="btn btn-danger"
+    onClick={[Function]}
+  >
+    Add this message
+  </button>
+  <hr />
+  <LoginForm
+    onSubmit={[MockFunction]}
+  />
+  <Connect(RegistrationForm)
+    title="Register"
+  />
+</div>
+`;
