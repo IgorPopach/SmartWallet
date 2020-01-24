@@ -24,8 +24,7 @@
         "object-literal-sort-keys": false,
         "jsx-wrap-multiline": false,
         "react-hooks-nesting": "error",
-        "semicolon": [true, "always"],
-        "no-unused-variable": true
+        "semicolon": [true, "always"]
     },
     "jsRules": {
         "max-line-length": {
