@@ -18,7 +18,9 @@
     // import CommonJS modules in compliance with es6 modules spec
     "esModuleInterop": true,
     // Determine how modules get resolved
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    // Will not compile if you have unused variables imports and so on
+    "noUnusedLocals": true
   },
   "exclude": [
     "node_modules",

@@ -24,7 +24,7 @@
         "object-literal-sort-keys": false,
         "jsx-wrap-multiline": false,
         "react-hooks-nesting": "error",
-        "quotemark": [true, "single", "jsx-double"]
+        "semicolon": [true, "always"]
     },
     "jsRules": {
         "max-line-length": {
