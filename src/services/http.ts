@@ -1,5 +1,5 @@
 interface Params {
-    [key: string]: string|number|null|boolean;
+    [key: string]: string | number | null | boolean;
 }
 
 const methods = {
@@ -7,7 +7,7 @@ const methods = {
     put: 'method: "PUT"',
     patch: 'method: "PATCH"',
     delete: 'method: "DELETE"',
-}
+};
 
 enum Method {
     GET = 'GET',
@@ -15,7 +15,7 @@ enum Method {
     put = 'method: "PUT"',
     patch = 'method: "PATCH"',
     delete = 'method: "DELETE"',
-};
+}
 
 export interface HttpService {
     get: <R>(url: string, params: Params) => Promise<R>;
@@ -36,19 +36,15 @@ function toQuery(params: Params): string {
 // }
 
 const service: HttpService = {
-    get: <T>(url: string, params: Params) => 
-        fetch(`${url}?${toQuery(params)}`)
-            .then(response => response.json()),
-    post: <P>(url: string, params: Params, body: Params) => 
-        fetch(`${url}?${toQuery(params)}`,
-        {
+    get: <T>(url: string, params: Params) => fetch(`${url}?${toQuery(params)}`).then((response) => response.json()),
+    post: <P>(url: string, params: Params, body: Params) =>
+        fetch(`${url}?${toQuery(params)}`, {
             method: methods.post,
             headers: {
-                'Content-Type': 'application/json;charset=utf-8'
+                'Content-Type': 'application/json;charset=utf-8',
             },
-            body: JSON.stringify(body)
-        })
-            .then(response => response.json()),
+            body: JSON.stringify(body),
+        }).then((response) => response.json()),
 };
 
 export default service;

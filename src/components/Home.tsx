@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 export interface HomeProps {
-    title: string,
-    paragraph: string,
+    title: string;
+    paragraph: string;
 }
 
 const Home: FunctionComponent<HomeProps> = ({ title, paragraph }) => (

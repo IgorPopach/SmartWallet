@@ -1,23 +1,22 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent } from 'react';
 
-import { toClasses } from "../utils";
+import { toClasses } from '../utils';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    color: 'primary'|'secondary'|'success'|'danger'|'warning'|'info'|'light'|'dark'|'link'
+    color: 'primary' | 'secondary' | 'success' | 'danger' | 'warning' | 'info' | 'light' | 'dark' | 'link';
 }
 
 const Button: FunctionComponent<ButtonProps> = ({ className, color, children, ...shared }) => {
-    const classes = React.useMemo(
-        () => toClasses([`btn`, `btn-${color}`, className]),
-        [color, className]
+    const classes = React.useMemo(() => toClasses([`btn`, `btn-${color}`, className]), [color, className]);
+    return (
+        <button {...shared} className={classes}>
+            {children}
+        </button>
     );
-    return <button {...shared} className={classes}>{children}</button>
-
-}
+};
 
 Button.defaultProps = {
-    type: 'button'
-}
+    type: 'button',
+};
 
 export default Button;
-
