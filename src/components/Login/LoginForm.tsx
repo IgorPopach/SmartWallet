@@ -16,11 +16,12 @@ const LoginForm = ({ onSubmit }: Props) => {
         onSubmit(login, password);
     }, []);
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="login-form" onSubmit={handleSubmit}>
+            <h1>Please Sign In</h1>
             <label htmlFor="email">Email</label>
             <input type="email" name="login" id="email" />
             <br />
-            <label htmlFor="password">Email</label>
+            <label htmlFor="password">Password</label>
             <input type="password" name="password" id="password" />
             <br />
             <button type="submit">Login</button>

@@ -2,12 +2,12 @@ import React, { useCallback, useState } from 'react';
 import { Dispatch, AnyAction, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import RegistrationForm from './Register/Form';
+import RegistrationForm from './Register/RegistrationForm';
 import { initializeSession, logIn, logOut } from '../store/session/actions';
 import { AppState } from '../store';
 import { User } from '../types/User';
 import LogoutBtn from './LogoutBtn';
-import LoginForm from './Login/Form';
+import LoginForm from './Login/LoginForm';
 import Snackbar from '../containers/Snackbar/';
 import { addMessage } from './../store/snackbar/actions';
 import { AddedMessage } from './../store/snackbar/types';
