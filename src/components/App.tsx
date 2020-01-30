@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Dispatch, AnyAction, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -8,9 +8,10 @@ import { AppState } from '../store';
 import { User } from '../types/User';
 import LogoutBtn from './LogoutBtn';
 import LoginForm from './Login/Form';
-import Snackbar from './Snackbar/Snackbar';
+import Snackbar from '../containers/Snackbar/';
 import { addMessage } from './../store/snackbar/actions';
 import { AddedMessage } from './../store/snackbar/types';
+import Alert from './../components/Alert/Alert';
 
 interface StateProps {
     user: User | null;
@@ -32,6 +33,8 @@ type Props = StateProps & DispatchProps & OwnProps;
 // TODO: Temporary solution need refactoring
 // tslint:disable:jsx-no-multiline-js
 export const App: React.FC<Props> = ({ title, paragraph, initialize, user, onLogin, onLogout, incrementMessage }) => {
+    const [showAlert, setAlert] = useState(true);
+
     React.useEffect(() => {
         initialize();
     }, []);
@@ -43,6 +46,8 @@ export const App: React.FC<Props> = ({ title, paragraph, initialize, user, onLog
     };
 
     const addMessageCallback = useCallback(() => incrementMessage(messageObj), [messageObj]);
+
+    const handleClose = useCallback(() => setAlert(false), []);
 
     return (
         <div className="container-md app">
@@ -61,6 +66,8 @@ export const App: React.FC<Props> = ({ title, paragraph, initialize, user, onLog
                     <RegistrationForm title="Register" />
                 </>
             )}
+            <Alert message={messageObj} delay={3000} />
+            {showAlert && <Alert message={messageObj} onClose={handleClose} />}
         </div>
     );
 };

@@ -24,5 +24,25 @@ exports[`<App /> Should have correct layout 1`] = `
   <Connect(RegistrationForm)
     title="Register"
   />
+  <Alert
+    delay={3000}
+    message={
+      Object {
+        "text": "Paragraph",
+        "title": "Ok",
+        "type": "success",
+      }
+    }
+  />
+  <Alert
+    message={
+      Object {
+        "text": "Paragraph",
+        "title": "Ok",
+        "type": "success",
+      }
+    }
+    onClose={[Function]}
+  />
 </div>
 `;

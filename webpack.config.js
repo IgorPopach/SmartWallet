@@ -14,6 +14,7 @@ const PATH_TO_HTML = path.join(__dirname, 'public', 'index.html');
 const PATH_TO_BUILD = path.join(__dirname, 'build');
 
 const config = {
+    watch: true,
     entry: {
         index: PATH_TO_INDEX,
     },

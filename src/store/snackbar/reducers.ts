@@ -1,4 +1,4 @@
-import { SnackbarState, SnackbarActionTypes, DELETE_MESSAGE, ADD_MESSAGE } from './types';
+import { SnackbarState, SnackbarActionTypes, TYPES } from './types';
 
 const initialState: SnackbarState = {
     messages: [
@@ -13,13 +13,13 @@ const initialState: SnackbarState = {
 
 export const snackbarReducer = (state = initialState, action: SnackbarActionTypes): SnackbarState => {
     switch (action.type) {
-        case DELETE_MESSAGE:
+        case TYPES.DELETE_MESSAGE:
             const updateMessages = state.messages.filter((message) => message.id !== action.payload);
             return {
                 ...state,
                 messages: updateMessages,
             };
-        case ADD_MESSAGE:
+        case TYPES.ADD_MESSAGE:
             const addedMessages = state.messages.concat([action.payload]);
             return {
                 ...state,

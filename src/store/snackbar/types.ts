@@ -1,14 +1,28 @@
-export const SHOW_SNACKBAR = 'SHOW_SNACKBAR';
-export const UPDATE_SNACKBAR = 'UPDATE_SNACKBAR';
-export const DELETE_MESSAGE = 'DELETE_MESSAGE';
-export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const SHOW_SNACKBAR = '@snackbar/SHOW_SNACKBAR';
+export const UPDATE_SNACKBAR = '@snackbar/UPDATE_SNACKBAR';
+export const DELETE_MESSAGE = '@snackbar/DELETE_MESSAGE';
+export const ADD_MESSAGE = '@snackbar/ADD_MESSAGE';
+
+interface ActionTypes {
+    SHOW_SNACKBAR: typeof SHOW_SNACKBAR;
+    UPDATE_SNACKBAR: typeof UPDATE_SNACKBAR;
+    DELETE_MESSAGE: typeof DELETE_MESSAGE;
+    ADD_MESSAGE: typeof ADD_MESSAGE;
+}
+
+export const TYPES: ActionTypes = {
+    SHOW_SNACKBAR,
+    UPDATE_SNACKBAR,
+    DELETE_MESSAGE,
+    ADD_MESSAGE,
+};
 
 export interface SnackbarState {
     messages: Message[];
 }
 
 export interface Message {
-    id: string;
+    id?: string;
     title: string;
     text: string;
     type: string;

@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Snackbar /> should have correct layout 1`] = `
+<div
+  className="snackbar"
+>
+  <Alert
+    delay={15000}
+    key="1"
+    message={
+      Object {
+        "id": "1",
+        "text": "this is test text for Alert",
+        "title": "Test alert 1",
+        "type": "info",
+      }
+    }
+    onClose={[Function]}
+  />
+  <Alert
+    delay={15000}
+    key="2"
+    message={
+      Object {
+        "id": "2",
+        "text": "this is test 2 text for Alert",
+        "title": "Test alert 2",
+        "type": "success",
+      }
+    }
+    onClose={[Function]}
+  />
+  <Alert
+    delay={15000}
+    key="3"
+    message={
+      Object {
+        "id": "3",
+        "text": "this is test 3 text for Alert",
+        "title": "Test alert 3",
+        "type": "warning",
+      }
+    }
+    onClose={[Function]}
+  />
+</div>
+`;

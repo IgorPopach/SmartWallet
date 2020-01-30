@@ -1,7 +1,7 @@
-import { DELETE_MESSAGE, ADD_MESSAGE, AddedMessage } from './types';
+import { TYPES, AddedMessage } from './types';
 
 export const deleteMessage = (id: string) => ({
-    type: DELETE_MESSAGE,
+    type: TYPES.DELETE_MESSAGE,
     payload: id,
 });
 
@@ -14,7 +14,7 @@ export const addMessage = (message: AddedMessage) => {
         id,
     };
     return {
-        type: ADD_MESSAGE,
+        type: TYPES.ADD_MESSAGE,
         payload: newMessage,
     };
 };
