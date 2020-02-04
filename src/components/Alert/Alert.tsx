@@ -47,7 +47,7 @@ const Alert = ({ message, onClose, delay }: Props) => {
     return (
         <div className={`alert alert-${message.type} alert-${style}`}>
             <h2>{message.title}</h2>
-            <p>{message.text}</p>
+            <p>{message.messageText}</p>
             {onClose && <CloseButton onClose={handleClick} />}
         </div>
     );

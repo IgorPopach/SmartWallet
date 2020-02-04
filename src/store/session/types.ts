@@ -1,4 +1,5 @@
 import { User } from '../../types/User';
+import { Action } from 'redux';
 
 export const INITIALIZATION_STARTS = '@session/INITIALIZATION-STARTS';
 export const INITIALIZATION_FINISHED = '@session/INITIALIZATION-FINISHED';
@@ -68,11 +69,11 @@ export interface StoreUser {
     payload: User;
 }
 
-export interface RegistrationStarts {
+export interface RegistrationStarts extends Action {
     type: typeof REGISTRATION_STARTS;
 }
 
-export interface RegistrationFinished {
+export interface RegistrationFinished extends Action {
     type: typeof REGISTRATION_FINISHED;
 }
 

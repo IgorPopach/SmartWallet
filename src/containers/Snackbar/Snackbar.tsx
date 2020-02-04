@@ -1,6 +1,5 @@
 import React from 'react';
 
-import './../../styles/components/Snackbar.scss';
 import { Message } from '../../store/snackbar/types';
 import Alert from '../../components/Alert/Alert';
 
