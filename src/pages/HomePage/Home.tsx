@@ -2,16 +2,14 @@ import React, { useCallback, useState } from 'react';
 
 import Alert from '../../components/Alert/Alert';
 import { Spinner } from '../../components/Spinner';
-import LogoutBtn from '../../components/LogoutBtn';
 
 interface DispatchProps {
     createAlert: (messageText: string, title?: string, type?: string) => void;
-    logoutAction: () => void;
 }
 
 type Props = DispatchProps;
 
-const Home = ({ createAlert, logoutAction }: Props) => {
+const Home = ({ createAlert }: Props) => {
     const [showAlert, setAlert] = useState(true);
 
     const newMessage = {
@@ -34,7 +32,6 @@ const Home = ({ createAlert, logoutAction }: Props) => {
             <button className="btn btn-danger" onClick={addMessageCallback}>
                 Add this message
             </button>
-            <LogoutBtn onLogout={logoutAction} />
             <Spinner />
             {/* alerts for presentation */}
             <Alert message={newMessage} delay={3000} />

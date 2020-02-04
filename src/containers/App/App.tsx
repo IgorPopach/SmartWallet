@@ -3,12 +3,14 @@ import { RouteComponentProps } from 'react-router-dom';
 import { History } from 'history';
 
 import Snackbar from '../Snackbar';
-import MainRouter from '../../routes/MainRouter';
 import usePrevious from '../../utils/usePrevious';
-import { ROUTES } from '../../routes/routes';
 import { User } from '../../types/User';
 import { initializeSession } from '../../store/session/actions';
 import { Spinner } from '../../components/Spinner';
+import { Footer } from '../../components/Footer';
+import { Header } from '../../components/Header';
+import { PATH } from '../../routes/path';
+import Routes from '../../routes/Routes';
 
 interface OwnProps {
     history: History;
@@ -34,10 +36,10 @@ export const App: React.FC<Props> = ({ initialize, user, isLoading, history }) =
 
     React.useEffect(() => {
         if (prevUser === null && !!user) {
-            history.push(ROUTES.HOME);
+            history.push(PATH.HOME);
         }
         if (!!prevUser && user === null) {
-            history.push(ROUTES.LOGIN);
+            history.push(PATH.LOGIN);
         }
     }, [user]);
 
@@ -45,9 +47,11 @@ export const App: React.FC<Props> = ({ initialize, user, isLoading, history }) =
         return <Spinner />;
     }
     return (
-        <div className="container-md app">
-            <MainRouter />
+        <>
+            <Header />
+            <Routes />
+            <Footer />
             <Snackbar />
-        </div>
+        </>
     );
 };

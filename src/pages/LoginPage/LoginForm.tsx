@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 import { Link } from 'react-router-dom';
 import { validate } from '../../utils/validation';
 import { History } from 'history';
+import { PATH } from '../../routes/path';
 
 interface DispatchProps {
     logInAction: (login: string, password: string) => Promise<{ isSuccessful: boolean }>;
@@ -25,7 +26,7 @@ const LoginForm = ({ logInAction, history }: Props) => {
         onSubmit: ({ email, password }: FormikValues) => {
             logInAction(email, password).then(({ isSuccessful }) => {
                 if (isSuccessful) {
-                    history.push('/');
+                    history.push(PATH.HOME);
                 }
             });
         },

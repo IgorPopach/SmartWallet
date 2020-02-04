@@ -4,6 +4,7 @@ import { Formik, FormikValues, Form, Field, ErrorMessage } from 'formik';
 
 import { validate } from '../../utils/validation';
 import Button from '../../components/Button';
+import { PATH } from '../../routes/path';
 
 interface DispatchProps {
     register: (email: string, password: string) => Promise<{ isSuccessful: boolean }>;
@@ -27,7 +28,7 @@ const RegistrationForm = ({ register, history }: Props) => {
         onSubmit: ({ email, password }: FormikValues) => {
             register(email, password).then(({ isSuccessful }) => {
                 if (isSuccessful) {
-                    history.push('/login');
+                    history.push(PATH.LOGIN);
                 }
             });
         },

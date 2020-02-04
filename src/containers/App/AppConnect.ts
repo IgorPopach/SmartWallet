@@ -6,6 +6,7 @@ import { initializeSession } from '../../store/session/actions';
 import { AppState } from '../../store';
 import { App } from './App';
 import { InitializeSessionStarts, InitializeSessionFinished } from '../../store/session/types';
+import { logOut } from '../../store/session/actions';
 
 const mapStateToProps = ({ session }: AppState) => ({
     user: session.user,
@@ -16,6 +17,7 @@ const mapDispatchToProps = (dispatch: Dispatch<InitializeSessionStarts | Initial
     bindActionCreators(
         {
             initialize: initializeSession,
+            logoutAction: logOut,
         },
         dispatch,
     );
