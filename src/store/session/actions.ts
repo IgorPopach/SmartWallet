@@ -19,7 +19,9 @@ import { addMessage } from '../snackbar/actions';
 import { AddMessage } from '../snackbar/types';
 
 type RegistrationEpic = (
-    login: string,
+    firstName: string,
+    lastName: string,
+    email: string,
     password: string,
 ) => ThunkAction<
     Promise<{ isSuccessful: boolean }>, // What should action return
@@ -128,9 +130,12 @@ export const logOut: LogOutEpic = () => (dispatch) => {
         });
 };
 
-export const registerNewUser: RegistrationEpic = (email: string, password: string) => (
-    dispatch,
-): Promise<{ isSuccessful: boolean }> => {
+export const registerNewUser: RegistrationEpic = (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+) => (dispatch): Promise<{ isSuccessful: boolean }> => {
     dispatch(REGISTRATION_STARTS_ACTION);
     return firebase
         .auth()

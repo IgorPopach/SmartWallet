@@ -1,6 +1,5 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
-import Alert from '../../components/Alert/Alert';
 import { Spinner } from '../../components/Spinner';
 
 interface DispatchProps {
@@ -10,8 +9,6 @@ interface DispatchProps {
 type Props = DispatchProps;
 
 const Home = ({ createAlert }: Props) => {
-    const [showAlert, setAlert] = useState(true);
-
     const newMessage = {
         messageText: 'this text you see in Alert',
         title: 'Title Alert',
@@ -23,8 +20,6 @@ const Home = ({ createAlert }: Props) => {
         [],
     );
 
-    const handleClose = useCallback(() => setAlert(false), []);
-
     return (
         <>
             <h2>Title Alert</h2>
@@ -33,9 +28,6 @@ const Home = ({ createAlert }: Props) => {
                 Add this message
             </button>
             <Spinner />
-            {/* alerts for presentation */}
-            <Alert message={newMessage} delay={3000} />
-            {showAlert && <Alert message={newMessage} onClose={handleClose} />}
         </>
     );
 };

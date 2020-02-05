@@ -17,12 +17,12 @@ interface Errors {
 export const validate = (values: FormValues) => {
     const errors: Errors = {};
 
-    if (values.firstName.length > 15) {
+    if (values.firstName && values.firstName.length > 15) {
         errors.firstName = 'Must be 15 characters or less';
     }
 
-    if (values.firstName.length > 15) {
-        errors.firstName = 'Must be 15 characters or less';
+    if (values.lastName && values.lastName.length > 15) {
+        errors.lastName = 'Must be 15 characters or less';
     }
 
     if (!values.email) {
@@ -37,11 +37,11 @@ export const validate = (values: FormValues) => {
         errors.password = 'Must be at least 6 characters';
     }
 
-    if (!values.confirmPassword) {
+    if (!values.confirmPassword && values.confirmPassword === '') {
         errors.confirmPassword = 'Required';
-    } else if (values.confirmPassword.length < 6) {
+    } else if (values.confirmPassword && values.confirmPassword.length < 6) {
         errors.confirmPassword = 'Must be at least 6 characters';
-    } else if (values.confirmPassword !== values.password) {
+    } else if (values.confirmPassword && values.confirmPassword !== values.password) {
         errors.confirmPassword = 'not matching';
     }
 

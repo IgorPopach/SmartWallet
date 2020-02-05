@@ -1,14 +1,7 @@
 import { SnackbarState, SnackbarActionTypes, TYPES } from './types';
 
 const initialState: SnackbarState = {
-    messages: [
-        // {
-        //     id: '1',
-        //     title: 'error',
-        //     text: 'this is error!',
-        //     type: 'danger',
-        // },
-    ],
+    messages: [],
 };
 
 export const snackbarReducer = (state = initialState, action: SnackbarActionTypes): SnackbarState => {

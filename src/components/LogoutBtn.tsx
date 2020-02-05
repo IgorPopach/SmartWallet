@@ -8,7 +8,6 @@ interface Props {
 const LogoutBtn = ({ onLogout }: Props) => {
     const handleLogout = React.useCallback(() => onLogout(), []);
     return <Button onClick={handleLogout}>Logout</Button>;
-    // return <button onClick={handleLogout}>Logout</button>;
 };
 
 export default LogoutBtn;

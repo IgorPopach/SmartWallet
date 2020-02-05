@@ -18,24 +18,23 @@ interface OwnProps {
 type Props = DispatchProps & OwnProps;
 
 const LoginForm = ({ logInAction, history }: Props) => {
-    const formikProps = {
-        initialValues: {
-            email: '',
-            password: '',
-        },
-        onSubmit: ({ email, password }: FormikValues) => {
+    const initialValues = React.useMemo(() => ({ email: '', password: '' }), []);
+
+    const onSubmit = React.useCallback(
+        ({ email, password }: FormikValues) => {
             logInAction(email, password).then(({ isSuccessful }) => {
                 if (isSuccessful) {
                     history.push(PATH.HOME);
                 }
             });
         },
-    };
+        [logInAction],
+    );
 
     return (
         <div className="form">
             <h2>Please sign in</h2>
-            <Formik initialValues={formikProps.initialValues} validate={validate} onSubmit={formikProps.onSubmit}>
+            <Formik {...{ initialValues, validate, onSubmit }}>
                 <Form>
                     <label htmlFor="email">Email</label>
                     <Field name="email" type="email" />

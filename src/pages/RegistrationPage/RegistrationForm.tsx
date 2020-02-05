@@ -7,7 +7,12 @@ import Button from '../../components/Button';
 import { PATH } from '../../routes/path';
 
 interface DispatchProps {
-    register: (email: string, password: string) => Promise<{ isSuccessful: boolean }>;
+    register: (
+        firstName: string,
+        lastName: string,
+        email: string,
+        password: string,
+    ) => Promise<{ isSuccessful: boolean }>;
 }
 
 interface OwnProps {
@@ -17,27 +22,31 @@ interface OwnProps {
 type Props = DispatchProps & OwnProps;
 
 const RegistrationForm = ({ register, history }: Props) => {
-    const formikProps = {
-        initialValues: {
+    const initialValues = React.useMemo(
+        () => ({
             firstName: '',
             lastName: '',
             email: '',
             password: '',
             confirmPassword: '',
-        },
-        onSubmit: ({ email, password }: FormikValues) => {
-            register(email, password).then(({ isSuccessful }) => {
+        }),
+        [],
+    );
+    const onSubmit = React.useCallback(
+        ({ firstName, lastName, email, password }: FormikValues) => {
+            register(firstName, lastName, email, password).then(({ isSuccessful }) => {
                 if (isSuccessful) {
                     history.push(PATH.LOGIN);
                 }
             });
         },
-    };
+        [register],
+    );
 
     return (
         <div className="form form-signUp">
             <h2>Please sign up</h2>
-            <Formik initialValues={formikProps.initialValues} validate={validate} onSubmit={formikProps.onSubmit}>
+            <Formik {...{ initialValues, validate, onSubmit }}>
                 <Form>
                     <label htmlFor="firstName">First Name</label>
                     <Field name="firstName" type="text" />

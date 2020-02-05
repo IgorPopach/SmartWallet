@@ -5,7 +5,7 @@ import { History } from 'history';
 import Snackbar from '../Snackbar';
 import usePrevious from '../../utils/usePrevious';
 import { User } from '../../types/User';
-import { initializeSession } from '../../store/session/actions';
+import { initializeSession, logOut } from '../../store/session/actions';
 import { Spinner } from '../../components/Spinner';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
@@ -23,11 +23,12 @@ interface StateProps {
 
 interface DispatchProps {
     initialize: typeof initializeSession;
+    logoutAction: typeof logOut;
 }
 
 type Props = OwnProps & StateProps & DispatchProps & RouteComponentProps;
 
-export const App: React.FC<Props> = ({ initialize, user, isLoading, history }) => {
+export const App: React.FC<Props> = ({ initialize, user, isLoading, history, logoutAction }) => {
     const prevUser = usePrevious(user);
 
     React.useEffect(() => {
@@ -48,7 +49,7 @@ export const App: React.FC<Props> = ({ initialize, user, isLoading, history }) =
     }
     return (
         <>
-            <Header />
+            <Header {...{ logoutAction, user }} />
             <Routes />
             <Footer />
             <Snackbar />
