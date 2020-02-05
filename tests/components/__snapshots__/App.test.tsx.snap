@@ -1,48 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<App /> Should have correct layout 1`] = `
-<div
-  className="container-md app"
->
+<Fragment>
+  <Component
+    user={null}
+  />
+  <Routes />
+  <Component />
   <Connect(Snackbar) />
-  <h2>
-    Ok
-  </h2>
-  <p>
-    Paragraph
-  </p>
-  <button
-    className="btn btn-danger"
-    onClick={[Function]}
-  >
-    Add this message
-  </button>
-  <hr />
-  <LoginForm
-    onSubmit={[MockFunction]}
-  />
-  <Connect(RegistrationForm)
-    title="Register"
-  />
-  <Alert
-    delay={3000}
-    message={
-      Object {
-        "text": "Paragraph",
-        "title": "Ok",
-        "type": "success",
-      }
-    }
-  />
-  <Alert
-    message={
-      Object {
-        "text": "Paragraph",
-        "title": "Ok",
-        "type": "success",
-      }
-    }
-    onClose={[Function]}
-  />
-</div>
+</Fragment>
 `;

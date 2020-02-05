@@ -15,40 +15,39 @@ import {
 import firebase from '../../firebase';
 import { User } from '../../types/User';
 import { AppState } from '..';
+import { addMessage } from '../snackbar/actions';
+import { AddMessage } from '../snackbar/types';
 
 type RegistrationEpic = (
-    login: string,
+    firstName: string,
+    lastName: string,
+    email: string,
     password: string,
 ) => ThunkAction<
     Promise<{ isSuccessful: boolean }>, // What should action return
     AppState, // TODO: get Application state type;
     undefined, // extra arguments (from middleware)
-    RegistrationStarts | RegistrationFinished // TODO: add error action
+    RegistrationStarts | RegistrationFinished | AddMessage
 >;
 
-type InitializeSessionEpic = () => ThunkAction<
+export type InitializeSessionEpic = () => ThunkAction<
     void,
     AppState,
     undefined,
-    InitializeSessionStarts | InitializeSessionFinished | StoreUser // TODO: add error action
+    InitializeSessionStarts | InitializeSessionFinished | StoreUser | AddMessage
 >;
 
 type LogInEpic = (
     login: string,
     password: string,
 ) => ThunkAction<
-    void,
+    Promise<{ isSuccessful: boolean }>,
     AppState,
     undefined,
-    LoginStarts | LoginFinished | StoreUser // TODO: add error action
+    LoginStarts | LoginFinished | StoreUser | AddMessage
 >;
 
-type LogOutEpic = () => ThunkAction<
-    void,
-    AppState,
-    undefined,
-    LogoutStarts | LogoutFinished | StoreUser // TODO: add error action
->;
+type LogOutEpic = () => ThunkAction<void, AppState, undefined, LogoutStarts | LogoutFinished | StoreUser | AddMessage>;
 const INITIALIZATION_STARTS_ACTION = { type: TYPES.INITIALIZATION_STARTS };
 const INITIALIZATION_FINISHED_ACTION = { type: TYPES.INITIALIZATION_FINISHED };
 const LOGIN_STARTS_ACTION = { type: TYPES.LOGIN_STARTS };
@@ -65,10 +64,11 @@ export const storeUser = (payload: User | null) => ({
 
 function onSignIn(
     dispatch: ThunkDispatch<{}, undefined, InitializeSessionStarts | InitializeSessionFinished | StoreUser>,
-    { displayName, uid, email, photoURL }: firebase.User,
+    user: User,
 ) {
-    console.log({ displayName, uid, email, photoURL });
-    dispatch(storeUser({ displayName, uid, email, photoURL }));
+    // tslint:disable-next-line:no-console
+    console.log(user);
+    dispatch(storeUser(user));
 }
 
 function onSignOut(
@@ -77,11 +77,22 @@ function onSignOut(
     dispatch(storeUser(null));
 }
 
+function getTransformUser({ displayName, uid, email, photoURL }: firebase.User) {
+    const user: User = { displayName, uid, email, photoURL };
+    return user;
+}
+
 export const initializeSession: InitializeSessionEpic = () => (dispatch) => {
     dispatch(INITIALIZATION_STARTS_ACTION);
-    firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
+    firebase.auth().onAuthStateChanged((firebaseUser) => {
+        if (firebaseUser) {
+            const user = getTransformUser(firebaseUser);
             onSignIn(dispatch, user);
+            let userName = user.displayName;
+            if (!userName) {
+                userName = '';
+            }
+            dispatch(addMessage(`Welcome! ${userName}`, '', 'success'));
         } else {
             onSignOut(dispatch);
         }
@@ -89,18 +100,19 @@ export const initializeSession: InitializeSessionEpic = () => (dispatch) => {
     });
 };
 
-export const logIn: LogInEpic = (email: string, password: string) => (dispatch) => {
+export const logIn: LogInEpic = (email: string, password: string) => (dispatch): Promise<{ isSuccessful: boolean }> => {
     dispatch(LOGIN_STARTS_ACTION);
-    firebase
+    return firebase
         .auth()
         .signInWithEmailAndPassword(email, password)
         .then(() => {
             dispatch(LOGIN_FINISHED_ACTION);
+            return { isSuccessful: true };
         })
         .catch(({ code, message, ...errorsRest }) => {
-            // console.log({ code, message, errorsRest });
-            // TODO: display error in Global errors
+            dispatch(addMessage(message, 'Oops!', 'danger'));
             dispatch(LOGIN_FINISHED_ACTION);
+            return { isSuccessful: false };
         });
 };
 
@@ -113,26 +125,28 @@ export const logOut: LogOutEpic = () => (dispatch) => {
             dispatch(LOGOUT_FINISHED_ACTION);
         })
         .catch(({ code, message, ...errorsRest }) => {
-            // console.log({ code, message, errorsRest });
-            // TODO: display error in Global errors
+            dispatch(addMessage(message, 'Oops!', 'danger'));
             dispatch(LOGOUT_FINISHED_ACTION);
         });
 };
 
-export const registerNewUser: RegistrationEpic = (login: string, password: string) => (
-    dispatch,
-): Promise<{ isSuccessful: boolean }> => {
+export const registerNewUser: RegistrationEpic = (
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+) => (dispatch): Promise<{ isSuccessful: boolean }> => {
     dispatch(REGISTRATION_STARTS_ACTION);
     return firebase
         .auth()
-        .createUserWithEmailAndPassword(login, password)
+        .createUserWithEmailAndPassword(email, password)
         .then(() => {
             dispatch(REGISTRATION_FINISHED_ACTION);
+            dispatch(addMessage('Please sign in', 'Nice work', 'success'));
             return { isSuccessful: true };
         })
         .catch(({ code, message, ...errorsRest }) => {
-            // console.log({ code, message, errorsRest });
-            // TODO: display error in Global errors
+            dispatch(addMessage(message, 'Oops!', 'danger'));
             dispatch(REGISTRATION_FINISHED_ACTION);
             return { isSuccessful: false };
         });

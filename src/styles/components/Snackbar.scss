@@ -1,11 +1,10 @@
 .snackbar {
     position: fixed;
     width: 100%;
-    top: 1rem;
+    top: 2rem;
     left: 0;
     max-height: 80%;
     overflow: hidden;
-    padding: 1rem;
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -29,7 +28,7 @@
     .snackbar {
         width: 50%;
         left: 25%;
-        height: 560px;
+        max-height: 560px;
     }
 }
 

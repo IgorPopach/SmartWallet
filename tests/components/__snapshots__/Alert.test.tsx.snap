@@ -7,8 +7,6 @@ exports[`<Alert /> should have correct layout 1`] = `
   <h2>
     Test alert 1
   </h2>
-  <p>
-    this is test text for Alert
-  </p>
+  <p />
 </div>
 `;

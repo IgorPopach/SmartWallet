@@ -24,13 +24,7 @@ export interface SnackbarState {
 export interface Message {
     id?: string;
     title: string;
-    text: string;
-    type: string;
-}
-
-export interface AddedMessage {
-    title: string;
-    text: string;
+    messageText: string;
     type: string;
 }
 
