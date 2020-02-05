@@ -14,6 +14,7 @@ describe('<App />', () => {
         initialize: jest.fn(),
         onLogin: jest.fn(),
         onLogout: jest.fn(),
+        incrementMessage: jest.fn(),
     };
     let wrapper: ShallowWrapper<Props>;
 

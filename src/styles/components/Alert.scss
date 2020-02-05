@@ -1,0 +1,50 @@
+.alert {
+    margin-bottom: .5rem;
+    padding: 5px 15px;
+    position: relative;
+    h2 {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    button {
+        position: absolute;
+        top: 0;
+        right: 4px;
+        outline: none;
+
+        &.close {
+            font-weight: 400;
+        }
+    }
+
+    &-show {
+        animation: show-message 1s;
+        
+    }
+    &-hide {
+        animation: hide-message 1.7s;
+        transition-property: border, height, overflow, padding, margin; 
+        transition-duration: .5s; 
+        transition-timing-function: ease-in;
+        border: none;
+        height: 0;
+        overflow: hidden;
+        padding: 0;
+        margin: 0
+    }
+}
+
+@keyframes show-message {
+    0% {top: -1200px}
+    80% {top: 10px}
+    100% {top: 0}
+}
+
+@keyframes hide-message {
+    0% {top: 0}
+    25% {top: -15px}
+    50% {top: -30px}
+    75% {top: -60px}
+    100% {top: -100px}
+}

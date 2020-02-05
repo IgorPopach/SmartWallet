@@ -4,9 +4,11 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { sessionReducer } from './session/reducers';
+import { snackbarReducer } from './snackbar/reducers';
 
 const rootReducer = combineReducers({
     session: sessionReducer,
+    snackbar: snackbarReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

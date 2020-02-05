@@ -98,7 +98,7 @@ export const logIn: LogInEpic = (email: string, password: string) => (dispatch) 
             dispatch(LOGIN_FINISHED_ACTION);
         })
         .catch(({ code, message, ...errorsRest }) => {
-            console.log({ code, message, errorsRest });
+            // console.log({ code, message, errorsRest });
             // TODO: display error in Global errors
             dispatch(LOGIN_FINISHED_ACTION);
         });
@@ -113,7 +113,7 @@ export const logOut: LogOutEpic = () => (dispatch) => {
             dispatch(LOGOUT_FINISHED_ACTION);
         })
         .catch(({ code, message, ...errorsRest }) => {
-            console.log({ code, message, errorsRest });
+            // console.log({ code, message, errorsRest });
             // TODO: display error in Global errors
             dispatch(LOGOUT_FINISHED_ACTION);
         });
@@ -131,7 +131,7 @@ export const registerNewUser: RegistrationEpic = (login: string, password: strin
             return { isSuccessful: true };
         })
         .catch(({ code, message, ...errorsRest }) => {
-            console.log({ code, message, errorsRest });
+            // console.log({ code, message, errorsRest });
             // TODO: display error in Global errors
             dispatch(REGISTRATION_FINISHED_ACTION);
             return { isSuccessful: false };
