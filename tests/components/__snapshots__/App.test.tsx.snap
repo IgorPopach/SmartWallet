@@ -2,7 +2,9 @@
 
 exports[`<App /> Should have correct layout 1`] = `
 <Fragment>
-  <Component />
+  <Component
+    user={null}
+  />
   <Routes />
   <Component />
   <Connect(Snackbar) />
