@@ -1,3 +1,47 @@
 .app {
     font-family: 'Roboto', sans-serif;
+    height: 100vh;
+    font-size: 14px;
+    position: relative;
+}
+
+p {
+    margin-bottom: 0.4rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 250px;
+    margin: auto;
+    height: 100%;
+    min-height: 320px;
+    
+    &-signUp {
+        min-height: 420px;
+
+    }
+
+    h2 {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+    label {
+        margin-top: 10px;
+        sup {
+            color: red;
+        }
+    }
+    span {
+        color: red;
+        font-size: 10px;
+    }
+    button {
+        margin: 10px 0;
+    }
 }

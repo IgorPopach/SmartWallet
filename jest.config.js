@@ -30,6 +30,11 @@ module.exports = {
 
     testPathIgnorePatterns: [
         "/node_modules/"
-    ]
+    ],
+
+    // Mocking CSS Modules
+    moduleNameMapper: {
+      "\\.(css|less|sass|scss)$": "identity-obj-proxy"
+    }
 
   };

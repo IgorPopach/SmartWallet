@@ -1,12 +1,13 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk from 'redux-thunk';
-/* tslint:disable-next-line */
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { sessionReducer } from './session/reducer';
+import { snackbarReducer } from './snackbar/reducer';
 
 const rootReducer = combineReducers({
     session: sessionReducer,
+    snackbar: snackbarReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

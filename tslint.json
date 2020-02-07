@@ -5,6 +5,12 @@
         "tslint-react",
         "tslint-react-hooks"
     ],
+    "linterOptions": {
+        "exclude": [
+            "/tests/*/.snap",
+            "/node_modules/"
+        ]
+    },
     "rules": {
         "max-line-length": {
             "options": [120]
