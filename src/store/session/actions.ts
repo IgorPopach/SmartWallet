@@ -78,6 +78,7 @@ function onSignOut(
 }
 
 function getTransformUser({ displayName, uid, email, photoURL }: firebase.User) {
+    displayName = 'Mad Max';
     const user: User = { displayName, uid, email, photoURL };
     return user;
 }

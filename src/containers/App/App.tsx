@@ -11,6 +11,8 @@ import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { PATH } from '../../routes/path';
 import Routes from '../../routes/Routes';
+import Sidebar from '../../components/Sidebar';
+import ContentWrapper from '../../components/ContentWrapper';
 
 interface OwnProps {
     history: History;
@@ -50,7 +52,10 @@ export const App: React.FC<Props> = ({ initialize, user, isLoading, history, log
     return (
         <>
             <Header {...{ logoutAction, user }} />
-            <Routes />
+            <Sidebar {...{ user }} />
+            <ContentWrapper>
+                <Routes />
+            </ContentWrapper>
             <Footer />
             <Snackbar />
         </>

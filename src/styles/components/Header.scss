@@ -4,4 +4,39 @@
     width: 100%;
     justify-content: space-between;
     background-color: grey;
+    padding: 0 10px;
+    min-height: 40px;
+    color: theme-color("white");
+    position: relative;
+    z-index: 101;
+
+    .logIn, .logout, &-user-name {
+        font-size: .7rem;
+    }
+
+    .go-home, .logIn, .logout, &-user-name {
+        color: theme-color("white");
+        transition: text-shadow .2s ease;
+    }
+    .go-home:hover, .logIn:hover, .logout:hover, &-user-link:hover {
+        cursor: pointer;
+        text-shadow: 1px 1px 2px black;
+        text-decoration: none;
+    }
+
+    &-user {
+        display: flex;
+        align-items: center;
+
+        & > * {
+            margin: 0 5px;
+    
+        }
+
+        &-link > * {
+            margin: 0 5px;
+    
+        }
+    }
+
 }

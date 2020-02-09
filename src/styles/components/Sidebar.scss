@@ -1,0 +1,33 @@
+.sidebar {
+    width: 200px;
+    height: 100vh;
+    background-color: gray("400");
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding-top: 50px;
+    z-index: 90;
+
+    ul {
+        padding: 0;
+
+        li {
+            list-style-type: none;
+            margin: 0 4px 10px 15px;
+            span {
+                display: inline-block;
+                width: 20px;
+                text-align: center;
+            }
+        }
+    }
+
+    &-link {
+        color: color("gray-dark");
+        margin-left: 10px;
+        &:hover {
+            color: gray;
+            text-decoration: none;
+        }
+    }
+}
