@@ -50,14 +50,14 @@ export const App: React.FC<Props> = ({ initialize, user, isLoading, history, log
         return <Spinner />;
     }
     return (
-        <>
+        <div className="app">
             <Header {...{ logoutAction, user }} />
             <Sidebar {...{ user }} />
-            <ContentWrapper>
+            <ContentWrapper {...{ user }}>
                 <Routes />
             </ContentWrapper>
             <Footer />
             <Snackbar />
-        </>
+        </div>
     );
 };

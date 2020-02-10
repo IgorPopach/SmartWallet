@@ -3,10 +3,9 @@
     align-items: center;
     width: 100%;
     justify-content: space-between;
-    background-color: grey;
+    background-color: gray("700");
     padding: 0 10px;
     min-height: 40px;
-    color: theme-color("white");
     position: relative;
     z-index: 101;
 
@@ -15,12 +14,11 @@
     }
 
     .go-home, .logIn, .logout, &-user-name {
-        color: theme-color("white");
-        transition: text-shadow .2s ease;
+        transition: all .3s ease;
     }
     .go-home:hover, .logIn:hover, .logout:hover, &-user-link:hover {
         cursor: pointer;
-        text-shadow: 1px 1px 2px black;
+        text-shadow: 1px 1px 1px black;
         text-decoration: none;
     }
 
