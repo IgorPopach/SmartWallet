@@ -50,7 +50,7 @@ export const App: React.FC<Props> = ({ initialize, user, isLoading, history, log
     return (
         <>
             <Header {...{ logoutAction, user }} />
-            <Routes />
+            <Routes {...{ user }} />
             <Footer />
             <Snackbar />
         </>
