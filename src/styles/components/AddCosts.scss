@@ -1,0 +1,55 @@
+.add-costs {
+    padding: 10px 15px;
+    margin-bottom: 40px;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+        margin: auto;
+        font-size: .8rem;
+
+        label {
+            margin-top: 10px;
+
+            sup {
+                color: red;
+            }
+        }
+
+        span {
+            color: red;
+            font-size: .5rem;
+        }
+
+        button {
+            margin-top: 15px;
+        }
+
+        option:hover {
+            color: green;
+        }
+    }
+
+    table {
+        width: 100%;
+
+        td, th {
+            padding: 3px 10px;
+            border-bottom: 1px solid gray("400");
+        }
+
+        th {
+            border-top: 1px solid gray("400");
+            text-transform: capitalize;
+        }
+
+        tr:nth-child(even) {
+            background-color: gray("300");
+        }
+
+        td:first-of-type {
+            text-align: right;
+        }
+    }
+}
