@@ -16,7 +16,7 @@ const PATH_TO_BUILD = path.join(__dirname, 'build');
 const config = {
     watch: true,
     entry: {
-        index: PATH_TO_INDEX,
+        app: PATH_TO_INDEX,
     },
 
     // style of source mapping to enhance the debugging process
@@ -50,7 +50,7 @@ const config = {
                 use: [
 
                     // Inject CSS into the DOM
-                    'style-loader',
+                    { loader: 'style-loader' },
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
@@ -59,10 +59,10 @@ const config = {
                     },
 
                     // The css-loader interprets @import and url() like import/require() and will resolve them
-                    'css-loader',
+                    { loader: 'css-loader' },
 
                     // Loads a Sass/SCSS file and compiles it to CSS
-                    'sass-loader',
+                    { loader: 'sass-loader' },
                 ],
             },
 
@@ -106,8 +106,8 @@ const config = {
         new MiniCssExtractPlugin({
             // Options similar to the same options in webpackOptions.output
             // all options are optional
-            filename: 'main.css',
-            chunkFilename: '[id].css',
+            filename: 'styles.css',
+            chunkFilename: 'styles.[id].css',
             ignoreOrder: false, // Enable to remove warnings about conflicting order
         }),
         /**
@@ -120,15 +120,21 @@ const config = {
         
     ],
     devServer: {
-        contentBase: PATH_TO_BUILD,
+        contentBase: 'public',
         compress: true,
         historyApiFallback: true,
-        port: 3000
+        watchContentBase: true,
+        port: 3000,
     },
     output: {
         path: PATH_TO_BUILD,
         filename: '[name].bundle.js',
         publicPath: '/',
+    },
+    watch: true,
+    watchOptions: {
+        // Add a delay before rebuilding once the first file changed
+        aggregateTimeout: 500
     },
 };
 
