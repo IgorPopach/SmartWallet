@@ -54,7 +54,7 @@ export const App: React.FC<Props> = ({ initialize, user, isLoading, history, log
             <Header {...{ logoutAction, user }} />
             <Sidebar {...{ user }} />
             <ContentWrapper {...{ user }}>
-                <Routes />
+                <Routes {...{ user }} />
             </ContentWrapper>
             <Footer />
             <Snackbar />

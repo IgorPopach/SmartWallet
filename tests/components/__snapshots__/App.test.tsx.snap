@@ -13,7 +13,9 @@ exports[`<App /> Should have correct layout 1`] = `
   <ContentWrapper
     user={null}
   >
-    <Routes />
+    <Routes
+      user={null}
+    />
   </ContentWrapper>
   <Component />
   <Connect(Snackbar) />
