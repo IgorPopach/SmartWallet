@@ -1,14 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<App /> Should have correct layout 1`] = `
-<Fragment>
+<div
+  className="app"
+>
   <Component
     user={null}
   />
-  <Routes
+  <Sidebar
     user={null}
   />
+  <ContentWrapper
+    user={null}
+  >
+    <Routes
+      user={null}
+    />
+  </ContentWrapper>
   <Component />
   <Connect(Snackbar) />
-</Fragment>
+</div>
 `;

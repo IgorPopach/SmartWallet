@@ -3,5 +3,38 @@
     align-items: center;
     width: 100%;
     justify-content: space-between;
-    background-color: grey;
+    background-color: gray("700");
+    padding: 0 10px;
+    min-height: 40px;
+    position: relative;
+    z-index: 101;
+
+    .logIn, .logout, &-user-name {
+        font-size: .7rem;
+    }
+
+    .go-home, .logIn, .logout, &-user-name {
+        transition: all .3s ease;
+    }
+    .go-home:hover, .logIn:hover, .logout:hover, &-user-link:hover {
+        cursor: pointer;
+        text-shadow: 1px 1px 1px black;
+        text-decoration: none;
+    }
+
+    &-user {
+        display: flex;
+        align-items: center;
+
+        & > * {
+            margin: 0 5px;
+    
+        }
+
+        &-link > * {
+            margin: 0 5px;
+    
+        }
+    }
+
 }

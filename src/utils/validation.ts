@@ -4,6 +4,10 @@ interface FormValues {
     email: string;
     password: string;
     confirmPassword: string;
+    price: number;
+    category: string;
+    tag: string;
+    description: string;
 }
 
 interface Errors {
@@ -12,37 +16,64 @@ interface Errors {
     email?: string;
     password?: string;
     confirmPassword?: string;
+    price?: string;
+    category?: string;
+    tag?: string;
+    description?: string;
 }
 
-export const validate = (values: FormValues) => {
+export const validate = ({
+    firstName,
+    lastName,
+    email,
+    password,
+    confirmPassword,
+    price,
+    category,
+    tag,
+}: FormValues) => {
     const errors: Errors = {};
 
-    if (values.firstName && values.firstName.length > 15) {
+    if (firstName && firstName.length > 15) {
         errors.firstName = 'Must be 15 characters or less';
     }
 
-    if (values.lastName && values.lastName.length > 15) {
+    if (lastName && lastName.length > 15) {
         errors.lastName = 'Must be 15 characters or less';
     }
 
-    if (!values.email) {
+    if (!email) {
         errors.email = 'Required';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    } else if (email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
         errors.email = 'Invalid email address';
     }
 
-    if (!values.password) {
+    if (!password) {
         errors.password = 'Required';
-    } else if (values.password.length < 6) {
+    } else if (password && password.length < 6) {
         errors.password = 'Must be at least 6 characters';
     }
 
-    if (!values.confirmPassword && values.confirmPassword === '') {
+    if (!confirmPassword && confirmPassword === '') {
         errors.confirmPassword = 'Required';
-    } else if (values.confirmPassword && values.confirmPassword.length < 6) {
+    } else if (confirmPassword && confirmPassword.length < 6) {
         errors.confirmPassword = 'Must be at least 6 characters';
-    } else if (values.confirmPassword && values.confirmPassword !== values.password) {
+    } else if (confirmPassword && confirmPassword !== password) {
         errors.confirmPassword = 'not matching';
+    }
+
+    if (!price && price === null) {
+        errors.price = 'Required';
+    } else if (price && price.toString().length > 6) {
+        errors.price = 'Wow... Easy!';
+    }
+
+    if (!category && category === '') {
+        errors.category = 'Required';
+    }
+
+    if ((tag && tag.length) < 3 || (tag && tag.length > 10)) {
+        errors.tag = 'Must be at least 3 and less 10 characters';
     }
 
     return errors;

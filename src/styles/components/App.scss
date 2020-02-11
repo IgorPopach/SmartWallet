@@ -3,6 +3,7 @@
     height: 100vh;
     font-size: 14px;
     position: relative;
+    background-color: gray("200");
 }
 
 p {
@@ -14,9 +15,8 @@ p {
     flex-direction: column;
     justify-content: center;
     width: 250px;
-    margin: auto;
-    height: 100%;
-    min-height: 320px;
+    margin: -40px auto;
+    height: 100vh;
     
     &-signUp {
         min-height: 420px;
