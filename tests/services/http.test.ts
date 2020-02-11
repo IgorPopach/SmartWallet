@@ -17,7 +17,7 @@ describe('HTTP Service', () => {
         (window.fetch as jest.Mock).mockClear();
     });
 
-    it.skip('Should send correct GET request', () => {
+    it('Should send correct GET request', () => {
         const url = '/some-url';
         const expectedConfig = {
             method: Methods.GET,
@@ -29,7 +29,7 @@ describe('HTTP Service', () => {
         expect(window.fetch).toHaveBeenCalledWith(url, expectedConfig);
     });
 
-    it.skip('Should send correct POST request', () => {
+    it('Should send correct POST request', () => {
         const url = '/lint-to-api';
         const data = { some: 'body' };
         const expectedConfig = {
@@ -43,7 +43,7 @@ describe('HTTP Service', () => {
         expect(window.fetch).toHaveBeenCalledWith(url, expectedConfig);
     });
 
-    it.skip('Should send correct PUT request', () => {
+    it('Should send correct PUT request', () => {
         const url = '/lint-to-api';
         const data = { some: 'body' };
         const expectedConfig = {
@@ -57,7 +57,7 @@ describe('HTTP Service', () => {
         expect(window.fetch).toHaveBeenCalledWith(url, expectedConfig);
     });
 
-    it.skip('Should send correct PATCH request', () => {
+    it('Should send correct PATCH request', () => {
         const url = '/lint-to-api';
         const data = { some: 'body' };
         const expectedConfig = {
@@ -71,7 +71,7 @@ describe('HTTP Service', () => {
         expect(window.fetch).toHaveBeenCalledWith(url, expectedConfig);
     });
 
-    it.skip('Should send correct DELETE request', () => {
+    it('Should send correct DELETE request', () => {
         const url = '/lint-to-api';
         const expectedConfig = {
             method: Methods.DELETE,
@@ -83,7 +83,7 @@ describe('HTTP Service', () => {
         expect(window.fetch).toHaveBeenCalledWith(url, expectedConfig);
     });
 
-    it.skip('Should have correct query params in URL', () => {
+    it('Should have correct query params in URL', () => {
         const url = '/some-url';
         const expectedConfig = {
             method: Methods.GET,
@@ -103,7 +103,7 @@ describe('HTTP Service', () => {
         );
     });
 
-    it.skip('Should return test as object with text field', async () => {
+    it('Should return test as object with text field', async () => {
         (response.headers.get as jest.Mock).mockReturnValueOnce('text/html');
 
         const result = await http.get('/link-to-some-text');
@@ -111,7 +111,7 @@ describe('HTTP Service', () => {
         expect(result).toEqual({ text: 'some-text' });
     });
 
-    it.skip('Should correctly handle request error', async () => {
+    it('Should correctly handle request error', async () => {
         (window.fetch as jest.Mock).mockImplementationOnce(() =>
             Promise.resolve({
                 ...response,
@@ -127,7 +127,7 @@ describe('HTTP Service', () => {
         expect(error.message).toBe(JSON.stringify({ status: 400, message: 'Bad Request' }));
     });
 
-    it.skip('Should throw error whet working with unexpected response', async () => {
+    it('Should throw error whet working with unexpected response', async () => {
         const contentType = 'multipart/form-data';
         (response.headers.get as jest.Mock).mockReturnValueOnce(contentType);
 
