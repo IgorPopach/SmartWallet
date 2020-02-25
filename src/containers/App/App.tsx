@@ -46,14 +46,15 @@ export const App: React.FC<Props> = ({ initialize, user, isLoading, history, log
         }
     }, [user]);
 
-    if (isLoading) {
-        return <Spinner />;
-    }
+    // if (isLoading) {
+    //     return <Spinner />;
+    // }
     return (
         <div className="app">
             <Header {...{ logoutAction, user }} />
             <Sidebar {...{ user }} />
             <ContentWrapper {...{ user }}>
+                {isLoading && <Spinner />}
                 <Routes {...{ user }} />
             </ContentWrapper>
             <Footer />

@@ -1,9 +1,11 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage, FormikValues } from 'formik';
+import { Formik, Form, FormikValues, Field } from 'formik';
 
 import Button from '../../components/Button';
 import { validate } from '../../utils/validation';
 import { DateTime } from 'luxon';
+import InputField from '../../components/@forms/InputField';
+import SelectField from '../../components/@forms/SelectField/SelectField';
 
 interface InitValues {
     price: number | null;
@@ -34,6 +36,20 @@ const lastCosts = [
         description: 'swimming pool',
         date: '2020-02-10T10:08:34.123',
     },
+];
+
+const options = [
+    { label: 'Home', value: 'home' },
+    { label: 'Car', value: 'car' },
+    { label: 'Food', value: 'food' },
+    { label: 'Health', value: 'health' },
+];
+
+const TagOptions = [
+    { label: 'home', value: 'home' },
+    { label: 'car', value: 'car' },
+    { label: 'food', value: 'food' },
+    { label: 'health', value: 'health' },
 ];
 
 const renderTable = () =>
@@ -77,34 +93,30 @@ const AddCoast = () => {
     return (
         <div className="add-costs">
             <Formik {...{ initialValues, validate, onSubmit }}>
-                <Form className="">
-                    <label htmlFor="price">
-                        Price<sup>*</sup>
-                    </label>
-                    <Field name="price" type="number" />
-                    <ErrorMessage component="span" name="price" />
+                <Form>
+                    <InputField name="price" type="number" labelTitle="Price" required={true} />
 
-                    <label htmlFor="category">
-                        Category<sup>*</sup>
-                    </label>
-                    <Field as="select" name="category">
-                        <option disabled={true} value="">
-                            Select category
-                        </option>
-                        <option value="home">Home</option>
-                        <option value="car">Car</option>
-                        <option value="food">Food</option>
-                        <option value="health">Health</option>
-                    </Field>
-                    <ErrorMessage component="span" name="category" />
+                    <SelectField
+                        name="category"
+                        options={options}
+                        onChange={console.log}
+                        required={true}
+                        labelTitle="Category"
+                    >
+                        <Field />
+                    </SelectField>
 
-                    <label htmlFor="tag">Tag</label>
-                    <Field name="tag" type="text" />
-                    <ErrorMessage component="span" name="tag" />
+                    <SelectField
+                        name="tag"
+                        options={TagOptions}
+                        onChange={console.log}
+                        labelTitle="Tag"
+                        selectType="input"
+                    >
+                        <Field />
+                    </SelectField>
 
-                    <label htmlFor="description">Description</label>
-                    <Field name="description" type="text" />
-                    <ErrorMessage component="span" name="description" />
+                    <InputField name="description" type="text" labelTitle="Description" />
 
                     <Button color="primary" className="btn-sm" type="submit">
                         Save

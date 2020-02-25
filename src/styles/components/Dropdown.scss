@@ -1,0 +1,29 @@
+.dropdown {
+    position: relative;
+
+    &-list {
+        margin: 0;
+        padding: 45px 0 5px 0;
+        list-style-type: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: gray("100");
+        width: 100%;
+        border: 1px solid gray("400");
+        border-radius: .25rem;
+        border-color: lighten($primary, 25%);
+        box-shadow: 0 0 0 .2rem rgba($primary, 0.25);
+        border-top: none;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        z-index: 90;
+
+        li {
+            padding: 3px 5px;
+            &:hover {
+                cursor: pointer;
+                background-color: lighten($primary, 25%);
+            }
+        }
+    }
+}

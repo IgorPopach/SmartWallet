@@ -1,7 +1,5 @@
 import React, { useCallback } from 'react';
 
-import { Spinner } from '../../components/Spinner';
-
 interface DispatchProps {
     createAlert: (messageText: string, title?: string, type?: string) => void;
 }
@@ -27,7 +25,6 @@ const Home = ({ createAlert }: Props) => {
             <button className="btn btn-danger" onClick={addMessageCallback}>
                 Add this message
             </button>
-            <Spinner />
         </>
     );
 };

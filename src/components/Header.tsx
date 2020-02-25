@@ -1,5 +1,4 @@
 import React from 'react';
-import LogoutBtn from './LogoutBtn';
 import { logOut } from '../store/session/actions';
 import { User } from '../types/User';
 import { Link } from 'react-router-dom';

@@ -19,10 +19,14 @@ function updateUser(state: SessionState, user: User | null): SessionState {
 
 export const sessionReducer = (state: SessionState = initialState, action: SessionActionTypes): SessionState => {
     switch (action.type) {
-        case TYPES.REGISTRATION_STARTS:
-            return toggleLoadingState(state, true);
         case TYPES.INITIALIZATION_STARTS:
             return toggleLoadingState(state, true);
+        case TYPES.REGISTRATION_STARTS:
+            return toggleLoadingState(state, true);
+        case TYPES.LOGIN_STARTS:
+            return toggleLoadingState(state, true);
+        case TYPES.LOGIN_FINISHED:
+            return toggleLoadingState(state, false);
         case TYPES.REGISTRATION_FINISHED:
             return toggleLoadingState(state, false);
         case TYPES.INITIALIZATION_FINISHED:
