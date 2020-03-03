@@ -1,13 +1,14 @@
-import React, { ReactElement } from 'react';
+import React from 'react';
 
 import Dropdown from './Dropdown';
 
 import { Option } from '../../../types';
 import Input from '../Input';
+import { FieldMetaProps } from 'formik';
 
 const SELECT_TYPE = {
-    OPTION: 'option',
-    INPUT: 'input',
+    SELECT: 'select',
+    LOOKUP: 'lookup',
 };
 
 interface Props<V> {
@@ -15,8 +16,8 @@ interface Props<V> {
     name: string;
     options: Array<Option<V>>;
     onChange: (value: V) => void;
-    children: HTMLElement | ReactElement;
     selectType?: string;
+    meta: FieldMetaProps<V>;
 }
 
 // tslint:disable-next-line:no-any
@@ -25,8 +26,8 @@ const Select = <V extends any>({
     name,
     options,
     onChange,
-    children,
-    selectType = SELECT_TYPE.OPTION,
+    meta,
+    selectType = SELECT_TYPE.SELECT,
 }: Props<V>) => {
     const [value, setValue] = React.useState('');
 
@@ -71,47 +72,47 @@ const Select = <V extends any>({
         [value],
     );
 
+    const validStyle = React.useMemo(() => {
+        if (meta.touched && meta.error) {
+            return 'is-invalid';
+        }
+        return '';
+    }, [meta]);
+
     const dropdownTriggerStyles = React.useMemo(() => {
         if (isOpened) {
-            return 'form-control trigger-open';
+            return `form-control trigger trigger-open ${validStyle}`;
         }
-        return 'form-control trigger-close';
-    }, [isOpened]);
+        return `form-control trigger trigger-close ${validStyle}`;
+    }, [isOpened, meta]);
 
     const dropdownInputStyles = React.useMemo(() => {
         if (isOpened) {
-            return 'input-open';
+            return `input-open ${validStyle}`;
         }
-        return 'input-close';
-    }, [isOpened]);
+        return `input-close ${validStyle}`;
+    }, [isOpened, meta]);
 
     const inputArea = React.useMemo(() => {
         switch (selectType) {
-            case SELECT_TYPE.INPUT:
+            case SELECT_TYPE.LOOKUP:
                 return <Input className={dropdownInputStyles} onChange={changeHandler} value={value} />;
-            default:
+            case SELECT_TYPE.SELECT:
                 setFilteredOptions(options);
                 return <div className={dropdownTriggerStyles}>{label}</div>;
         }
-    }, [selectType, isOpened, value]);
-
-    const childrenWithProps = React.Children.map(children, (child) => {
-        return React.cloneElement(child, { ...{ value, name }, type: 'hidden' });
-    });
+    }, [selectType, isOpened, value, meta]);
 
     return (
-        <>
-            {childrenWithProps}
-            <Dropdown
-                {...{ isOpened }}
-                options={filteredOptions}
-                onChange={setCurrentName}
-                onClick={openDropdown}
-                className="select"
-            >
-                {inputArea}
-            </Dropdown>
-        </>
+        <Dropdown
+            {...{ isOpened }}
+            options={filteredOptions}
+            onChange={setCurrentName}
+            onClick={openDropdown}
+            className="select"
+        >
+            {inputArea}
+        </Dropdown>
     );
 };
 

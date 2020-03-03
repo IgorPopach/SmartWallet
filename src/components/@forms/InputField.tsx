@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, ErrorMessage, FieldProps } from 'formik';
 import Input from './Input';
+import Label from './Label';
 
 interface Props {
     labelTitle?: string;
@@ -10,13 +11,6 @@ interface Props {
 }
 
 const InputField = ({ labelTitle, name, type, required }: Props) => {
-    const label = (
-        <label htmlFor={name} className="label">
-            {labelTitle}
-            {required && <sup>*</sup>}
-        </label>
-    );
-
     const customInput = ({ field, meta }: FieldProps) => {
         let className = '';
         if (meta.touched && meta.error) {
@@ -28,7 +22,7 @@ const InputField = ({ labelTitle, name, type, required }: Props) => {
 
     return (
         <div className="input-field">
-            {labelTitle && label}
+            {labelTitle && <Label {...{ name, labelTitle, required }} />}
             <Field {...{ name }} render={customInput} />
             <ErrorMessage component="span" {...{ name }} />
         </div>

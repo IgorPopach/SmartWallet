@@ -1,6 +1,7 @@
 .upload-field {
     margin: 0 10px 5px 10px;
-    height: 85px;
+    min-height: 85px;
+    padding-top: 14px;
 
     label {
         sup {
@@ -11,5 +12,16 @@
     span {
         color: red;
         font-size: .5rem;
+    }
+
+    .hidden {
+        visibility: hidden;
+        height: 0;
+        width: 0;
+        padding: 0;
+    }
+
+    .btn-upload {
+        width: 100%;
     }
 }

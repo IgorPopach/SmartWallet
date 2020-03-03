@@ -1,6 +1,7 @@
 .select {
 
     .trigger {
+        background-position: right calc(0.975em + 0.1875rem) center;
     
         &-open {
             border-color: lighten($primary, 25%);

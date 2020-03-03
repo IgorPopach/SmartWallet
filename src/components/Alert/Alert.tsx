@@ -28,6 +28,8 @@ function playAnimation(setAnimationStyle: (style: string) => void, delay: number
 const Alert = ({ message, onClose, delay }: Props) => {
     const [style, setStyle] = React.useState('show');
 
+    const classes = React.useMemo(() => 'close', []);
+
     const handleClick = () => {
         setStyle('hide');
         setTimeout(() => onClose(), 2000);
@@ -46,7 +48,7 @@ const Alert = ({ message, onClose, delay }: Props) => {
         <div className={`alert alert-${message.type} alert-${style}`}>
             <h2>{message.title}</h2>
             <p>{message.messageText}</p>
-            {onClose && <CloseButton onClose={handleClick} />}
+            {onClose && <CloseButton {...{ classes }} onClose={handleClick} />}
         </div>
     );
 };

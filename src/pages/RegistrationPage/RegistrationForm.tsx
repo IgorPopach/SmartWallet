@@ -5,7 +5,7 @@ import { Formik, FormikValues, Form } from 'formik';
 import { validate } from '../../utils/validation';
 import Button from '../../components/Button';
 import { PATH } from '../../routes/path';
-import InputField from '../../components/@forms/InputField';
+import InputField from './../../components/@forms/InputField';
 
 interface DispatchProps {
     register: (

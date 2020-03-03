@@ -1,11 +1,11 @@
 import React from 'react';
-import { Formik, Form, FormikValues, Field } from 'formik';
+import { Formik, Form, FormikValues } from 'formik';
 
 import Button from '../../components/Button';
 import { validate } from '../../utils/validation';
-import { DateTime } from 'luxon';
-import InputField from '../../components/@forms/InputField';
+import InputField from './../../components/@forms/InputField';
 import SelectField from '../../components/@forms/SelectField/SelectField';
+import MyCosts from '../../components/MyCosts';
 
 interface InitValues {
     price: number | null;
@@ -52,36 +52,11 @@ const TagOptions = [
     { label: 'health', value: 'health' },
 ];
 
-const renderTable = () =>
-    lastCosts.map((costs, id) => {
-        const { price, date, category, description } = costs;
-        const formatDate = DateTime.fromISO(date).toLocaleString(DateTime.DATETIME_SHORT);
-        return (
-            <tr key={id}>
-                <td>{price.toFixed(2)}</td>
-                <td>{formatDate}</td>
-                <td>{category}</td>
-                <td>{description}</td>
-            </tr>
-        );
-    });
-
-const renderHeaderTable = () => {
-    const { price, date, category, description } = lastCosts[0];
-    const sortCosts = {
-        price,
-        date,
-        category,
-        description,
-    };
-    const headerKeys = Object.keys(sortCosts).map((key, id) => <th key={id}>{key}</th>);
-    return <tr>{headerKeys}</tr>;
-};
-
 const initialValues: InitValues = { price: null, category: '', tag: '', description: '' };
 
 const AddCoast = () => {
     const onSubmit = React.useCallback(({ price, category, tag, description }: FormikValues) => {
+        // tslint:disable-next-line:no-console
         console.log({
             price,
             category,
@@ -99,40 +74,32 @@ const AddCoast = () => {
                     <SelectField
                         name="category"
                         options={options}
+                        // tslint:disable-next-line:no-console
                         onChange={console.log}
                         required={true}
                         labelTitle="Category"
-                    >
-                        <Field />
-                    </SelectField>
+                        selectType="select"
+                    />
 
                     <SelectField
                         name="tag"
                         options={TagOptions}
+                        // tslint:disable-next-line:no-console
                         onChange={console.log}
                         labelTitle="Tag"
-                        selectType="input"
-                    >
-                        <Field />
-                    </SelectField>
+                        selectType="lookup"
+                    />
 
                     <InputField name="description" type="text" labelTitle="Description" />
 
-                    <Button color="primary" className="btn-sm" type="submit">
+                    <Button color="secondary" className="btn-sm" type="submit">
                         Save
                     </Button>
                 </Form>
             </Formik>
             <hr />
             <h3>Last costs</h3>
-            <div className="last-costs">
-                <table id="costs">
-                    <tbody>
-                        {renderHeaderTable()}
-                        {renderTable()}
-                    </tbody>
-                </table>
-            </div>
+            <MyCosts costs={lastCosts} />
         </div>
     );
 };

@@ -89,11 +89,6 @@ export const initializeSession: InitializeSessionEpic = () => (dispatch) => {
         if (firebaseUser) {
             const user = getTransformUser(firebaseUser);
             onSignIn(dispatch, user);
-            let userName = user.displayName;
-            if (!userName) {
-                userName = '';
-            }
-            dispatch(addMessage(`Welcome! ${userName}`, '', 'success'));
         } else {
             onSignOut(dispatch);
         }

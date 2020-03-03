@@ -1,8 +1,22 @@
 .content-wrapper {
     margin-left: 0;
     min-height: calc(100vh - 40px - 25px);
+    transition: margin-left .2s ease;
 }
 
-.active-sidebar {
-    margin-left: 200px;
+.sidebar-visible,
+.sidebar-hidden {
+    margin-left: 0;
+}
+
+@media (min-width: 576px) {
+
+    .sidebar-visible {
+        margin-left: 200px;
+        margin-right: 40px;
+    }
+
+    .sidebar-hidden {
+        margin: 0 35px;
+    }
 }

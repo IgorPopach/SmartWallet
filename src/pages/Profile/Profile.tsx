@@ -2,7 +2,8 @@ import React from 'react';
 import { Formik, Form, FormikValues } from 'formik';
 
 import { User } from '../../types/User';
-import InputField from '../../components/@forms/InputField';
+import InputField from './../../components/@forms/InputField';
+// TODO: fix validation
 import { validate } from './../../utils/validation';
 import Button from '../../components/Button';
 import UploadField from '../../components/@forms/UploadField/UploadField';
@@ -22,6 +23,7 @@ const Profile = ({ user }: Props) => {
     const initialValues: InitValues = React.useMemo(() => ({ name: user.displayName, email: user.email }), []);
 
     const onSubmit = React.useCallback(({ name, email }: FormikValues) => {
+        // tslint:disable-next-line:no-console
         console.log({ name, email });
     }, []);
 
@@ -47,11 +49,6 @@ const Profile = ({ user }: Props) => {
                 type: 'password',
                 labelTitle: 'Confirm Password',
             },
-            photo: {
-                name: 'photo',
-                type: 'file',
-                labelTitle: 'Change Avatar',
-            },
         }),
         [],
     );
@@ -64,7 +61,7 @@ const Profile = ({ user }: Props) => {
             <div className="profile-info">
                 <Formik {...{ initialValues, validate, onSubmit }}>
                     <Form>
-                        {Object.keys(userInfo).map((key, id) => {
+                        {Object.keys(userInfo).map((key: keyof typeof userInfo, id) => {
                             return (
                                 <InputField
                                     key={id}
@@ -74,8 +71,8 @@ const Profile = ({ user }: Props) => {
                                 />
                             );
                         })}
-                        {/* <UploadField name='photo' type=/> */}
-                        <Button color="primary" className="btn-sm button" type="submit">
+                        <UploadField name="photo" type="file" labelTitle="Change Avatar" />
+                        <Button color="secondary" className="btn-sm button" type="submit">
                             Update Profile
                         </Button>
                     </Form>

@@ -5,16 +5,19 @@ import { toClasses } from '../utils';
 interface Props {
     children: React.ReactNode;
     user: User;
+    sidebarIsVisible: boolean;
 }
 
-const ContentWrapper = ({ children, user }: Props) => {
+const ContentWrapper = ({ children, user, sidebarIsVisible }: Props) => {
     const classes = React.useMemo(() => {
         const styles = [`content-wrapper`];
-        if (user) {
-            styles.push('active-sidebar');
+        if (user && sidebarIsVisible) {
+            styles.push('sidebar-visible');
+        } else if (user && !sidebarIsVisible) {
+            styles.push('sidebar-hidden');
         }
         return toClasses(styles);
-    }, [user]);
+    }, [user, sidebarIsVisible]);
 
     return <div className={classes}>{children}</div>;
 };
