@@ -3,8 +3,6 @@ import React from 'react';
 import { Message } from '../../store/snackbar/types';
 import { CloseButton } from './CloseButton';
 
-import '../../../styles/components/Alert.scss';
-
 interface Props {
     message: Message;
     onClose?: () => void;
