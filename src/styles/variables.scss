@@ -3,3 +3,14 @@ $primary: #fff;
 $secondary: #8b8b8b;
 $dark: #343a40;
 $danger: #ff4136;
+
+// LAYERS (for z-index)
+$input-close-layer: 70;
+$dropdown-layer: 80;
+$input-open-layer: 90;
+$trigger-layer: 95;
+$sidebar-layer: 100;
+$header-layer: 200;
+$footer-layer: 200;
+$spinner-layer: 900;
+$snackbar-layer: 1000;

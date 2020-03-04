@@ -11,17 +11,15 @@ interface Props<V> {
     required?: boolean;
     name: string;
     options: Array<Option<V>>;
-    onChange: (value: V) => void;
     selectType?: string;
 }
 
 // tslint:disable-next-line:no-any
-const SelectField = <V extends any>({ labelTitle, required, name, options, onChange, selectType }: Props<V>) => {
+const SelectField = <V extends any>({ labelTitle, required, name, options, selectType }: Props<V>) => {
     const customSelect = ({ field, meta }: FieldProps) => (
         <Select
             {...{ name, options, selectType, meta }}
             onChange={(value) => {
-                onChange(value);
                 field.onChange({
                     target: {
                         name,

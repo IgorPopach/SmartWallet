@@ -66,7 +66,6 @@ function onSignIn(
     dispatch: ThunkDispatch<{}, undefined, InitializeSessionStarts | InitializeSessionFinished | StoreUser>,
     user: User,
 ) {
-    // tslint:disable-next-line:no-console
     console.log(user);
     dispatch(storeUser(user));
 }

@@ -16,7 +16,7 @@
         box-shadow: 0 0 0 .2rem rgba($primary, 0.25);
         border-top: none;
         transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        z-index: 90;
+        z-index: $dropdown-layer;
 
         li {
             padding: 3px 5px;

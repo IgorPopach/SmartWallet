@@ -5,7 +5,7 @@
   right: 0;
   top: 0;
   width: 100%;
-  z-index: 1500;
+  z-index: $spinner-layer;
   height: 100%;
   backdrop-filter: blur(2px);
 }

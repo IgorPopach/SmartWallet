@@ -23,7 +23,6 @@ const Profile = ({ user }: Props) => {
     const initialValues: InitValues = React.useMemo(() => ({ name: user.displayName, email: user.email }), []);
 
     const onSubmit = React.useCallback(({ name, email }: FormikValues) => {
-        // tslint:disable-next-line:no-console
         console.log({ name, email });
     }, []);
 

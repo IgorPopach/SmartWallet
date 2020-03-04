@@ -10,7 +10,7 @@
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
             position: relative;
-            z-index: 100;
+            z-index: $trigger-layer;
         }
     
         &-close:after {
@@ -49,14 +49,14 @@
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
         position: relative;
-        z-index: 100;
+        z-index: $input-open-layer;
 
         &:focus {
             box-shadow: none;
         }
     }
     .input-close {
-        z-index: 50;
+        z-index: $input-close-layer;
     }
 
 }

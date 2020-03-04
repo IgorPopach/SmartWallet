@@ -56,7 +56,6 @@ const initialValues: InitValues = { price: null, category: '', tag: '', descript
 
 const AddCoast = () => {
     const onSubmit = React.useCallback(({ price, category, tag, description }: FormikValues) => {
-        // tslint:disable-next-line:no-console
         console.log({
             price,
             category,
@@ -74,21 +73,12 @@ const AddCoast = () => {
                     <SelectField
                         name="category"
                         options={options}
-                        // tslint:disable-next-line:no-console
-                        onChange={console.log}
                         required={true}
                         labelTitle="Category"
                         selectType="select"
                     />
 
-                    <SelectField
-                        name="tag"
-                        options={TagOptions}
-                        // tslint:disable-next-line:no-console
-                        onChange={console.log}
-                        labelTitle="Tag"
-                        selectType="lookup"
-                    />
+                    <SelectField name="tag" options={TagOptions} labelTitle="Tag" selectType="lookup" />
 
                     <InputField name="description" type="text" labelTitle="Description" />
 

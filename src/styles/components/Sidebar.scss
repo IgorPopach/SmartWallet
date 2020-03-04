@@ -7,7 +7,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    z-index: 90;
+    z-index: $sidebar-layer;
     transition: left .2s ease;
 
     &-wrapper {
