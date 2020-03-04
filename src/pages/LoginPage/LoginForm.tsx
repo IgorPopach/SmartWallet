@@ -1,11 +1,12 @@
 import React from 'react';
-import { Formik, Form, Field, ErrorMessage, FormikValues } from 'formik';
+import { Formik, Form, FormikValues } from 'formik';
 
 import Button from '../../components/Button';
 import { Link } from 'react-router-dom';
 import { validate } from '../../utils/validation';
 import { History } from 'history';
 import { PATH } from '../../routes/path';
+import InputField from '../../components/@forms/InputField';
 
 interface DispatchProps {
     logInAction: (login: string, password: string) => Promise<{ isSuccessful: boolean }>;
@@ -32,22 +33,18 @@ const LoginForm = ({ logInAction, history }: Props) => {
     );
 
     return (
-        <div className="form">
+        <div className="form form-signIn">
             <h2>Please sign in</h2>
             <Formik {...{ initialValues, validate, onSubmit }}>
                 <Form>
-                    <label htmlFor="email">Email</label>
-                    <Field name="email" type="email" />
-                    <ErrorMessage component="span" name="email" />
-
-                    <label htmlFor="password">Password</label>
-                    <Field name="password" type="password" />
-                    <ErrorMessage component="span" name="password" />
-
+                    <InputField name="email" type="email" labelTitle="Email" />
+                    <InputField name="password" type="password" labelTitle="Password" />
                     <Button color="primary" className="btn-sm" type="submit">
                         Sign in
                     </Button>
-                    <Link to="/register">Create an account</Link>
+                    <Link to="/register" className="form-signIn-link">
+                        Create an account
+                    </Link>
                 </Form>
             </Formik>
         </div>

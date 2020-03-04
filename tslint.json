@@ -8,7 +8,7 @@
     "linterOptions": {
         "exclude": [
             "/tests/*/.snap",
-            "/node_modules/"
+            "node_modules"
         ]
     },
     "rules": {
@@ -30,7 +30,9 @@
         "object-literal-sort-keys": false,
         "jsx-wrap-multiline": false,
         "react-hooks-nesting": "error",
-        "semicolon": [true, "always"]
+        "semicolon": [true, "always"],
+        "no-any": true,
+        "jsx-no-multiline-js": false
     },
     "jsRules": {
         "max-line-length": {

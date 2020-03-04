@@ -1,6 +1,5 @@
 .add-costs {
     padding: 10px 15px;
-    margin-bottom: 40px;
 
     form {
         display: flex;
@@ -9,25 +8,8 @@
         margin: auto;
         font-size: .8rem;
 
-        label {
-            margin-top: 10px;
-
-            sup {
-                color: red;
-            }
-        }
-
-        span {
-            color: red;
-            font-size: .5rem;
-        }
-
         button {
             margin-top: 15px;
-        }
-
-        option:hover {
-            color: green;
         }
     }
 

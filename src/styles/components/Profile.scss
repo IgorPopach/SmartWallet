@@ -1,0 +1,27 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: .5rem;
+    text-align: center;
+
+    &-info {
+        margin-top: 2rem;
+    }
+
+    &-photo {
+        img {
+            min-height: 100px;
+            min-width: 100px;
+            width: 50%;
+            margin: auto;
+        }
+    }
+
+}
+
+@media (min-width: 992px) { 
+    .profile {
+        flex-direction: row;
+    }
+}

@@ -1,0 +1,28 @@
+.card.card-component{
+    margin: 1rem;
+    min-width: 200px;
+
+    .card-body {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        .card-icon {
+            font-size: 2rem;
+            margin: 0 1rem;
+        }
+
+        .card-info {
+            margin: 0 1rem;
+
+            .card-title {
+                text-transform: capitalize;
+            }
+        }
+
+    }
+
+    .card-footer {
+        text-align: center;
+    }
+}

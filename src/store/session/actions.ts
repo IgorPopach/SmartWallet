@@ -66,7 +66,6 @@ function onSignIn(
     dispatch: ThunkDispatch<{}, undefined, InitializeSessionStarts | InitializeSessionFinished | StoreUser>,
     user: User,
 ) {
-    // tslint:disable-next-line:no-console
     console.log(user);
     dispatch(storeUser(user));
 }
@@ -89,11 +88,6 @@ export const initializeSession: InitializeSessionEpic = () => (dispatch) => {
         if (firebaseUser) {
             const user = getTransformUser(firebaseUser);
             onSignIn(dispatch, user);
-            let userName = user.displayName;
-            if (!userName) {
-                userName = '';
-            }
-            dispatch(addMessage(`Welcome! ${userName}`, '', 'success'));
         } else {
             onSignOut(dispatch);
         }

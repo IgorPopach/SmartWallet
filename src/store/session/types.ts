@@ -1,4 +1,4 @@
-import { User } from '../../types/User';
+import { User } from './../../types/User';
 import { Action } from 'redux';
 
 export const INITIALIZATION_STARTS = '@session/INITIALIZATION-STARTS';
@@ -83,6 +83,7 @@ export type SessionActionTypes =
     | InitializeSessionStarts
     | InitializeSessionFinished
     | LoginStarts
+    | LoginFinished
     | LogoutFinished
     | LogoutStarts
     | LogoutFinished

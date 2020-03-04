@@ -11,16 +11,17 @@ const { isDevelopment } = require('./src/utils/modes');
 
 const PATH_TO_INDEX = path.join(__dirname, 'src', 'index.tsx');
 const PATH_TO_HTML = path.join(__dirname, 'public', 'index.html');
-const PATH_TO_BUILD = path.join(__dirname, 'build');
+const PATH_TO_BUILD = path.resolve(__dirname, 'build');
 
 const config = {
-    watch: true,
     entry: {
         app: PATH_TO_INDEX,
     },
-
-    // style of source mapping to enhance the debugging process
-    devtool: 'inline-source-map',
+    output: {
+        path: PATH_TO_BUILD,
+        filename: '[name].bundle.js',
+        publicPath: '/',
+    },
 
     module: {
         rules: [
@@ -69,7 +70,9 @@ const config = {
             {
                 test: /\.(png|svg|jpg|gif)$/,
                 use: [
-                    'file-loader',
+                    {
+                        loader: 'file-loader',
+                    },
                 ],
             },
             {
@@ -126,11 +129,9 @@ const config = {
         watchContentBase: true,
         port: 3000,
     },
-    output: {
-        path: PATH_TO_BUILD,
-        filename: '[name].bundle.js',
-        publicPath: '/',
-    },
+    // style of source mapping to enhance the debugging process
+    devtool: 'inline-source-map',
+   
     watch: true,
     watchOptions: {
         // Add a delay before rebuilding once the first file changed

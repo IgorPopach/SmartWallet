@@ -1,10 +1,11 @@
 import React from 'react';
 import { History } from 'history';
-import { Formik, FormikValues, Form, Field, ErrorMessage } from 'formik';
+import { Formik, FormikValues, Form } from 'formik';
 
 import { validate } from '../../utils/validation';
 import Button from '../../components/Button';
 import { PATH } from '../../routes/path';
+import InputField from './../../components/@forms/InputField';
 
 interface DispatchProps {
     register: (
@@ -48,31 +49,11 @@ const RegistrationForm = ({ register, history }: Props) => {
             <h2>Please sign up</h2>
             <Formik {...{ initialValues, validate, onSubmit }}>
                 <Form>
-                    <label htmlFor="firstName">First Name</label>
-                    <Field name="firstName" type="text" />
-                    <ErrorMessage component="span" name="firstName" />
-
-                    <label htmlFor="lastName">Last Name</label>
-                    <Field name="lastName" type="text" />
-                    <ErrorMessage component="span" name="lastName" />
-
-                    <label htmlFor="email">
-                        Email<sup>*</sup>
-                    </label>
-                    <Field name="email" type="email" />
-                    <ErrorMessage component="span" name="email" />
-
-                    <label htmlFor="password">
-                        Password<sup>*</sup>
-                    </label>
-                    <Field name="password" type="password" />
-                    <ErrorMessage component="span" name="password" />
-
-                    <label htmlFor="confirmPassword">
-                        Confirm password<sup>*</sup>
-                    </label>
-                    <Field name="confirmPassword" type="password" />
-                    <ErrorMessage component="span" name="confirmPassword" />
+                    <InputField name="firstName" type="text" labelTitle="First Name" />
+                    <InputField name="lastName" type="text" labelTitle="Last Name" />
+                    <InputField name="email" type="email" labelTitle="Email" required={true} />
+                    <InputField name="password" type="password" labelTitle="Password" required={true} />
+                    <InputField name="confirmPassword" type="password" labelTitle="Confirm password" required={true} />
 
                     <Button color="primary" className="btn-sm" type="submit">
                         Sign up

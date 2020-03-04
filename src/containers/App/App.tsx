@@ -11,8 +11,9 @@ import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
 import { PATH } from '../../routes/path';
 import Routes from '../../routes/Routes';
-import Sidebar from '../../components/Sidebar';
+import Sidebar from '../Sidebar/';
 import ContentWrapper from '../../components/ContentWrapper';
+import { toggleSidebar } from '../../store/sidebar/actions';
 
 interface OwnProps {
     history: History;
@@ -21,16 +22,26 @@ interface OwnProps {
 interface StateProps {
     isLoading: boolean;
     user: User | null;
+    sidebarIsVisible: boolean;
 }
 
 interface DispatchProps {
     initialize: typeof initializeSession;
     logoutAction: typeof logOut;
+    toggleAction: typeof toggleSidebar;
 }
 
 type Props = OwnProps & StateProps & DispatchProps & RouteComponentProps;
 
-export const App: React.FC<Props> = ({ initialize, user, isLoading, history, logoutAction }) => {
+export const App: React.FC<Props> = ({
+    initialize,
+    user,
+    isLoading,
+    history,
+    logoutAction,
+    sidebarIsVisible,
+    toggleAction,
+}) => {
     const prevUser = usePrevious(user);
 
     React.useEffect(() => {
@@ -46,14 +57,15 @@ export const App: React.FC<Props> = ({ initialize, user, isLoading, history, log
         }
     }, [user]);
 
-    if (isLoading) {
-        return <Spinner />;
-    }
+    // if (isLoading) {
+    //     return <Spinner />;
+    // }
     return (
         <div className="app">
-            <Header {...{ logoutAction, user }} />
+            <Header {...{ logoutAction, user, sidebarIsVisible, toggleAction }} />
             <Sidebar {...{ user }} />
-            <ContentWrapper {...{ user }}>
+            <ContentWrapper {...{ user, sidebarIsVisible }}>
+                {isLoading && <Spinner />}
                 <Routes {...{ user }} />
             </ContentWrapper>
             <Footer />

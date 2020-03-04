@@ -1,0 +1,12 @@
+.form-signIn {
+    min-height: 400px;
+
+    &-link {
+        margin: 0 10px;
+        text-align: right;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}

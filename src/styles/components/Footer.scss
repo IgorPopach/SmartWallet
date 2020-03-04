@@ -2,11 +2,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    z-index: 100;
+    position: relative;
+    z-index: $footer-layer;
     bottom: 0;
     width: 100%;
-    background-color: gray("700");
-    min-height: 40px;
-    color: white;
+    background-color: $dark;
+    height: 25px;
+    padding: 0.125rem;
+    color: $primary;
 }
