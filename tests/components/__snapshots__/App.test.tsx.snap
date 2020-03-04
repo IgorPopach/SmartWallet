@@ -5,6 +5,7 @@ exports[`<App /> Should have correct layout 1`] = `
   className="app"
 >
   <Component
+    logoutAction={[MockFunction]}
     user={null}
   />
   <Connect(Sidebar)
