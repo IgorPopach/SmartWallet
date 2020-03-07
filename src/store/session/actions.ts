@@ -17,7 +17,7 @@ import { User } from '../../types/User';
 import { AppState } from '..';
 import { addMessage } from '../snackbar/actions';
 import { AddMessage } from '../snackbar/types';
-import { initUserRecords } from '../../api/costs';
+import { initUserRecords } from '../../firebase/records';
 
 type RegistrationEpic = (
     firstName: string,
