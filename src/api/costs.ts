@@ -1,12 +1,10 @@
 import { db } from '../firebase';
 import { now } from '../services/time';
 
-const COLLECTION_NAME = 'costs';
-
 export interface Cost {
     value: number;
     category: string;
-    user: string;
+    date: number;
     tag?: string;
     notes?: string;
 }
@@ -19,13 +17,15 @@ interface BaseDoc {
 
 export type CostDoc = Cost & BaseDoc;
 
+const COLLECTION_NAME = 'costs';
+
 function toDoc<T extends object>(data: T) {
     type R = T & BaseDoc;
     const result = { ...data } as R;
     if ('createdAt' in result) {
-        result.updatedAt = now();
+        result.updatedAt = now<string>('string');
     } else {
-        result.createdAt = now();
+        result.createdAt = now<string>('string');
         result.updatedAt = null;
     }
     return result;
@@ -34,15 +34,26 @@ function withID<T extends BaseDoc>(doc: firebase.firestore.DocumentSnapshot<fire
     return { id: doc.id, ...doc.data() } as T;
 }
 
-const COSTS = db.collection(COLLECTION_NAME);
+const Records = db.collection('records');
 
-export const createCost = (cost: Cost) =>
-    COSTS.add(toDoc(cost))
+export const initUserRecords = (userId: string) => Records.doc(userId).set({ costs: [], income: [] });
+
+export const createCosts = (userId: string, cost: Cost) =>
+    Records.doc(userId)
+        .collection(COLLECTION_NAME)
+        .add(toDoc(cost))
         .then((docRef) => docRef.get())
         .then((doc) => withID<CostDoc>(doc));
 
-export const readCosts = (uid: string) =>
-    COSTS.where('user', '==', uid)
+export const readCostsById = (userId: string, id: string) =>
+    Records.doc(userId)
+        .collection(COLLECTION_NAME)
+        .doc(id);
+
+export const readCosts = (userId: string, limit = 5) =>
+    Records.doc(userId)
+        .collection(COLLECTION_NAME)
+        .limit(limit)
         .get()
         .then((snapshot) => {
             const result: CostDoc[] = [];
@@ -50,14 +61,18 @@ export const readCosts = (uid: string) =>
             return result;
         });
 
-export const updateCost = ({ id, ...cost }: CostDoc) =>
-    COSTS.doc(id)
+export const updateCosts = (userId: string, { id, ...cost }: CostDoc) =>
+    Records.doc(userId)
+        .collection(COLLECTION_NAME)
+        .doc(id)
         .set(toDoc(cost))
-        .then(() => COSTS.doc(id))
+        .then(() => readCostsById(userId, id))
         .then((document) => document.get())
         .then((doc) => withID<CostDoc>(doc));
 
-export const deleteCost = ({ id }: CostDoc) =>
-    COSTS.doc(id)
+export const deleteCosts = (userId: string, { id }: CostDoc) =>
+    Records.doc(userId)
+        .collection(COLLECTION_NAME)
+        .doc(id)
         .delete()
         .then(() => id);

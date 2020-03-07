@@ -17,6 +17,7 @@ import { User } from '../../types/User';
 import { AppState } from '..';
 import { addMessage } from '../snackbar/actions';
 import { AddMessage } from '../snackbar/types';
+import { initUserRecords } from '../../api/costs';
 
 type RegistrationEpic = (
     firstName: string,
@@ -125,7 +126,7 @@ export const logOut: LogOutEpic = () => (dispatch) => {
         .then(() => {
             dispatch(LOGOUT_FINISHED_ACTION);
         })
-        .catch(({ code, message, ...errorsRest }) => {
+        .catch(({ message }) => {
             dispatch(addMessage(message, 'Oops!', 'danger'));
             dispatch(LOGOUT_FINISHED_ACTION);
         });
@@ -141,12 +142,13 @@ export const registerNewUser: RegistrationEpic = (
     return firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
+        .then(({ user }) => initUserRecords(user.uid))
         .then(() => {
             dispatch(REGISTRATION_FINISHED_ACTION);
             dispatch(addMessage('Please sign in', 'Nice work', 'success'));
             return { isSuccessful: true };
         })
-        .catch(({ code, message, ...errorsRest }) => {
+        .catch(({ message }) => {
             dispatch(addMessage(message, 'Oops!', 'danger'));
             dispatch(REGISTRATION_FINISHED_ACTION);
             return { isSuccessful: false };
