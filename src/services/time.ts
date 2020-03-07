@@ -10,3 +10,10 @@ export function now<T extends number | string | DateTime>(format: 'string' | 'nu
             return DateTime.utc() as T;
     }
 }
+
+export function parse(time: number | string): DateTime {
+    if (typeof time === 'number') {
+        return DateTime.fromMillis(time);
+    }
+    return DateTime.local();
+}
