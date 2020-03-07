@@ -73,12 +73,6 @@ function deleteRecord(collectionName: string) {
             .then<string>(() => id);
 }
 
-export const initUserRecords = (userId: string) =>
-    db
-        .collection('records')
-        .doc(userId)
-        .set({ costs: [], income: [], balance: 0 });
-
 export default (collectionName: string) => ({
     create: createRecord(collectionName),
     read: readRecords(collectionName),

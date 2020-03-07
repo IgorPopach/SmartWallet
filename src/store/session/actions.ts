@@ -17,7 +17,6 @@ import { User } from '../../types/User';
 import { AppState } from '..';
 import { addMessage } from '../snackbar/actions';
 import { AddMessage } from '../snackbar/types';
-import { initUserRecords } from '../../firebase/records';
 
 type RegistrationEpic = (
     firstName: string,
@@ -142,7 +141,6 @@ export const registerNewUser: RegistrationEpic = (
     return firebase
         .auth()
         .createUserWithEmailAndPassword(email, password)
-        .then(({ user }) => initUserRecords(user.uid))
         .then(() => {
             dispatch(REGISTRATION_FINISHED_ACTION);
             dispatch(addMessage('Please sign in', 'Nice work', 'success'));
