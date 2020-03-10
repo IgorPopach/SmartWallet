@@ -119,7 +119,7 @@ export const logOut: LogOutEpic = () => (dispatch) => {
         .then(() => {
             dispatch(LOGOUT_FINISHED_ACTION);
         })
-        .catch(({ code, message, ...errorsRest }) => {
+        .catch(({ message }) => {
             dispatch(addMessage(message, 'Oops!', 'danger'));
             dispatch(LOGOUT_FINISHED_ACTION);
         });
@@ -140,7 +140,7 @@ export const registerNewUser: RegistrationEpic = (
             dispatch(addMessage('Please sign in', 'Nice work', 'success'));
             return { isSuccessful: true };
         })
-        .catch(({ code, message, ...errorsRest }) => {
+        .catch(({ message }) => {
             dispatch(addMessage(message, 'Oops!', 'danger'));
             dispatch(REGISTRATION_FINISHED_ACTION);
             return { isSuccessful: false };

@@ -3,6 +3,9 @@ import { Dispatch, AnyAction, bindActionCreators } from 'redux';
 
 import { addMessage } from '../../store/snackbar/actions';
 import Home from './Home';
+import { AppState } from '../../store';
+
+const mapStateToProps = ({ session }: AppState) => ({ user: session.user });
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
     bindActionCreators(
@@ -12,4 +15,4 @@ const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) =>
         dispatch,
     );
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
