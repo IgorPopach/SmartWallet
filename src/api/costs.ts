@@ -1,63 +1,12 @@
-import { db } from '../firebase';
-import { now } from '../services/time';
+import createRecordsAPIForCollection from '../firebase/records';
+import { Cost, CostRecord } from '../types';
 
-const COLLECTION_NAME = 'costs';
+const api = createRecordsAPIForCollection('costs');
 
-export interface Cost {
-    value: number;
-    category: string;
-    user: string;
-    tag?: string;
-    notes?: string;
-}
+export const createCosts = (userId: string, cost: Cost) => api.create(userId, cost);
 
-interface BaseDoc {
-    id: string;
-    createdAt: string;
-    updatedAt: string;
-}
+export const readCosts = (userId: string, limit?: number) => api.read<CostRecord>(userId, limit);
 
-export type CostDoc = Cost & BaseDoc;
+export const updateCosts = (userId: string, cost: CostRecord) => api.update(userId, cost);
 
-function toDoc<T extends object>(data: T) {
-    type R = T & BaseDoc;
-    const result = { ...data } as R;
-    if ('createdAt' in result) {
-        result.updatedAt = now();
-    } else {
-        result.createdAt = now();
-        result.updatedAt = null;
-    }
-    return result;
-}
-function withID<T extends BaseDoc>(doc: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>) {
-    return { id: doc.id, ...doc.data() } as T;
-}
-
-const COSTS = db.collection(COLLECTION_NAME);
-
-export const createCost = (cost: Cost) =>
-    COSTS.add(toDoc(cost))
-        .then((docRef) => docRef.get())
-        .then((doc) => withID<CostDoc>(doc));
-
-export const readCosts = (uid: string) =>
-    COSTS.where('user', '==', uid)
-        .get()
-        .then((snapshot) => {
-            const result: CostDoc[] = [];
-            snapshot.forEach((doc) => result.push(withID(doc)));
-            return result;
-        });
-
-export const updateCost = ({ id, ...cost }: CostDoc) =>
-    COSTS.doc(id)
-        .set(toDoc(cost))
-        .then(() => COSTS.doc(id))
-        .then((document) => document.get())
-        .then((doc) => withID<CostDoc>(doc));
-
-export const deleteCost = ({ id }: CostDoc) =>
-    COSTS.doc(id)
-        .delete()
-        .then(() => id);
+export const deleteCosts = (userId: string, cost: CostRecord) => api.delete(userId, cost);
