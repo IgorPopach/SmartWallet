@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import Card from '../../components/Card';
+import Card from './../../components/Card';
 import { faChartLine, faPlusCircle, faDollarSign } from '@fortawesome/free-solid-svg-icons';
 
 interface DispatchProps {

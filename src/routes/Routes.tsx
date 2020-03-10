@@ -1,3 +1,4 @@
+// tslint:disable: jsx-no-lambda
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
@@ -6,10 +7,10 @@ import { User } from '../types/User';
 import HomePage from '../pages/HomePage';
 import LoginPage from '../pages/LoginPage';
 import RegistrationPage from '../pages/RegistrationPage';
-import AddCosts from '../pages/AddCostsPage/AddCosts';
+import AddCosts from '../pages/AddCostsPage';
 import PageNotFound from '../pages/PageNotFound';
 import Profile from './../pages/Profile/';
-import MyCosts from '../components/MyCosts';
+import MyCosts from '../pages/MyCostsPage/MyCosts';
 
 interface Props {
     user: User | null;

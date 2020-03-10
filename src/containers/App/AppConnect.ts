@@ -8,7 +8,7 @@ import { App } from './App';
 import { InitializeSessionStarts, InitializeSessionFinished } from '../../store/session/types';
 import { logOut } from '../../store/session/actions';
 import { toggleSidebar } from '../../store/sidebar/actions';
-import { SidebarActionTypes } from '../../store/sidebar/types';
+import { SidebarActionTypes } from './../../store/sidebar/types';
 
 const mapStateToProps = ({ session, sidebar }: AppState) => ({
     user: session.user,

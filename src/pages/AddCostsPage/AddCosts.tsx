@@ -1,42 +1,13 @@
 import React from 'react';
-import { Formik, Form, FormikValues } from 'formik';
 
-import Button from '../../components/Button';
-import { validate } from '../../utils/validation';
-import InputField from './../../components/@forms/InputField';
-import SelectField from '../../components/@forms/SelectField/SelectField';
-import MyCosts from '../../components/MyCosts';
+import MyCosts from '../../components/CostsTable';
+import { createCosts, readCosts, deleteCurrentCosts, CostDoc, updateCurrentCosts } from '../../api/costs';
+import { StateProps, DispatchProps } from './AddCostsConnect';
+import { DateTime } from 'luxon';
+import CostsForm, { InitValues } from '../../components/@forms/CostsForm';
+import { FormikValues } from 'formik';
 
-interface InitValues {
-    price: number | null;
-    category: string;
-    tag: string;
-    description: string;
-}
-
-const lastCosts = [
-    {
-        price: 10.0,
-        category: 'car',
-        tag: 'parts',
-        description: 'wheels',
-        date: '2020-01-25T09:08:34.123',
-    },
-    {
-        price: 2.5,
-        category: 'food',
-        tag: '',
-        description: 'bread, milk',
-        date: '2020-02-10T09:08:34.123',
-    },
-    {
-        price: 3.0,
-        category: 'health',
-        tag: 'sport',
-        description: 'swimming pool',
-        date: '2020-02-10T10:08:34.123',
-    },
-];
+type Props = StateProps & DispatchProps;
 
 const options = [
     { label: 'Home', value: 'home' },
@@ -45,51 +16,86 @@ const options = [
     { label: 'Health', value: 'health' },
 ];
 
-const TagOptions = [
+const tagOptions = [
     { label: 'home', value: 'home' },
     { label: 'car', value: 'car' },
     { label: 'food', value: 'food' },
     { label: 'health', value: 'health' },
 ];
 
-const initialValues: InitValues = { price: null, category: '', tag: '', description: '' };
+const AddCoast = ({ user, createAlert }: Props) => {
+    const [costs, setCosts] = React.useState(null);
 
-const AddCoast = () => {
-    const onSubmit = React.useCallback(({ price, category, tag, description }: FormikValues) => {
-        console.log({
-            price,
-            category,
-            tag,
-            description,
-        });
+    React.useEffect(() => {
+        readCosts(user.uid)
+            .then((allCosts) => {
+                const lastCosts = allCosts.sort(
+                    (a, b) => DateTime.fromISO(b.createdAt).toMillis() - DateTime.fromISO(a.createdAt).toMillis(),
+                );
+                setCosts(lastCosts);
+            })
+            .catch((err) => createAlert('Oops...', err.message, 'warning'));
     }, []);
+
+    const initialValues: InitValues = React.useMemo(
+        () => ({
+            amount: null,
+            category: '',
+            tag: '',
+            notes: '',
+        }),
+        [],
+    );
+
+    const onSubmit = React.useCallback(
+        ({ amount, category, tag, notes }: FormikValues) =>
+            createCosts({
+                amount,
+                category,
+                tag,
+                notes,
+                user: user.uid,
+            })
+                .then((res) => setCosts([res].concat(costs)))
+                .then((res) => createAlert('Good job!', 'New costs added', 'success'))
+                .catch((err) => createAlert(err.message, 'Oops...', 'warning')),
+        [costs],
+    );
+
+    const deleteCosts = React.useCallback(
+        (currentCosts) => {
+            deleteCurrentCosts(currentCosts)
+                .then((id) => setCosts((prevState: CostDoc[]) => prevState.filter((elem) => elem.id !== id)))
+                .catch((err) => createAlert(err.message, 'Oops...', 'warning'));
+        },
+        [costs],
+    );
+
+    const updateCosts = React.useCallback(
+        (currentCosts) => {
+            updateCurrentCosts(currentCosts)
+                .then((updated) => {
+                    setCosts((prevState: CostDoc[]) =>
+                        prevState.map((e) => {
+                            if (e.id === updated.id) {
+                                return updated;
+                            }
+                            return e;
+                        }),
+                    );
+                })
+                .catch((err) => createAlert(err.message, 'Oops...', 'warning'));
+        },
+        [costs],
+    );
 
     return (
         <div className="add-costs">
-            <Formik {...{ initialValues, validate, onSubmit }}>
-                <Form>
-                    <InputField name="price" type="number" labelTitle="Price" required={true} />
-
-                    <SelectField
-                        name="category"
-                        options={options}
-                        required={true}
-                        labelTitle="Category"
-                        selectType="select"
-                    />
-
-                    <SelectField name="tag" options={TagOptions} labelTitle="Tag" selectType="lookup" />
-
-                    <InputField name="description" type="text" labelTitle="Description" />
-
-                    <Button color="secondary" className="btn-sm" type="submit">
-                        Save
-                    </Button>
-                </Form>
-            </Formik>
-            <hr />
-            <h3>Last costs</h3>
-            <MyCosts costs={lastCosts} />
+            <CostsForm {...{ initialValues, onSubmit, options, tagOptions }} />
+            <div>
+                <h3>Last costs</h3>
+                <MyCosts {...{ costs, deleteCosts, updateCosts }} />
+            </div>
         </div>
     );
 };

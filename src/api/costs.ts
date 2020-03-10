@@ -4,7 +4,7 @@ import { now } from '../services/time';
 const COLLECTION_NAME = 'costs';
 
 export interface Cost {
-    value: number;
+    amount: number;
     category: string;
     user: string;
     tag?: string;
@@ -36,7 +36,7 @@ function withID<T extends BaseDoc>(doc: firebase.firestore.DocumentSnapshot<fire
 
 const COSTS = db.collection(COLLECTION_NAME);
 
-export const createCost = (cost: Cost) =>
+export const createCosts = (cost: Cost) =>
     COSTS.add(toDoc(cost))
         .then((docRef) => docRef.get())
         .then((doc) => withID<CostDoc>(doc));
@@ -50,14 +50,14 @@ export const readCosts = (uid: string) =>
             return result;
         });
 
-export const updateCost = ({ id, ...cost }: CostDoc) =>
+export const updateCurrentCosts = ({ id, ...cost }: CostDoc) =>
     COSTS.doc(id)
         .set(toDoc(cost))
         .then(() => COSTS.doc(id))
         .then((document) => document.get())
         .then((doc) => withID<CostDoc>(doc));
 
-export const deleteCost = ({ id }: CostDoc) =>
+export const deleteCurrentCosts = ({ id }: CostDoc) =>
     COSTS.doc(id)
         .delete()
         .then(() => id);
