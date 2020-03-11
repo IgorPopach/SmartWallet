@@ -10,7 +10,7 @@ import RegistrationPage from '../pages/RegistrationPage';
 import AddCosts from '../pages/AddCostsPage';
 import PageNotFound from '../pages/PageNotFound';
 import Profile from './../pages/Profile/';
-import MyCosts from '../pages/MyCostsPage/MyCosts';
+import MyCosts from '../pages/MyCostsPage/';
 
 interface Props {
     user: User | null;

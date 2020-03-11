@@ -1,32 +1,21 @@
 import React from 'react';
-import CostsForm, { InitValues } from './@forms/CostsForm';
+import CostsForm from './@forms/CostsForm';
 import { FormikValues } from 'formik';
-import { CostDoc } from '../api/costs';
+import { CostRecord, Option } from '../types';
 
-interface Props {
-    currentCosts: CostDoc;
-    updateCosts: (currentCosts: CostDoc) => void;
+interface Props<V> {
+    currentCosts: CostRecord;
+    updateCurrentCosts: (costs: CostRecord) => void;
     closeEdit: () => void;
+    options: Array<Option<V>>;
+    tagOptions: Array<Option<V>>;
 }
 
-const options = [
-    { label: 'Home', value: 'home' },
-    { label: 'Car', value: 'car' },
-    { label: 'Food', value: 'food' },
-    { label: 'Health', value: 'health' },
-];
-
-const tagOptions = [
-    { label: 'home', value: 'home' },
-    { label: 'car', value: 'car' },
-    { label: 'food', value: 'food' },
-    { label: 'health', value: 'health' },
-];
-
-const EditCosts = ({ currentCosts, updateCosts, closeEdit }: Props) => {
+// tslint:disable-next-line:no-any
+const EditCosts = <V extends any>({ currentCosts, updateCurrentCosts, closeEdit, options, tagOptions }: Props<V>) => {
     const initialValues = React.useMemo(
         () => ({
-            amount: currentCosts.amount,
+            value: currentCosts.value,
             category: currentCosts.category,
             tag: currentCosts.tag,
             notes: currentCosts.notes,
@@ -35,10 +24,10 @@ const EditCosts = ({ currentCosts, updateCosts, closeEdit }: Props) => {
     );
 
     const onSubmit = React.useCallback(
-        ({ amount, category, tag, notes }: FormikValues) => {
-            updateCosts({
+        ({ value, category, tag, notes }: FormikValues) => {
+            updateCurrentCosts({
                 ...currentCosts,
-                amount,
+                value,
                 category,
                 tag,
                 notes,

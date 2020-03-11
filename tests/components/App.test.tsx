@@ -5,7 +5,11 @@ import { History } from 'history';
 
 import { App } from '../../src/containers/App/App';
 
-jest.mock('../../src/firebase', () => ({}));
+jest.mock('../../src/firebase', () => ({
+    db: {
+        collection: jest.fn(),
+    },
+}));
 
 type Props = React.ComponentProps<typeof App>;
 

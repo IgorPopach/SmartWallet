@@ -1,35 +1,36 @@
 import React from 'react';
 import { Formik, Form, FormikValues } from 'formik';
+
 import { validate } from '../../utils/validation';
 import InputField from './InputField';
 import SelectField from './SelectField/SelectField';
 import Button from '../Button';
+import { Option } from './../../types';
+import { DateField } from './DateField';
 
 export interface InitValues {
-    amount: number | null;
+    value: number | null;
     category: string;
     tag: string;
     notes: string;
 }
 
-export interface CostsOption {
-    label: string;
-    value: string;
-}
-
-interface Props {
+interface Props<V> {
     initialValues: InitValues;
     onSubmit: (values: FormikValues) => void;
-    options: CostsOption[] | null;
-    tagOptions: CostsOption[] | null;
+    options: Array<Option<V>> | null;
+    tagOptions: Array<Option<V>> | null;
 }
 
-const CostsForm = ({ initialValues, onSubmit, options, tagOptions }: Props) => {
+// tslint:disable-next-line:no-any
+const CostsForm = <V extends any>({ initialValues, onSubmit, options, tagOptions }: Props<V>) => {
     return (
         <div className="costs-form">
             <Formik {...{ initialValues, validate, onSubmit }}>
                 <Form>
-                    <InputField name="amount" type="number" labelTitle="Price" required={true} />
+                    <InputField name="value" type="number" labelTitle="Price" required={true} />
+
+                    <DateField />
 
                     <SelectField
                         name="category"

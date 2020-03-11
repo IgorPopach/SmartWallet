@@ -1,45 +1,50 @@
 import React from 'react';
 
-import MyCosts from '../../components/CostsTable';
-import { createCosts, readCosts, deleteCurrentCosts, CostDoc, updateCurrentCosts } from '../../api/costs';
+import { createCosts, readCosts, deleteCosts, updateCosts } from '../../api/costs';
 import { StateProps, DispatchProps } from './AddCostsConnect';
 import { DateTime } from 'luxon';
 import CostsForm, { InitValues } from '../../components/@forms/CostsForm';
 import { FormikValues } from 'formik';
+import { CostRecord } from '../../types';
+import CostsTable from '../../components/CostsTable';
+import { onlyUnique } from '../../utils';
+import { Spinner } from '../../components/Spinner';
 
 type Props = StateProps & DispatchProps;
 
-const options = [
-    { label: 'Home', value: 'home' },
-    { label: 'Car', value: 'car' },
-    { label: 'Food', value: 'food' },
-    { label: 'Health', value: 'health' },
-];
-
-const tagOptions = [
-    { label: 'home', value: 'home' },
-    { label: 'car', value: 'car' },
-    { label: 'food', value: 'food' },
-    { label: 'health', value: 'health' },
-];
-
 const AddCoast = ({ user, createAlert }: Props) => {
     const [costs, setCosts] = React.useState(null);
+    const [costsData, setCostsData] = React.useState(null);
+    const [isLoading, setIsLoading] = React.useState(true);
 
     React.useEffect(() => {
         readCosts(user.uid)
             .then((allCosts) => {
-                const lastCosts = allCosts.sort(
-                    (a, b) => DateTime.fromISO(b.createdAt).toMillis() - DateTime.fromISO(a.createdAt).toMillis(),
-                );
-                setCosts(lastCosts);
+                const options = allCosts
+                    .map((everyCosts) => everyCosts.category)
+                    .filter(onlyUnique)
+                    .map((value) => ({
+                        value,
+                    }));
+                const tagOptions = allCosts
+                    .map((everyCosts) => everyCosts.tag)
+                    .filter(onlyUnique)
+                    .map((value) => ({
+                        value,
+                    }));
+                setCosts(allCosts);
+                setCostsData({ options, tagOptions });
+                setIsLoading(false);
             })
-            .catch((err) => createAlert('Oops...', err.message, 'warning'));
+            .catch((err) => {
+                setIsLoading(false);
+                createAlert('Oops...', err.message, 'warning');
+            });
     }, []);
 
     const initialValues: InitValues = React.useMemo(
         () => ({
-            amount: null,
+            value: null,
             category: '',
             tag: '',
             notes: '',
@@ -48,13 +53,13 @@ const AddCoast = ({ user, createAlert }: Props) => {
     );
 
     const onSubmit = React.useCallback(
-        ({ amount, category, tag, notes }: FormikValues) =>
-            createCosts({
-                amount,
+        ({ value, category, tag, notes }: FormikValues) =>
+            createCosts(user.uid, {
+                value,
                 category,
                 tag,
                 notes,
-                user: user.uid,
+                date: null,
             })
                 .then((res) => setCosts([res].concat(costs)))
                 .then((res) => createAlert('Good job!', 'New costs added', 'success'))
@@ -62,20 +67,20 @@ const AddCoast = ({ user, createAlert }: Props) => {
         [costs],
     );
 
-    const deleteCosts = React.useCallback(
+    const removeCurrentCosts = React.useCallback(
         (currentCosts) => {
-            deleteCurrentCosts(currentCosts)
-                .then((id) => setCosts((prevState: CostDoc[]) => prevState.filter((elem) => elem.id !== id)))
+            deleteCosts(user.uid, currentCosts)
+                .then((id) => setCosts((prevState: CostRecord[]) => prevState.filter((elem) => elem.id !== id)))
                 .catch((err) => createAlert(err.message, 'Oops...', 'warning'));
         },
         [costs],
     );
 
-    const updateCosts = React.useCallback(
+    const updateCurrentCosts = React.useCallback(
         (currentCosts) => {
-            updateCurrentCosts(currentCosts)
+            updateCosts(user.uid, currentCosts)
                 .then((updated) => {
-                    setCosts((prevState: CostDoc[]) =>
+                    setCosts((prevState: CostRecord[]) =>
                         prevState.map((e) => {
                             if (e.id === updated.id) {
                                 return updated;
@@ -89,12 +94,15 @@ const AddCoast = ({ user, createAlert }: Props) => {
         [costs],
     );
 
+    if (isLoading) {
+        return <Spinner />;
+    }
+
     return (
         <div className="add-costs">
-            <CostsForm {...{ initialValues, onSubmit, options, tagOptions }} />
+            <CostsForm {...{ initialValues, onSubmit, costs, ...costsData }} />
             <div>
-                <h3>Last costs</h3>
-                <MyCosts {...{ costs, deleteCosts, updateCosts }} />
+                <CostsTable {...{ costs, ...costsData, removeCurrentCosts, updateCurrentCosts }}>Last costs</CostsTable>
             </div>
         </div>
     );

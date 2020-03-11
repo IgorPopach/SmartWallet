@@ -1,40 +1,62 @@
 import React from 'react';
 
 import CostsTable from './../../components/CostsTable';
-import { readCosts, deleteCurrentCosts, updateCurrentCosts, CostDoc } from '../../api/costs';
+import { readCosts, deleteCosts, updateCosts } from '../../api/costs';
 import { StateProps, DispatchProps } from './MyCostsConnect';
 import { DateTime } from 'luxon';
+import { onlyUnique } from '../../utils';
+import { CostRecord } from '../../types';
+import { Spinner } from '../../components/Spinner';
 
 type Props = StateProps & DispatchProps;
 
 const MyCosts = ({ user, createAlert }: Props) => {
     const [costs, setCosts] = React.useState(null);
+    const [costsData, setCostsData] = React.useState(null);
+    const [isLoading, setIsLoading] = React.useState(true);
 
     React.useEffect(() => {
         readCosts(user.uid)
             .then((allCosts) => {
+                const options = allCosts
+                    .map((everyCosts) => everyCosts.category)
+                    .filter(onlyUnique)
+                    .map((value) => ({
+                        value,
+                    }));
+                const tagOptions = allCosts
+                    .map((everyCosts) => everyCosts.tag)
+                    .filter(onlyUnique)
+                    .map((value) => ({
+                        value,
+                    }));
                 const sortedCosts = allCosts.sort(
                     (a, b) => DateTime.fromISO(b.createdAt).toMillis() - DateTime.fromISO(a.createdAt).toMillis(),
                 );
                 setCosts(sortedCosts);
+                setCostsData({ options, tagOptions });
+                setIsLoading(false);
             })
-            .catch((err) => createAlert('Oops...', err.message, 'warning'));
+            .catch((err) => {
+                setIsLoading(false);
+                createAlert('Oops...', err.message, 'warning');
+            });
     }, []);
 
-    const deleteCosts = React.useCallback(
+    const removeCurrentCosts = React.useCallback(
         (currentCosts) => {
-            deleteCurrentCosts(currentCosts)
-                .then((id) => setCosts((prevState: CostDoc[]) => prevState.filter((elem) => elem.id !== id)))
+            deleteCosts(user.uid, currentCosts)
+                .then((id) => setCostsData((prevState: CostRecord[]) => prevState.filter((elem) => elem.id !== id)))
                 .catch((err) => createAlert(err.message, 'Oops...', 'warning'));
         },
-        [costs],
+        [costsData],
     );
 
-    const updateCosts = React.useCallback(
+    const updateCurrentCosts = React.useCallback(
         (currentCosts) => {
-            updateCurrentCosts(currentCosts)
+            updateCosts(user.uid, currentCosts)
                 .then((updated) => {
-                    setCosts((prevState: CostDoc[]) =>
+                    setCostsData((prevState: CostRecord[]) =>
                         prevState.map((e) => {
                             if (e.id === updated.id) {
                                 return updated;
@@ -45,10 +67,14 @@ const MyCosts = ({ user, createAlert }: Props) => {
                 })
                 .catch((err) => createAlert(err.message, 'Oops...', 'warning'));
         },
-        [costs],
+        [costsData],
     );
 
-    return <CostsTable {...{ costs, deleteCosts, updateCosts }} />;
+    if (isLoading) {
+        return <Spinner />;
+    }
+
+    return <CostsTable {...{ costs, ...costsData, removeCurrentCosts, updateCurrentCosts }}>My costs</CostsTable>;
 };
 
 export default MyCosts;

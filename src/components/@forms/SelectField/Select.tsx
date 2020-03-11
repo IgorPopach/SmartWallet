@@ -1,7 +1,6 @@
 import React from 'react';
 
-import Dropdown from './Dropdown';
-
+import Dropdown from '././Dropdown';
 import { Option } from '../../../types';
 import Input from '../Input';
 import { FieldMetaProps } from 'formik';
@@ -13,7 +12,6 @@ const SELECT_TYPE = {
 
 interface Props<V> {
     defaultValue?: string;
-    name: string;
     options: Array<Option<V>>;
     onChange: (value: V) => void;
     selectType?: string;
@@ -21,24 +19,14 @@ interface Props<V> {
 }
 
 // tslint:disable-next-line:no-any
-const Select = <V extends any>({
-    defaultValue = '...',
-    name,
-    options,
-    onChange,
-    meta,
-    selectType = SELECT_TYPE.SELECT,
-}: Props<V>) => {
-    const [value, setValue] = React.useState('');
-
-    const [label, setLabel] = React.useState(defaultValue);
+const Select = <V extends any>({ options, onChange, meta, selectType = SELECT_TYPE.SELECT }: Props<V>) => {
+    const [value, setValue] = React.useState(meta.value);
 
     const [isOpened, setIsOpened] = React.useState(false);
 
     const [filteredOptions, setFilteredOptions] = React.useState(options);
 
     const setCurrentName = React.useCallback((option: Option<V>) => {
-        setLabel(option.label);
         setValue(option.value);
         onChange(option.value);
     }, []);
@@ -99,7 +87,7 @@ const Select = <V extends any>({
                 return <Input className={dropdownInputStyles} onChange={changeHandler} value={value} />;
             case SELECT_TYPE.SELECT:
                 setFilteredOptions(options);
-                return <div className={dropdownTriggerStyles}>{label}</div>;
+                return <div className={dropdownTriggerStyles}>{value}</div>;
         }
     }, [selectType, isOpened, value, meta]);
 

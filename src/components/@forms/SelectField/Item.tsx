@@ -3,14 +3,14 @@ import React, { useCallback } from 'react';
 import { Option } from '../../../types';
 
 interface Props<V> extends Option<V> {
-    onClick: ({ label, value }: Option<V>) => void;
+    onClick: ({ value }: Option<V>) => void;
 }
 
 // tslint:disable-next-line:no-any
-const Item = <V extends any>({ label, value, onClick }: Props<V>) => {
-    const handleClick = useCallback(() => onClick({ label, value }), [{ label, value }]);
+const Item = <V extends any>({ value, onClick }: Props<V>) => {
+    const handleClick = useCallback(() => onClick({ value }), [value]);
 
-    return <li onClick={handleClick}>{label}</li>;
+    return <li onClick={handleClick}>{value}</li>;
 };
 
 export default Item;
