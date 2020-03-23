@@ -17,3 +17,7 @@ export function parse(time: number | string): DateTime {
     }
     return DateTime.local();
 }
+
+export function dateFormat(value: number | string, format: string) {
+    return parse(value).toFormat(format);
+}

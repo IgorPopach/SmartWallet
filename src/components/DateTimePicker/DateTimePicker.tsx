@@ -7,14 +7,14 @@ import { toClasses } from '../../utils';
 
 interface Props {
     date?: number;
-    handleClose: () => void;
-    onChange?: (value: number) => void;
+    handleClose?: () => void;
+    onChange: (value: number) => void;
     className?: string;
 }
 
 const DateTimePicker = ({ date, handleClose, onChange, className }: Props) => {
     const [tab, setTab] = React.useState(0);
-    const [data, setData] = React.useState(date || now('number'));
+    const [data, setData] = React.useState(date || (now('number') as number));
 
     const styles = React.useMemo(() => toClasses(['datetime__frame'].concat(className)), [className]);
 
@@ -47,10 +47,10 @@ const DateTimePicker = ({ date, handleClose, onChange, className }: Props) => {
         return <Calendar {...{ data, updateData }} />;
     }, [tab, data]);
 
-    const handleSubmit = React.useCallback(() => {
-        onChange(data);
-        handleClose();
-    }, [data]);
+    // const handleSubmit = React.useCallback(() => {
+    //   onChange(data);
+    //   handleClose();
+    // }, [data]);
 
     return (
         <div className={styles}>
@@ -62,8 +62,8 @@ const DateTimePicker = ({ date, handleClose, onChange, className }: Props) => {
                     Time
                 </div>
             </div>
-            {toggleComponent}
-            <div className="datetime_submit_btn" onClick={handleSubmit}>
+            <div className="datetime__body">{toggleComponent}</div>
+            <div className="datetime_submit_btn" onClick={handleClose}>
                 Set
             </div>
         </div>

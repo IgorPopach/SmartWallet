@@ -1,22 +1,10 @@
 .calendar {
 
-  &-frame {
-    width: 100%;
-    height: 200px;
-    border: 1px solid $primary;
-    border-top: none;
-    border-bottom-left-radius: 3px;
-    border-bottom-right-radius: 3px;
-  }
-
   &-header {
     display: flex;
-    justify-content: space-around;
-    padding: 3px 5px;
-
-    &-view {
-      border-bottom: 1px solid $primary;
-    }
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 15px;
   }
 
   &-btn {
@@ -28,27 +16,20 @@
   }
 
   &-body {
-    display: flex;
-    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    table-layout: fixed;
+    font-size: 12px;
 
     &__weeks {
       padding: 3px 0;
-    }
-
-    &__days {
-      border-top: 1px solid $primary;
+      font-weight: 400;
     }
 
     .is-selected {
       background-color: $primary;
       color: $secondary;
     }
-  }
-
-  &-week, &-day {
-    display: inline-block;
-    width: 14.28%;
-    text-align: center;
   }
 
   &-day {

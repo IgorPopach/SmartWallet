@@ -40,6 +40,15 @@
 
 }
 
+.datetime__body {
+  height: 200px;
+  width: 100%;
+  border: 1px solid $primary;
+  border-top: none;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
 .datetime_submit_btn {
   margin: 5px 0 0;
   padding: 3px 15px;
