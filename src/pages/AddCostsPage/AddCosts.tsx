@@ -2,7 +2,6 @@ import React from 'react';
 
 import { createCosts, readCosts, deleteCosts, updateCosts } from '../../api/costs';
 import { StateProps, DispatchProps } from './AddCostsConnect';
-import { DateTime } from 'luxon';
 import CostsForm, { InitValues } from '../../components/@forms/CostsForm';
 import { FormikValues } from 'formik';
 import { CostRecord } from '../../types';
@@ -45,6 +44,7 @@ const AddCoast = ({ user, createAlert }: Props) => {
     const initialValues: InitValues = React.useMemo(
         () => ({
             value: null,
+            date: null,
             category: '',
             tag: '',
             notes: '',
@@ -53,13 +53,13 @@ const AddCoast = ({ user, createAlert }: Props) => {
     );
 
     const onSubmit = React.useCallback(
-        ({ value, category, tag, notes }: FormikValues) =>
+        ({ value, date, category, tag, notes }: FormikValues) =>
             createCosts(user.uid, {
                 value,
                 category,
                 tag,
                 notes,
-                date: null,
+                date,
             })
                 .then((res) => setCosts([res].concat(costs)))
                 .then((res) => createAlert('Good job!', 'New costs added', 'success'))

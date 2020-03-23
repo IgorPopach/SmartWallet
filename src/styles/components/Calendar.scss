@@ -1,0 +1,64 @@
+.calendar {
+
+  &-frame {
+    width: 100%;
+    height: 200px;
+    border: 1px solid $primary;
+    border-top: none;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+
+  &-header {
+    display: flex;
+    justify-content: space-around;
+    padding: 3px 5px;
+
+    &-view {
+      border-bottom: 1px solid $primary;
+    }
+  }
+
+  &-btn {
+    &:hover {
+      transition: color .3s ease;
+      cursor: pointer;
+      color: darken($primary, 20%);
+    }
+  }
+
+  &-body {
+    display: flex;
+    flex-direction: column;
+
+    &__weeks {
+      padding: 3px 0;
+    }
+
+    &__days {
+      border-top: 1px solid $primary;
+    }
+
+    .is-selected {
+      background-color: $primary;
+      color: $secondary;
+    }
+  }
+
+  &-week, &-day {
+    display: inline-block;
+    width: 14.28%;
+    text-align: center;
+  }
+
+  &-day {
+    line-height: 25px;
+
+    &:hover {
+      background-color: $primary;
+      color: darken($secondary, 20%);
+      transition: all .3s ease;
+      cursor: pointer;
+    }
+  }
+}

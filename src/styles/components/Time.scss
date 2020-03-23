@@ -1,0 +1,61 @@
+.time-frame {
+  position: relative;
+  height: 200px;
+  width: 100%;
+  border: 1px solid $primary;
+  border-top: none;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__showtime {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  &__control {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 33%;
+  }
+
+  &__listbox {
+    margin: 0 5px;
+    border: 1px solid darken($secondary, 5%);
+
+    &:hover {
+      box-shadow: 0 0 3px darken($secondary, 20%);
+    }
+
+    .select-aria {
+      height: 80px;
+      width: 30px;
+      text-align: center;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      -ms-overflow-style: none;
+
+      &__item {
+        margin: 0 2px;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &[aria-selected="true"] {
+          transition: color .3s ease;
+          color: darken($primary, 90%);
+        }
+      }
+    }
+  }
+}
