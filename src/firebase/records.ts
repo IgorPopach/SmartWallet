@@ -1,27 +1,8 @@
 import { db } from './index';
-import firebase from 'firebase';
-import { BaseRecord } from '../types';
-import { now } from '../services/time';
+import { BaseRecord, Period } from '../types';
+import { toRecord, withID } from '../utils/firebase';
 
-type Snapshot<T> = firebase.firestore.DocumentSnapshot<T>;
-
-function toRecord<T extends object>(data: T) {
-    type R = T & BaseRecord;
-    const result = { ...data } as R;
-    if ('createdAt' in result) {
-        result.updatedAt = now<string>('string');
-    } else {
-        result.createdAt = now<string>('string');
-        result.updatedAt = null;
-    }
-    return result;
-}
-
-function withID<T extends BaseRecord>(doc: Snapshot<firebase.firestore.DocumentData>) {
-    return { id: doc.id, ...doc.data() } as T;
-}
-
-function getUserCollection(userId: string, collectionName: string) {
+export function getUserCollection(userId: string, collectionName: string) {
     return db
         .collection('records')
         .doc(userId)
@@ -36,11 +17,44 @@ function createRecord(collectionName: string) {
             .then<T & BaseRecord>((doc) => withID<T & BaseRecord>(doc));
 }
 
+function createNamedRecord(collectionName: string) {
+    return <T extends object>(userId: string, name: string, data: T) =>
+        getUserCollection(userId, collectionName)
+            .doc(name)
+            .set(toRecord(data))
+            .then(() => readRecordById(collectionName)(userId, name));
+}
+
 function readRecords(collectionName: string) {
     return <T extends object>(userId: string, limit = 5) =>
         getUserCollection(userId, collectionName)
             .orderBy('date', 'desc')
             .limit(limit)
+            .get()
+            .then<Array<T & BaseRecord>>((snapshot) => {
+                const result: Array<T & BaseRecord> = [];
+                snapshot.forEach((doc) => result.push(withID(doc)));
+                return result;
+            });
+}
+
+function readAllRecords(collectionName: string) {
+    return <T extends object>(userId: string) =>
+        getUserCollection(userId, collectionName)
+            .orderBy('date', 'desc')
+            .get()
+            .then<Array<T & BaseRecord>>((snapshot) => {
+                const result: Array<T & BaseRecord> = [];
+                snapshot.forEach((doc) => result.push(withID(doc)));
+                return result;
+            });
+}
+
+function readRecordsForPeriod(collectionName: string) {
+    return <T extends object>(userId: string, period: Period) =>
+        getUserCollection(userId, collectionName)
+            .where('date', '>', period.from)
+            .where('date', '<', period.to)
             .get()
             .then<Array<T & BaseRecord>>((snapshot) => {
                 const result: Array<T & BaseRecord> = [];
@@ -75,7 +89,10 @@ function deleteRecord(collectionName: string) {
 
 export default (collectionName: string) => ({
     create: createRecord(collectionName),
+    createDocument: createNamedRecord(collectionName),
     read: readRecords(collectionName),
+    readAll: readAllRecords(collectionName),
+    readForPeriod: readRecordsForPeriod(collectionName),
     readById: readRecordById(collectionName),
     update: updateRecord(collectionName),
     delete: deleteRecord(collectionName),
