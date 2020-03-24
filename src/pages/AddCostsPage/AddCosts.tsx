@@ -100,7 +100,7 @@ const AddCoast = ({ user, createAlert }: Props) => {
 
     return (
         <div className="add-costs">
-            <CostsForm {...{ initialValues, onSubmit, costs, ...costsData }} />
+            <CostsForm {...{ initialValues, onSubmit, ...costsData }} />
             <div>
                 <CostsTable {...{ costs, ...costsData, removeCurrentCosts, updateCurrentCosts }}>Last costs</CostsTable>
             </div>

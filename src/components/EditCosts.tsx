@@ -16,6 +16,7 @@ const EditCosts = <V extends any>({ currentCosts, updateCurrentCosts, closeEdit,
     const initialValues = React.useMemo(
         () => ({
             value: currentCosts.value,
+            date: currentCosts.date,
             category: currentCosts.category,
             tag: currentCosts.tag,
             notes: currentCosts.notes,
@@ -24,10 +25,11 @@ const EditCosts = <V extends any>({ currentCosts, updateCurrentCosts, closeEdit,
     );
 
     const onSubmit = React.useCallback(
-        ({ value, category, tag, notes }: FormikValues) => {
+        ({ value, date, category, tag, notes }: FormikValues) => {
             updateCurrentCosts({
                 ...currentCosts,
                 value,
+                date,
                 category,
                 tag,
                 notes,

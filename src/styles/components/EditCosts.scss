@@ -9,4 +9,6 @@
     backdrop-filter: blur(2px);
     opacity: .9;
     z-index: $edit-costs-layer;
+    width: 101%;
+    overflow-y: scroll;
 }

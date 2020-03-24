@@ -6,10 +6,11 @@ import InputField from './InputField';
 import SelectField from './SelectField/SelectField';
 import Button from '../Button';
 import { Option } from './../../types';
-import { DateField } from './DateField';
+import DateField from './DateField';
 
 export interface InitValues {
     value: number | null;
+    date: number;
     category: string;
     tag: string;
     notes: string;
@@ -30,7 +31,7 @@ const CostsForm = <V extends any>({ initialValues, onSubmit, options, tagOptions
                 <Form>
                     <InputField name="value" type="number" labelTitle="Price" required={true} />
 
-                    <DateField />
+                    <DateField name="date" type="text" labelTitle="Date" required={true} />
 
                     <SelectField
                         name="category"

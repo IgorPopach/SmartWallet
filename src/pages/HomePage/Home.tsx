@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react';
 import Card from './../../components/Card';
 import { faChartLine, faPlusCircle, faDollarSign } from '@fortawesome/free-solid-svg-icons';
-import DateTimePicker from '../../components/DateTimePicker/DateTimePicker';
-import { dateFormat } from '../../services/time';
 
 interface DispatchProps {
     createAlert: (messageText: string, title?: string, type?: string) => void;
@@ -22,8 +20,6 @@ const Home = ({ createAlert }: Props) => {
         [],
     );
 
-    const onChange = (v: number) => console.log('value', dateFormat(v, 'D, T'));
-
     return (
         <>
             <h2>Title Alert</h2>
@@ -34,7 +30,6 @@ const Home = ({ createAlert }: Props) => {
             <Card icon={faChartLine} title="costs" value="33.50" />
             <Card icon={faPlusCircle} title="budget" value="127.50" />
             <Card icon={faDollarSign} title="last-costs" value="33.50" />
-            <DateTimePicker {...{ onChange }} />
         </>
     );
 };

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import EditCosts from './EditCosts';
 import { CostRecord, Option } from '../types';
+import { dateFormat } from '../services/time';
 
 interface Props<V> {
     costs: CostRecord[] | null;
@@ -37,8 +38,8 @@ const CostsTable = <V extends any>({
     const renderTable = React.useCallback(
         () =>
             costs.map((elem, id) => {
-                const { value, createdAt, category, notes } = elem;
-                const formatDate = DateTime.fromISO(createdAt).toLocaleString(DateTime.DATETIME_SHORT);
+                const { value, date, category, notes } = elem;
+                const formatDate = date ? dateFormat(date, 'D, T') : null;
                 const deleteClick = () => removeCurrentCosts(elem);
                 const updateClick = () => setCurrentCosts(elem);
                 const control = (
@@ -64,10 +65,10 @@ const CostsTable = <V extends any>({
         if (costs.length === 0) {
             return null;
         }
-        const { value, createdAt, category, notes } = costs[0];
+        const { value, date, category, notes } = costs[0];
         const sortCosts = {
             price: value,
-            date: createdAt,
+            date,
             category,
             description: notes,
         };
@@ -90,7 +91,7 @@ const CostsTable = <V extends any>({
                 <h2 className="costs-table__name">{children}</h2>
                 <span className="costs-table__summary">{summary.toFixed(2)}</span>
             </div>
-            <table id="costs">
+            <table className="costs-table__body">
                 <tbody>
                     {renderHeaderTable()}
                     {renderTable()}

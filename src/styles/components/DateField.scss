@@ -1,0 +1,21 @@
+.date-field {
+  margin: 0 10px 5px 10px;
+  height: 85px;
+
+  &__picker {
+    position: relative;
+    z-index: $picker-layer;
+  }
+
+  label {
+      
+      sup {
+          color: red;
+      }
+  }
+
+  span {
+      color: red;
+      font-size: .5rem;
+  }
+}
