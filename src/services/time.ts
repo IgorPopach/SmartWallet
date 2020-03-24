@@ -17,3 +17,7 @@ export function parse(time: number | string): DateTime {
     }
     return DateTime.local();
 }
+
+export function getPeriodName(timestamp: number): string {
+    return DateTime.fromMillis(timestamp).toFormat('LLLL-yyyy');
+}

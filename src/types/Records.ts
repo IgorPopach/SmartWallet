@@ -8,6 +8,12 @@ export interface Cost {
 
 export type Income = Cost;
 
+export interface Balance {
+    costs: number;
+    income: number;
+    periodName: string;
+}
+
 export interface BaseRecord {
     id: string;
     createdAt: string;
@@ -16,3 +22,4 @@ export interface BaseRecord {
 
 export type CostRecord = Cost & BaseRecord;
 export type IncomeRecord = Income & BaseRecord;
+export type BalanceRecord = Balance & BaseRecord;

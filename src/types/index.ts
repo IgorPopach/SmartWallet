@@ -12,4 +12,5 @@ export interface Costs {
     date: string;
 }
 export * from './Records';
+export * from './Storage';
 export * from './User';
