@@ -1,17 +1,16 @@
 import React from 'react';
 
-import { createCosts, readCosts, deleteCosts, updateCosts } from '../../api/costs';
-import { StateProps, DispatchProps } from './AddCostsConnect';
-import CostsForm, { InitValues } from '../../components/@forms/CostsForm';
-import { FormikValues } from 'formik';
-import { CostRecord } from '../../types';
-import CostsTable from '../../components/CostsTable';
+import CostsTable from './../../components/CostsTable';
+import { readCosts, deleteCosts, updateCosts } from '../../api/costs';
+import { StateProps, DispatchProps } from './MyCostsConnect';
+import { DateTime } from 'luxon';
 import { onlyUnique } from '../../utils';
+import { CostRecord } from '../../types';
 import { Spinner } from '../../components/Spinner';
 
 type Props = StateProps & DispatchProps;
 
-const AddCoast = ({ user, createAlert }: Props) => {
+const MyCosts = ({ user, createAlert }: Props) => {
     const [costs, setCosts] = React.useState(null);
     const [costsData, setCostsData] = React.useState(null);
     const [isLoading, setIsLoading] = React.useState(true);
@@ -31,7 +30,10 @@ const AddCoast = ({ user, createAlert }: Props) => {
                     .map((value) => ({
                         value,
                     }));
-                setCosts(allCosts);
+                const sortedCosts = allCosts.sort(
+                    (a, b) => DateTime.fromISO(b.createdAt).toMillis() - DateTime.fromISO(a.createdAt).toMillis(),
+                );
+                setCosts(sortedCosts);
                 setCostsData({ options, tagOptions });
                 setIsLoading(false);
             })
@@ -41,46 +43,20 @@ const AddCoast = ({ user, createAlert }: Props) => {
             });
     }, []);
 
-    const initialValues: InitValues = React.useMemo(
-        () => ({
-            value: null,
-            date: null,
-            category: '',
-            tag: '',
-            notes: '',
-        }),
-        [],
-    );
-
-    const onSubmit = React.useCallback(
-        ({ value, date, category, tag, notes }: FormikValues) =>
-            createCosts(user.uid, {
-                value,
-                category,
-                tag,
-                notes,
-                date,
-            })
-                .then((res) => setCosts([res].concat(costs)))
-                .then((res) => createAlert('Good job!', 'New costs added', 'success'))
-                .catch((err) => createAlert(err.message, 'Oops...', 'warning')),
-        [costs],
-    );
-
     const removeCurrentCosts = React.useCallback(
         (currentCosts) => {
             deleteCosts(user.uid, currentCosts)
-                .then((id) => setCosts((prevState: CostRecord[]) => prevState.filter((elem) => elem.id !== id)))
+                .then((id) => setCostsData((prevState: CostRecord[]) => prevState.filter((elem) => elem.id !== id)))
                 .catch((err) => createAlert(err.message, 'Oops...', 'warning'));
         },
-        [costs],
+        [costsData],
     );
 
     const updateCurrentCosts = React.useCallback(
         (currentCosts) => {
             updateCosts(user.uid, currentCosts)
                 .then((updated) => {
-                    setCosts((prevState: CostRecord[]) =>
+                    setCostsData((prevState: CostRecord[]) =>
                         prevState.map((e) => {
                             if (e.id === updated.id) {
                                 return updated;
@@ -91,21 +67,14 @@ const AddCoast = ({ user, createAlert }: Props) => {
                 })
                 .catch((err) => createAlert(err.message, 'Oops...', 'warning'));
         },
-        [costs],
+        [costsData],
     );
 
     if (isLoading) {
         return <Spinner />;
     }
 
-    return (
-        <div className="add-costs">
-            <CostsForm {...{ initialValues, onSubmit, ...costsData }} />
-            <div>
-                <CostsTable {...{ costs, ...costsData, removeCurrentCosts, updateCurrentCosts }}>Last costs</CostsTable>
-            </div>
-        </div>
-    );
+    return <CostsTable {...{ costs, ...costsData, removeCurrentCosts, updateCurrentCosts }}>My costs</CostsTable>;
 };
 
-export default AddCoast;
+export default MyCosts;

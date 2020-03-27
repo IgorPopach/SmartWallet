@@ -1,0 +1,35 @@
+.time-frame__listbox {
+  margin: 0 5px;
+  border: 1px solid darken($secondary, 5%);
+
+  &:hover {
+    box-shadow: 0 0 3px darken($secondary, 20%);
+  }
+
+  .select-aria {
+    height: 80px;
+    width: 30px;
+    text-align: center;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    -ms-overflow-style: none;
+
+    &__item {
+      margin: 0 2px;
+      height: 20px;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      &[aria-selected="true"] {
+        transition: color .3s ease;
+        color: darken($primary, 90%);
+      }
+    }
+  }
+}

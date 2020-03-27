@@ -1,10 +1,7 @@
 import React from 'react';
-import Item from './Item';
 
-interface Option<V> {
-    label: string;
-    value: V;
-}
+import Item from './Item';
+import { Option } from './../../../types';
 
 interface Props<V> {
     isOpened?: boolean;
@@ -26,7 +23,7 @@ const Dropdown = <V extends any>({ isOpened = false, options, children, classNam
 
     const list = React.useMemo(() => {
         if (options.length === 0) {
-            return <Item value="empty" label="..." {...{ onClick }} />;
+            return <Item value="..." {...{ onClick }} />;
         }
         return options.map((option, id) => {
             const handleClick = () => onChange(option);

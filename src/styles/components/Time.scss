@@ -1,0 +1,21 @@
+.time-frame {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__showtime {
+    font-size: 1.5rem;
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  &__control {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 33%;
+  }
+
+}

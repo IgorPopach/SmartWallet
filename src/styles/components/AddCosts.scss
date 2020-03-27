@@ -1,37 +1,17 @@
 .add-costs {
-    padding: 10px 15px;
+    padding: 10px 5px;
+}
 
-    form {
-        display: flex;
-        flex-direction: column;
-        width: 250px;
-        margin: auto;
-        font-size: .8rem;
-
-        button {
-            margin-top: 15px;
-        }
+@media (min-width: 576px) {
+    .add-costs {
+        padding: 10px 0;
     }
+}
 
-    table {
-        width: 100%;
+@media (min-width: 768px) {
+    .add-costs {
+        display: flex;
+        justify-content: space-around;
 
-        td, th {
-            padding: 3px 10px;
-            border-bottom: 1px solid gray("400");
-        }
-
-        th {
-            border-top: 1px solid gray("400");
-            text-transform: capitalize;
-        }
-
-        tr:nth-child(even) {
-            background-color: gray("300");
-        }
-
-        td:first-of-type {
-            text-align: right;
-        }
     }
 }

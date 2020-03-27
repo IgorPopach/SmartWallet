@@ -1,0 +1,45 @@
+.calendar {
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3px 15px;
+  }
+
+  &-btn {
+    &:hover {
+      transition: color .3s ease;
+      cursor: pointer;
+      color: darken($primary, 20%);
+    }
+  }
+
+  &-body {
+    width: 100%;
+    text-align: center;
+    table-layout: fixed;
+    font-size: 12px;
+
+    &__weeks {
+      padding: 3px 0;
+      font-weight: 400;
+    }
+
+    .is-selected {
+      background-color: $primary;
+      color: $secondary;
+    }
+  }
+
+  &-day {
+    line-height: 25px;
+
+    &:hover {
+      background-color: $primary;
+      color: darken($secondary, 20%);
+      transition: all .3s ease;
+      cursor: pointer;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import { Field, FieldProps, ErrorMessage } from 'formik';
 
 import { Option } from '../../../types';
 import Select from './Select';
-import Label from '../Label';
+import Label from './../Label';
 
 interface Props<V> {
     labelTitle?: string;
@@ -18,7 +18,7 @@ interface Props<V> {
 const SelectField = <V extends any>({ labelTitle, required, name, options, selectType }: Props<V>) => {
     const customSelect = ({ field, meta }: FieldProps) => (
         <Select
-            {...{ name, options, selectType, meta }}
+            {...{ options, selectType, meta }}
             onChange={(value) => {
                 field.onChange({
                     target: {

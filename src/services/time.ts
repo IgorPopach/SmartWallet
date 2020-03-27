@@ -18,6 +18,10 @@ export function parse(time: number | string): DateTime {
     return DateTime.local();
 }
 
+export function dateFormat(value: number | string, format: string) {
+    return parse(value).toFormat(format);
+}
+
 export function getPeriodName(timestamp: number): string {
     return DateTime.fromMillis(timestamp).toFormat('LLLL-yyyy');
 }

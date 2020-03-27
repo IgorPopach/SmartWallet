@@ -1,0 +1,57 @@
+.costs-table {
+
+    &__body {
+        width: 100%;
+
+        tr {
+            border-bottom: 1px solid gray("400");
+            width: 100%;
+
+            &:first-child {
+                border-top: 1px solid gray("400");
+            }
+        }
+    
+        tr:nth-child(even) {
+            background-color: gray("300");
+        }
+
+        td, th {
+            padding: 3px 10px;
+        }
+    
+        th {
+            text-transform: capitalize;
+        }
+    
+    
+        td:first-of-type {
+            text-align: right;
+        }
+    }
+
+    &__control {
+        display: flex;
+        justify-content: space-around;
+        min-width: 34px;
+
+        & > * {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+    }
+    &__name, &__summary {
+        font-size: 1.5rem;
+        margin: 5px;
+    }
+
+    &__summary {
+        background-color: $primary;
+    }
+}
