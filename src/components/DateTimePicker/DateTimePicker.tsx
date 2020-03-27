@@ -21,14 +21,14 @@ const DateTimePicker = ({ date, handleClose, onChange, className }: Props) => {
     const handleDateClick = React.useCallback(() => setTab(0), []);
     const handleTimeClick = React.useCallback(() => setTab(1), []);
 
-    const dateButton = React.useMemo(() => {
+    const dateButtonStyles = React.useMemo(() => {
         if (tab === 0) {
             return 'datetime_btn is-active';
         }
         return 'datetime_btn';
     }, [tab]);
 
-    const timeButton = React.useMemo(() => {
+    const timeButtonStyles = React.useMemo(() => {
         if (tab === 1) {
             return 'datetime_btn is-active';
         }
@@ -47,18 +47,13 @@ const DateTimePicker = ({ date, handleClose, onChange, className }: Props) => {
         return <Calendar {...{ data, updateData }} />;
     }, [tab, data]);
 
-    // const handleSubmit = React.useCallback(() => {
-    //   onChange(data);
-    //   handleClose();
-    // }, [data]);
-
     return (
         <div className={styles}>
             <div className="datetime__control">
-                <div className={dateButton} {...{ updateData }} onClick={handleDateClick}>
+                <div className={dateButtonStyles} {...{ updateData }} onClick={handleDateClick}>
                     Date
                 </div>
-                <div className={timeButton} onClick={handleTimeClick}>
+                <div className={timeButtonStyles} onClick={handleTimeClick}>
                     Time
                 </div>
             </div>

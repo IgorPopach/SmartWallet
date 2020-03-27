@@ -33,10 +33,6 @@ const Calendar = ({ data, updateData }: Props) => {
     const month = React.useMemo(() => date.month, [date]);
     const year = React.useMemo(() => date.year, [date]);
 
-    React.useEffect(() => {
-        setDate(selectedDate);
-    }, [selectedDate]);
-
     const days = React.useMemo(() => {
         const offset = date.set({ day: 1 }).weekday;
         const daysArr = new Array(0).concat(new Array(offset - 1).fill(null));
@@ -83,6 +79,10 @@ const Calendar = ({ data, updateData }: Props) => {
     const clickPrevMonth = React.useCallback(() => setDate((prevState) => prevState.minus({ month: 1 })), [date]);
 
     const clickNextMonth = React.useCallback(() => setDate((prevState) => prevState.plus({ month: 1 })), [date]);
+
+    React.useEffect(() => {
+        setDate(selectedDate);
+    }, [selectedDate]);
 
     return (
         <>

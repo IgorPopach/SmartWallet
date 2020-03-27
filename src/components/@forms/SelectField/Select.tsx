@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Dropdown from '././Dropdown';
+import Dropdown from './Dropdown';
 import { Option } from '../../../types';
 import Input from '../Input';
 import { FieldMetaProps } from 'formik';

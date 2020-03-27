@@ -26,31 +26,29 @@ interface Props<V> {
 // tslint:disable-next-line:no-any
 const CostsForm = <V extends any>({ initialValues, onSubmit, options, tagOptions }: Props<V>) => {
     return (
-        <div className="costs-form">
-            <Formik {...{ initialValues, validate, onSubmit }}>
-                <Form>
-                    <InputField name="value" type="number" labelTitle="Price" required={true} />
+        <Formik {...{ initialValues, validate, onSubmit }}>
+            <Form className="costs-form">
+                <InputField name="value" type="number" labelTitle="Price" required={true} />
 
-                    <DateField name="date" type="text" labelTitle="Date" required={true} />
+                <DateField name="date" type="text" labelTitle="Date" required={true} />
 
-                    <SelectField
-                        name="category"
-                        options={options}
-                        required={true}
-                        labelTitle="Category"
-                        selectType="select"
-                    />
+                <SelectField
+                    name="category"
+                    options={options}
+                    required={true}
+                    labelTitle="Category"
+                    selectType="select"
+                />
 
-                    <SelectField name="tag" options={tagOptions} labelTitle="Tag" selectType="lookup" />
+                <SelectField name="tag" options={tagOptions} labelTitle="Tag" selectType="lookup" />
 
-                    <InputField name="notes" type="text" labelTitle="Notes" />
+                <InputField name="notes" type="text" labelTitle="Notes" />
 
-                    <Button color="secondary" className="btn-sm btn-costs" type="submit">
-                        Save
-                    </Button>
-                </Form>
-            </Formik>
-        </div>
+                <Button color="secondary" className="btn-sm btn-costs" type="submit">
+                    Save
+                </Button>
+            </Form>
+        </Formik>
     );
 };
 
