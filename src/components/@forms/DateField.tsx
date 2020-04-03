@@ -3,25 +3,25 @@ import Label from './Label';
 import { Field, ErrorMessage, FieldProps } from 'formik';
 import Input from './Input';
 import DateTimePicker from '../DateTimePicker/DateTimePicker';
-import { parse, dateFormat } from '../../services/time';
+import { dateFormat } from '../../services/time';
 
 interface Props {
     labelTitle?: string;
     name: string;
     type: string;
-    date?: number;
     required?: boolean;
 }
 
-const DateField = ({ labelTitle, date, name, type, required }: Props) => {
+const DateField = ({ labelTitle, name, type, required }: Props) => {
     const [pickerOpen, setPickerOpen] = React.useState(false);
 
-    const [selectedDate, setSelectedDate] = React.useState(date || null);
+    const [selectedDate, setSelectedDate] = React.useState(null);
 
     const handleClose = React.useCallback(() => setPickerOpen(false), []);
     const handleOpen = React.useCallback(() => setPickerOpen(true), []);
 
     const customInput = ({ field, meta }: FieldProps) => {
+        setSelectedDate(field.value);
         const onChange = (value: number) => {
             field.onChange({
                 target: {
@@ -51,7 +51,7 @@ const DateField = ({ labelTitle, date, name, type, required }: Props) => {
         <div className="date-field">
             {labelTitle && <Label {...{ name, labelTitle, required }} />}
             <Field {...{ name }} render={customInput} />
-            <ErrorMessage component="span" {...{ name }} />
+            <ErrorMessage component="span" className="error-message" {...{ name }} />
         </div>
     );
 };

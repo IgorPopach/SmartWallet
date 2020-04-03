@@ -1,32 +1,31 @@
 import React from 'react';
-import { Field, ErrorMessage, FieldProps } from 'formik';
-import Input from './Input';
 import Label from './Label';
+import { Field, ErrorMessage, FieldProps } from 'formik';
+import Textarea from './Textarea';
 
 interface Props {
     labelTitle?: string;
     name: string;
-    type: string;
     required?: boolean;
 }
 
-const InputField = ({ labelTitle, name, type, required }: Props) => {
-    const customInput = ({ field, meta }: FieldProps) => {
+const TextareaField = ({ labelTitle, name, required }: Props) => {
+    const customTextarea = ({ field, meta }: FieldProps) => {
         let className = '';
         if (meta.touched && meta.error) {
             className = 'is-invalid';
         }
 
-        return <Input {...field} {...{ className, type }} />;
+        return <Textarea {...field} {...{ className }} />;
     };
 
     return (
-        <div className="input-field">
+        <div className="textarea-field">
             {labelTitle && <Label {...{ name, labelTitle, required }} />}
-            <Field {...{ name }} render={customInput} />
+            <Field {...{ name }} render={customTextarea} />
             <ErrorMessage component="span" className="error-message" {...{ name }} />
         </div>
     );
 };
 
-export default InputField;
+export default TextareaField;

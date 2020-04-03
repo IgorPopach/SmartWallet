@@ -1,19 +1,18 @@
-import React, { ReactChildren } from 'react';
-import { DateTime } from 'luxon';
+import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import EditCosts from './EditCosts';
-import { CostRecord, Option } from '../types';
+import { CostRecord, User } from '../types';
 import { dateFormat } from '../services/time';
 
 interface Props<V> {
     costs: CostRecord[] | null;
     removeCurrentCosts: (costs: CostRecord) => void;
     updateCurrentCosts: (costs: CostRecord) => void;
-    options: Array<Option<V>>;
-    tagOptions: Array<Option<V>>;
-    children: ReactChildren;
+    children: string;
+    user: User | null;
+    createAlert: (messageText: string, title?: string, type?: string) => void;
 }
 
 // tslint:disable-next-line:no-any
@@ -21,13 +20,13 @@ const CostsTable = <V extends any>({
     costs,
     removeCurrentCosts,
     updateCurrentCosts,
-    options,
-    tagOptions,
     children,
+    user,
+    createAlert,
 }: Props<V>) => {
     const [currentCosts, setCurrentCosts] = React.useState(null);
 
-    const summary = React.useMemo(() => costs.reduce((acc, current) => acc + current.value, 0), [costs]);
+    const summary = React.useMemo(() => costs.reduce((acc, current) => acc + current.price, 0), [costs]);
 
     const closeEdit = React.useCallback(() => {
         if (currentCosts) {
@@ -38,7 +37,7 @@ const CostsTable = <V extends any>({
     const renderTable = React.useCallback(
         () =>
             costs.map((elem, id) => {
-                const { value, date, category, notes } = elem;
+                const { price, date, category, notes } = elem;
                 const formatDate = date ? dateFormat(date, 'D, T') : null;
                 const deleteClick = () => removeCurrentCosts(elem);
                 const updateClick = () => setCurrentCosts(elem);
@@ -50,7 +49,7 @@ const CostsTable = <V extends any>({
                 );
                 return (
                     <tr key={id}>
-                        <td>{value.toFixed(2) || 0}</td>
+                        <td>{(price !== undefined && price.toFixed(2)) || 0}</td>
                         <td>{formatDate}</td>
                         <td>{category}</td>
                         <td>{notes}</td>
@@ -65,12 +64,12 @@ const CostsTable = <V extends any>({
         if (costs.length === 0) {
             return null;
         }
-        const { value, date, category, notes } = costs[0];
+        const { price, date, category, notes } = costs[0];
         const sortCosts = {
-            price: value,
+            price,
             date,
             category,
-            description: notes,
+            notes,
         };
         const headerKeys = Object.keys(sortCosts).map((key, id) => <th key={id}>{key}</th>);
         return (
@@ -97,7 +96,7 @@ const CostsTable = <V extends any>({
                     {renderTable()}
                 </tbody>
             </table>
-            {currentCosts && <EditCosts {...{ updateCurrentCosts, currentCosts, closeEdit, options, tagOptions }} />}
+            {currentCosts && <EditCosts {...{ updateCurrentCosts, currentCosts, closeEdit, user, createAlert }} />}
         </div>
     );
 };

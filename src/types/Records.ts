@@ -1,5 +1,5 @@
 export interface Cost {
-    value: number;
+    price: number;
     category: string;
     date: number;
     tag?: string;

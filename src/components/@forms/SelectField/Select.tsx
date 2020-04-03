@@ -12,7 +12,7 @@ const SELECT_TYPE = {
 
 interface Props<V> {
     defaultValue?: string;
-    options: Array<Option<V>>;
+    options: V[];
     onChange: (value: V) => void;
     selectType?: string;
     meta: FieldMetaProps<V>;
@@ -26,9 +26,9 @@ const Select = <V extends any>({ options, onChange, meta, selectType = SELECT_TY
 
     const [filteredOptions, setFilteredOptions] = React.useState(options);
 
-    const setCurrentName = React.useCallback((option: Option<V>) => {
-        setValue(option.value);
-        onChange(option.value);
+    const setCurrentName = React.useCallback((option: V) => {
+        setValue(option);
+        onChange(option);
     }, []);
 
     const openDropdown = React.useCallback(() => {
@@ -48,7 +48,7 @@ const Select = <V extends any>({ options, onChange, meta, selectType = SELECT_TY
     }, [isOpened]);
 
     const filterOptions = (inputText: string) => {
-        const filter = options.filter((option) => option.value.includes(inputText.toLowerCase()));
+        const filter = options.filter((option) => option.includes(inputText.toLowerCase()));
         setFilteredOptions(filter);
     };
 
