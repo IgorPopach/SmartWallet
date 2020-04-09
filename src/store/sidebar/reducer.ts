@@ -1,6 +1,6 @@
 import { SidebarState, SidebarActionTypes, TYPES } from './types';
 
-const initialState: SidebarState = {
+export const initialState: SidebarState = {
     isVisible: false,
 };
 

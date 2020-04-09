@@ -1,6 +1,6 @@
 import { SnackbarState, SnackbarActionTypes, TYPES } from './types';
 
-const initialState: SnackbarState = {
+export const initialState: SnackbarState = {
     messages: [],
 };
 

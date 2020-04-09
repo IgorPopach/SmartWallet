@@ -1,0 +1,324 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Calendar /> Should have correct layout 1`] = `
+<Fragment>
+  <div
+    className="calendar-header"
+  >
+    <div
+      className="calendar-btn prev-month"
+      onClick={[Function]}
+    >
+      ◀
+    </div>
+    <div
+      className="calendar-header-view"
+    >
+      January
+       
+      1970
+    </div>
+    <div
+      className="calendar-btn next-month"
+      onClick={[Function]}
+    >
+      ▶
+    </div>
+  </div>
+  <table
+    className="calendar-body"
+  >
+    <thead
+      className="calendar-body__weeks"
+    >
+      <tr>
+        <th
+          key="0"
+        >
+          Sun
+        </th>
+        <th
+          key="1"
+        >
+          Mon
+        </th>
+        <th
+          key="2"
+        >
+          Tue
+        </th>
+        <th
+          key="3"
+        >
+          Wed
+        </th>
+        <th
+          key="4"
+        >
+          Thu
+        </th>
+        <th
+          key="5"
+        >
+          Fri
+        </th>
+        <th
+          key="6"
+        >
+          Sat
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      className="calendar-days"
+    >
+      <tr
+        key="0"
+      >
+        <td
+          key="0 - 0"
+        />
+        <td
+          key="0 - 1"
+        />
+        <td
+          key="0 - 2"
+        />
+        <td
+          className="calendar-day is-selected"
+          key="0 - 3"
+          onClick={[Function]}
+        >
+          1
+        </td>
+        <td
+          className="calendar-day"
+          key="0 - 4"
+          onClick={[Function]}
+        >
+          2
+        </td>
+        <td
+          className="calendar-day"
+          key="0 - 5"
+          onClick={[Function]}
+        >
+          3
+        </td>
+        <td
+          className="calendar-day"
+          key="0 - 6"
+          onClick={[Function]}
+        >
+          4
+        </td>
+      </tr>
+      <tr
+        key="1"
+      >
+        <td
+          className="calendar-day"
+          key="1 - 0"
+          onClick={[Function]}
+        >
+          5
+        </td>
+        <td
+          className="calendar-day"
+          key="1 - 1"
+          onClick={[Function]}
+        >
+          6
+        </td>
+        <td
+          className="calendar-day"
+          key="1 - 2"
+          onClick={[Function]}
+        >
+          7
+        </td>
+        <td
+          className="calendar-day"
+          key="1 - 3"
+          onClick={[Function]}
+        >
+          8
+        </td>
+        <td
+          className="calendar-day"
+          key="1 - 4"
+          onClick={[Function]}
+        >
+          9
+        </td>
+        <td
+          className="calendar-day"
+          key="1 - 5"
+          onClick={[Function]}
+        >
+          10
+        </td>
+        <td
+          className="calendar-day"
+          key="1 - 6"
+          onClick={[Function]}
+        >
+          11
+        </td>
+      </tr>
+      <tr
+        key="2"
+      >
+        <td
+          className="calendar-day"
+          key="2 - 0"
+          onClick={[Function]}
+        >
+          12
+        </td>
+        <td
+          className="calendar-day"
+          key="2 - 1"
+          onClick={[Function]}
+        >
+          13
+        </td>
+        <td
+          className="calendar-day"
+          key="2 - 2"
+          onClick={[Function]}
+        >
+          14
+        </td>
+        <td
+          className="calendar-day"
+          key="2 - 3"
+          onClick={[Function]}
+        >
+          15
+        </td>
+        <td
+          className="calendar-day"
+          key="2 - 4"
+          onClick={[Function]}
+        >
+          16
+        </td>
+        <td
+          className="calendar-day"
+          key="2 - 5"
+          onClick={[Function]}
+        >
+          17
+        </td>
+        <td
+          className="calendar-day"
+          key="2 - 6"
+          onClick={[Function]}
+        >
+          18
+        </td>
+      </tr>
+      <tr
+        key="3"
+      >
+        <td
+          className="calendar-day"
+          key="3 - 0"
+          onClick={[Function]}
+        >
+          19
+        </td>
+        <td
+          className="calendar-day"
+          key="3 - 1"
+          onClick={[Function]}
+        >
+          20
+        </td>
+        <td
+          className="calendar-day"
+          key="3 - 2"
+          onClick={[Function]}
+        >
+          21
+        </td>
+        <td
+          className="calendar-day"
+          key="3 - 3"
+          onClick={[Function]}
+        >
+          22
+        </td>
+        <td
+          className="calendar-day"
+          key="3 - 4"
+          onClick={[Function]}
+        >
+          23
+        </td>
+        <td
+          className="calendar-day"
+          key="3 - 5"
+          onClick={[Function]}
+        >
+          24
+        </td>
+        <td
+          className="calendar-day"
+          key="3 - 6"
+          onClick={[Function]}
+        >
+          25
+        </td>
+      </tr>
+      <tr
+        key="4"
+      >
+        <td
+          className="calendar-day"
+          key="4 - 0"
+          onClick={[Function]}
+        >
+          26
+        </td>
+        <td
+          className="calendar-day"
+          key="4 - 1"
+          onClick={[Function]}
+        >
+          27
+        </td>
+        <td
+          className="calendar-day"
+          key="4 - 2"
+          onClick={[Function]}
+        >
+          28
+        </td>
+        <td
+          className="calendar-day"
+          key="4 - 3"
+          onClick={[Function]}
+        >
+          29
+        </td>
+        <td
+          className="calendar-day"
+          key="4 - 4"
+          onClick={[Function]}
+        >
+          30
+        </td>
+        <td
+          className="calendar-day"
+          key="4 - 5"
+          onClick={[Function]}
+        >
+          31
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</Fragment>
+`;

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DateTimePicker /> Should have correct layout 1`] = `
+<div
+  className="datetime__frame style"
+>
+  <div
+    className="datetime__control"
+  >
+    <div
+      className="datetime_btn is-active"
+      onClick={[Function]}
+      updateData={[Function]}
+    >
+      Date
+    </div>
+    <div
+      className="datetime_btn"
+      onClick={[Function]}
+    >
+      Time
+    </div>
+  </div>
+  <div
+    className="datetime__body"
+  >
+    <Calendar
+      data={123}
+      updateData={[Function]}
+    />
+  </div>
+  <div
+    className="datetime_submit_btn"
+    onClick={[MockFunction]}
+  >
+    Set
+  </div>
+</div>
+`;
