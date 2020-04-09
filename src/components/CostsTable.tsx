@@ -26,7 +26,7 @@ const CostsTable = <V extends any>({
 }: Props<V>) => {
     const [currentCosts, setCurrentCosts] = React.useState(null);
 
-    const summary = React.useMemo(() => costs.reduce((acc, current) => acc + current.price, 0), [costs]);
+    const summary = React.useMemo(() => costs.reduce((acc, current) => acc + current.value, 0), [costs]);
 
     const closeEdit = React.useCallback(() => {
         if (currentCosts) {
@@ -37,7 +37,7 @@ const CostsTable = <V extends any>({
     const renderTable = React.useCallback(
         () =>
             costs.map((elem, id) => {
-                const { price, date, category, notes } = elem;
+                const { value, date, category, notes } = elem;
                 const formatDate = date ? dateFormat(date, 'D, T') : null;
                 const deleteClick = () => removeCurrentCosts(elem);
                 const updateClick = () => setCurrentCosts(elem);
@@ -49,7 +49,7 @@ const CostsTable = <V extends any>({
                 );
                 return (
                     <tr key={id}>
-                        <td>{(price !== undefined && price.toFixed(2)) || 0}</td>
+                        <td>{(value !== undefined && value.toFixed(2)) || 0}</td>
                         <td>{formatDate}</td>
                         <td>{category}</td>
                         <td>{notes}</td>
@@ -64,9 +64,9 @@ const CostsTable = <V extends any>({
         if (costs.length === 0) {
             return null;
         }
-        const { price, date, category, notes } = costs[0];
+        const { value, date, category, notes } = costs[0];
         const sortCosts = {
-            price,
+            price: value,
             date,
             category,
             notes,

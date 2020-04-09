@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, ShallowWrapper, mount } from 'enzyme';
+import { shallow, ShallowWrapper } from 'enzyme';
 import toJson from 'enzyme-to-json';
 
 import Alert from './../../src/components/Alert/Alert';
@@ -11,7 +11,7 @@ describe('<Alert />', () => {
         message: {
             id: '1',
             title: 'Test alert 1',
-            text: 'this is test text for Alert',
+            messageText: 'this is test text for Alert',
             type: 'info',
         },
         delay: 3000,

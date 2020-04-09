@@ -17,9 +17,11 @@ describe('<App />', () => {
     const props: Props = {
         isLoading: false,
         user: null,
+        sidebarIsVisible: false,
         initialize: jest.fn(),
         history: {} as History,
         logoutAction: jest.fn() as Props['logoutAction'],
+        toggleAction: jest.fn() as Props['toggleAction'],
     };
     let wrapper: ShallowWrapper<Props>;
 
