@@ -6,33 +6,18 @@ import CostsForm, { InitValues } from '../../components/@forms/CostsForm';
 import { FormikValues } from 'formik';
 import { CostRecord } from '../../types';
 import CostsTable from '../../components/CostsTable';
-import { onlyUnique } from '../../utils';
 import { Spinner } from '../../components/Spinner';
 
 type Props = StateProps & DispatchProps;
 
 const AddCoast = ({ user, createAlert }: Props) => {
     const [costs, setCosts] = React.useState(null);
-    const [costsData, setCostsData] = React.useState(null);
     const [isLoading, setIsLoading] = React.useState(true);
 
     React.useEffect(() => {
         readCosts(user.uid)
             .then((allCosts) => {
-                const options = allCosts
-                    .map((everyCosts) => everyCosts.category)
-                    .filter(onlyUnique)
-                    .map((value) => ({
-                        value,
-                    }));
-                const tagOptions = allCosts
-                    .map((everyCosts) => everyCosts.tag)
-                    .filter(onlyUnique)
-                    .map((value) => ({
-                        value,
-                    }));
                 setCosts(allCosts);
-                setCostsData({ options, tagOptions });
                 setIsLoading(false);
             })
             .catch((err) => {
@@ -43,8 +28,8 @@ const AddCoast = ({ user, createAlert }: Props) => {
 
     const initialValues: InitValues = React.useMemo(
         () => ({
-            value: null,
-            date: null,
+            price: null,
+            date: Date.now(),
             category: '',
             tag: '',
             notes: '',
@@ -53,9 +38,9 @@ const AddCoast = ({ user, createAlert }: Props) => {
     );
 
     const onSubmit = React.useCallback(
-        ({ value, date, category, tag, notes }: FormikValues) =>
+        ({ price, date, category, tag, notes }: FormikValues) =>
             createCosts(user.uid, {
-                value,
+                price,
                 category,
                 tag,
                 notes,
@@ -100,9 +85,11 @@ const AddCoast = ({ user, createAlert }: Props) => {
 
     return (
         <div className="add-costs">
-            <CostsForm {...{ initialValues, onSubmit, ...costsData }} />
+            <CostsForm {...{ initialValues, onSubmit, user, createAlert }} />
             <div>
-                <CostsTable {...{ costs, ...costsData, removeCurrentCosts, updateCurrentCosts }}>Last costs</CostsTable>
+                <CostsTable {...{ costs, removeCurrentCosts, updateCurrentCosts, user, createAlert }}>
+                    Last costs
+                </CostsTable>
             </div>
         </div>
     );

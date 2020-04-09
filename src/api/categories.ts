@@ -1,6 +1,7 @@
 import { db } from '../firebase';
+import { toCategoriesList } from '../utils';
 
-interface Categories {
+export interface Categories {
     [index: string]: string[];
 }
 
@@ -12,4 +13,5 @@ export const readCategories = (userId: string) =>
             const result: Categories[] = [];
             snapshot.forEach((doc) => result.push(doc.data()));
             return result[0];
-        });
+        })
+        .then(toCategoriesList);

@@ -6,9 +6,9 @@ import { Option } from './../../../types';
 interface Props<V> {
     isOpened?: boolean;
     className?: string;
-    options: Array<Option<V>>;
+    options: V[];
     children: React.ReactNode;
-    onChange: (option: Option<V>) => void;
+    onChange: (option: V) => void;
     onClick: () => void;
 }
 
@@ -23,11 +23,11 @@ const Dropdown = <V extends any>({ isOpened = false, options, children, classNam
 
     const list = React.useMemo(() => {
         if (options.length === 0) {
-            return <Item value="..." {...{ onClick }} />;
+            return null;
         }
         return options.map((option, id) => {
             const handleClick = () => onChange(option);
-            return <Item key={id} {...option} onClick={handleClick} />;
+            return <Item key={id} value={option} onClick={handleClick} />;
         });
     }, [options]);
 

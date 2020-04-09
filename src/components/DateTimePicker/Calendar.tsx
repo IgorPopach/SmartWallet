@@ -60,7 +60,7 @@ const Calendar = ({ data, updateData }: Props) => {
                         }
                         const handleDayClick = () => {
                             setSelectedDate((prevState) => {
-                                const updateDate = prevState.set({ day: d });
+                                const updateDate = prevState.set({ day: d, month });
                                 updateData(updateDate.toMillis());
                                 return updateDate;
                             });

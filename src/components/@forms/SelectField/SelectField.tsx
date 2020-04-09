@@ -2,7 +2,7 @@
 import React from 'react';
 import { Field, FieldProps, ErrorMessage } from 'formik';
 
-import { Option } from '../../../types';
+// import { Option } from '../../../types';
 import Select from './Select';
 import Label from './../Label';
 
@@ -10,7 +10,7 @@ interface Props<V> {
     labelTitle?: string;
     required?: boolean;
     name: string;
-    options: Array<Option<V>>;
+    options: V[];
     selectType?: string;
 }
 
@@ -34,7 +34,7 @@ const SelectField = <V extends any>({ labelTitle, required, name, options, selec
         <div className="select-field">
             <Label {...{ name, labelTitle, required }} />
             <Field {...{ name }} render={customSelect} />
-            <ErrorMessage component="span" {...{ name }} />
+            <ErrorMessage component="span" className="error-message" {...{ name }} />
         </div>
     );
 };
