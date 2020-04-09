@@ -14,9 +14,9 @@ interface Props<V> {
 // tslint:disable-next-line:no-any
 const EditCosts = <V extends any>({ currentCosts, updateCurrentCosts, closeEdit, user, createAlert }: Props<V>) => {
     const initialValues = React.useMemo(() => {
-        const { price, date, category, tag, notes } = currentCosts;
+        const { value, date, category, tag, notes } = currentCosts;
         return {
-            price,
+            value,
             date,
             category,
             tag,
@@ -25,10 +25,10 @@ const EditCosts = <V extends any>({ currentCosts, updateCurrentCosts, closeEdit,
     }, []);
 
     const onSubmit = React.useCallback(
-        ({ price, date, category, tag, notes }: FormikValues) => {
+        ({ value, date, category, tag, notes }: FormikValues) => {
             updateCurrentCosts({
                 ...currentCosts,
-                price,
+                value,
                 date,
                 category,
                 tag,

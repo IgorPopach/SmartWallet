@@ -28,7 +28,7 @@ const AddCoast = ({ user, createAlert }: Props) => {
 
     const initialValues: InitValues = React.useMemo(
         () => ({
-            price: null,
+            value: null,
             date: Date.now(),
             category: '',
             tag: '',
@@ -38,9 +38,9 @@ const AddCoast = ({ user, createAlert }: Props) => {
     );
 
     const onSubmit = React.useCallback(
-        ({ price, date, category, tag, notes }: FormikValues) =>
+        ({ value, date, category, tag, notes }: FormikValues) =>
             createCosts(user.uid, {
-                price,
+                value,
                 category,
                 tag,
                 notes,

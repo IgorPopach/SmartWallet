@@ -6,12 +6,15 @@ exports[`<App /> Should have correct layout 1`] = `
 >
   <Component
     logoutAction={[MockFunction]}
+    sidebarIsVisible={false}
+    toggleAction={[MockFunction]}
     user={null}
   />
   <Connect(Sidebar)
     user={null}
   />
   <ContentWrapper
+    sidebarIsVisible={false}
     user={null}
   >
     <Routes

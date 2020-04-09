@@ -5,6 +5,8 @@
     "sourceMap": true,
     // Raise error on expressions and declarations with an implied any type
     "noImplicitAny": true,
+    // Check functions parameters more correctly
+    "strictFunctionTypes": true,
     // Specify module code generation, when target es5 or over
     "module": "es6",
     "target": "es5",
@@ -12,6 +14,8 @@
     "jsx": "react",
     // Allow JavaScript files to be compiled.
     "allowJs": true,
+    // Raise errors for JavaScript files
+    "checkJs": true,
     // Allow default imports from modules with no default export.
       // This does not affect code emit, just typechecking.
     "allowSyntheticDefaultImports": true,
@@ -20,7 +24,9 @@
     // Determine how modules get resolved
     "moduleResolution": "node",
     // Will not compile if you have unused variables imports and so on
-    "noUnusedLocals": true
+    "noUnusedLocals": true,
+    // Build time booster
+    "incremental": true
   },
   "exclude": [
     "node_modules",

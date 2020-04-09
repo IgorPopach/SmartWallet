@@ -4,7 +4,7 @@ interface FormValues {
     email: string;
     password: string;
     confirmPassword: string;
-    price: number;
+    value: number;
     category: string;
     tag: string;
     description: string;
@@ -16,7 +16,7 @@ interface Errors {
     email?: string;
     password?: string;
     confirmPassword?: string;
-    price?: string;
+    value?: string;
     category?: string;
     tag?: string;
     description?: string;
@@ -69,15 +69,15 @@ const validateConfirmPassword = (errors: Errors, { confirmPassword, password }: 
     }
 };
 
-const validatePrice = (errors: Errors, { price }: FormValues) => {
-    if (price === undefined) {
+const validatePrice = (errors: Errors, { value }: FormValues) => {
+    if (value === undefined) {
         return;
     }
-    if (!price || price === null || price === 0 || typeof price === 'string') {
-        errors.price = 'Please enter a price';
+    if (!value || value === null || value === 0 || typeof value === 'string') {
+        errors.value = 'Please enter a price';
     }
-    if (price && price.toString().length > 6) {
-        errors.price = 'Wow... Easy!';
+    if (value && value.toString().length > 6) {
+        errors.value = 'Wow... Easy!';
     }
 };
 

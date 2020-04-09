@@ -11,7 +11,7 @@ import { readCategories } from '../../api/categories';
 import TextareaField from './TextareaField';
 
 export interface InitValues {
-    price: number | null;
+    value: number | null;
     date: number;
     category: string;
     tag: string;
@@ -39,7 +39,7 @@ const CostsForm = ({ initialValues, onSubmit, user, createAlert }: Props) => {
     return (
         <Formik {...{ initialValues, validate, onSubmit }}>
             <Form className="costs-form">
-                <InputField name="price" type="number" labelTitle="Price" required={true} />
+                <InputField name="value" type="number" labelTitle="Price" required={true} />
 
                 <DateField name="date" type="text" labelTitle="Date" required={true} />
 
